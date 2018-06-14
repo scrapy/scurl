@@ -113,7 +113,7 @@ class SplitResultNamedTuple(tuple):
 
     __slots__ = ()  # prevent creation of instance dictionary
 
-    def __new__(cls, bytes url):
+    def __new__(cls, bytes url, decoded=False):
 
         cdef Parsed parsed
 
@@ -140,10 +140,16 @@ class SplitResultNamedTuple(tuple):
                         return port
 
             elif prop == "username":
+                if decoded:
+                    return slice_component(url, parsed.username).decode('utf-8') or None
                 return slice_component(url, parsed.username) or None
             elif prop == "password":
+                if decoded:
+                    return slice_component(url, parsed.password).decode('utf-8') or None
                 return slice_component(url, parsed.password) or None
             elif prop == "hostname":
+                if decoded:
+                    return slice_component(url, parsed.host).lower().decode('utf-8')
                 return slice_component(url, parsed.host).lower()
 
 
@@ -154,7 +160,8 @@ class SplitResultNamedTuple(tuple):
                                             slice_component(url, parsed.path),
                                             slice_component(url, parsed.query),
                                             slice_component(url, parsed.ref))
-        if six.PY2:
+
+        if decoded == True:
             return tuple.__new__(cls, (
                 <unicode>scheme.decode('utf-8'),
                 <unicode>netloc.decode('utf-8'),
@@ -162,8 +169,8 @@ class SplitResultNamedTuple(tuple):
                 <unicode>query.decode('utf-8'),
                 <unicode>ref.decode('utf-8')
             ))
-        else:
-            return tuple.__new__(cls, (scheme, netloc, path, query, ref))
+
+        return tuple.__new__(cls, (scheme, netloc, path, query, ref))
 
     def geturl(self):
         return stdlib_urlunsplit(self)
@@ -177,13 +184,22 @@ def unicode_handling(str):
     return bytes_str
 
 def urlsplit(url):
+    """
+    Use GURL to split the url. Needs to be reviewed!
+    """
+    decode = False if isinstance(url, bytes) else True
     url = unicode_handling(url)
-    return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url)
+    return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, decode)
 
 def urljoin(base, url, allow_fragments=True):
-    base, url = unicode_handling(base), unicode_handling(url)
-
+    """
+    Use the urljoin function from GURL chromium. Needs to be reviewed!
+    """
+    decode = False if (isinstance(base, bytes) and isinstance(url, bytes)) else True
     if allow_fragments and base:
+        base, url = unicode_handling(base), unicode_handling(url)
+        if decode:
+            return GURL(base).Resolve(url).spec().decode('utf-8')
         return GURL(base).Resolve(url).spec()
-    else:
-        return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+
+    return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
