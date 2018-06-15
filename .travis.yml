@@ -12,6 +12,8 @@ matrix:
     - python: 3.6
       env: TOXENV=py36
 install:
-    - pip install -U pip tox
+    - pip install -U pip tox codecov
 script:
     - tox
+after_success:
+    - codecov
