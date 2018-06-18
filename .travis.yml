@@ -12,7 +12,7 @@ matrix:
     - python: 3.6
       env: TOXENV=py36
 install:
-    - pip install -U pip tox codecov
+    - pip install -U pip tox codecov Cython
 script:
     - tox
 after_success:
