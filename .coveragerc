@@ -1,3 +1,8 @@
 [run]
 branch = true
 include = urlparse4/*
+plugins = Cython.Coverage
+source = urlparse4/
+omit =
+    tests
+    *__init__.py
