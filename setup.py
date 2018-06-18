@@ -1,5 +1,6 @@
 from distutils.core import setup, Extension
 import os
+import setuptools
 
 VERSION = "0.1.3"
 
@@ -95,5 +96,8 @@ setup(
     ],
     long_description=long_description,
     ext_modules=ext_modules,
-    include_package_data=True
+    include_package_data=True,
+    setup_requires=['pytest-runner',],
+    tests_require=['pytest',],
+    test_suite='tests'
 )
