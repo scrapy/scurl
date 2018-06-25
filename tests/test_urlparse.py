@@ -235,7 +235,6 @@ class UrlParseTestCase(unittest.TestCase):
                             x.encode('ascii') for x in str_components]
         self.assertEqual(urlparse4.urljoin(baseb, relurlb), expectedb)
 
-    @pytest.mark.xfail
     def test_unparse_parse(self):
         str_cases = ['Python', './Python','x-newscheme://foo.com/stuff','x://y','x:/y','x:/','/',]
         bytes_cases = [x.encode('ascii') for x in str_cases]
