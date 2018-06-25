@@ -130,7 +130,7 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
         """
         hostname should be treated differently from netloc
         """
-        hostname = slice_component(url, parsed.host).lower()
+        hostname = slice_component(url, parsed.host)
         if len(hostname) > 0 and chr(hostname[0]) == '[':
             hostname = hostname[1:-1]
         if decoded:
