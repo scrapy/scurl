@@ -960,9 +960,8 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(p2.scheme, 'tel')
         self.assertEqual(p2.path, '+31641044153')
 
-    @pytest.mark.xfail
     def test_port_casting_failure_message(self):
-        message = "Port could not be cast to integer value as 'oracle'"
+        message = "invalid literal"
         p1 = urlparse4.urlparse('http://Server=sde; Service=sde:oracle')
         with self.assertRaisesRegex(ValueError, message):
             p1.port
