@@ -992,28 +992,6 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(p1.path, '863-1234')
         self.assertEqual(p1.params, 'phone-context=+1-914-555')
 
-    @pytest.mark.xfail
-    def test_Quoter_repr(self):
-        quoter = urlparse4.Quoter(urlparse4._ALWAYS_SAFE)
-        self.assertIn('Quoter', repr(quoter))
-
-    @pytest.mark.xfail
-    def test_all(self):
-        expected = []
-        undocumented = {
-            'splitattr', 'splithost', 'splitnport', 'splitpasswd',
-            'splitport', 'splitquery', 'splittag', 'splittype', 'splituser',
-            'splitvalue',
-            'Quoter', 'ResultBase', 'clear_cache', 'to_bytes', 'unwrap',
-        }
-        for name in dir(urlparse4):
-            if name.startswith('_') or name in undocumented:
-                continue
-            object = getattr(urlparse4, name)
-            if getattr(object, '__module__', None) == 'urlparse4':
-                expected.append(name)
-        self.assertCountEqual(urlparse4.__all__, expected)
-
 
 if __name__ == "__main__":
     unittest.main()
