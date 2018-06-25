@@ -783,7 +783,7 @@ class UrlParseTestCase(unittest.TestCase):
                 self.assertEqual(func(b"path").scheme, b"")
                 self.assertEqual(func(b"path", "").scheme, b"")
 
-    @pytest.mark.xfail
+    @pytest.mark.xfail(reason='allow_fragments is not implemented yet')
     def test_parse_fragments(self):
         # Exercise the allow_fragments parameter of urlparse() and urlsplit()
         tests = (
@@ -817,7 +817,6 @@ class UrlParseTestCase(unittest.TestCase):
                                      expected_frag)
                     self.assertEqual(func(url).fragment, expected_frag)
 
-    @pytest.mark.xfail
     def test_mixed_types_rejected(self):
         # Several functions that process either strings or ASCII encoded bytes
         # accept multiple arguments. Check they reject mixed type input
