@@ -107,9 +107,15 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
         Port can go beyond 0
         """
         if parsed.port.len > 0:
-            port = int(slice_component(url, parsed.port))
-            if port <= 65535:
-                return port
+            port = slice_component(url, parsed.port)
+            try:
+                port = int(port, 10)
+            except ValueError:
+                message = f'Port could not be cast to integer value as {port!r}'
+                raise ValueError(message) from None
+            if not ( 0 <= port <= 65535):
+                raise ValueError("Port out of range 0-65535")
+            return port
     elif prop == "username":
         username = slice_component(url, parsed.username)
         if decoded:
