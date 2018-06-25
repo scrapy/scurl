@@ -398,7 +398,6 @@ class UrlParseTestCase(unittest.TestCase):
         # Test for issue9721
         self.checkJoin('http://a/b/c/de', ';x','http://a/b/c/;x')
 
-    @pytest.mark.xfail
     def test_urljoins(self):
         self.checkJoin(SIMPLE_BASE, 'g:h','g:h')
         self.checkJoin(SIMPLE_BASE, 'http:g','http://a/b/c/g')
