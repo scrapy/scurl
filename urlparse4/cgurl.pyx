@@ -131,11 +131,11 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
         hostname should be treated differently from netloc
         """
         hostname = slice_component(url, parsed.host).lower()
-        if chr(hostname[0]) == '[':
+        if len(hostname) > 0 and chr(hostname[0]) == '[':
             hostname = hostname[1:-1]
         if decoded:
-            return hostname.decode('utf-8')
-        return hostname
+            return hostname.decode('utf-8') or None
+        return hostname or None
 
 # https://github.com/python/cpython/blob/master/Lib/urllib/parse.py
 cdef object _splitparams(string path):
