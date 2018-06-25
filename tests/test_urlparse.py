@@ -195,15 +195,15 @@ class UrlParseTestCase(unittest.TestCase):
         # so we test both 'http:' and 'https:' in all the following.
         # Three cheers for white box knowledge!
         str_cases = [
-            ('://www.python.org',
-             ('www.python.org', '', '', '', ''),
-             ('www.python.org', '', '', '')),
-            ('://www.python.org#abc',
-             ('www.python.org', '', '', '', 'abc'),
-             ('www.python.org', '', '', 'abc')),
-            ('://www.python.org?q=abc',
-             ('www.python.org', '', '', 'q=abc', ''),
-             ('www.python.org', '', 'q=abc', '')),
+            ('://www.python.org/',
+             ('www.python.org', '/', '', '', ''),
+             ('www.python.org', '/', '', '')),
+            ('://www.python.org/#abc',
+             ('www.python.org', '/', '', '', 'abc'),
+             ('www.python.org', '/', '', 'abc')),
+            ('://www.python.org/?q=abc',
+             ('www.python.org', '/', '', 'q=abc', ''),
+             ('www.python.org', '/', 'q=abc', '')),
             ('://www.python.org/#abc',
              ('www.python.org', '/', '', '', 'abc'),
              ('www.python.org', '/', '', 'abc')),
@@ -695,9 +695,9 @@ class UrlParseTestCase(unittest.TestCase):
     def test_noslash(self):
         # Issue 1637: http://foo.com?query is legal
         self.assertEqual(urlparse4.urlparse("http://example.com?blahblah=/foo"),
-                         ('http', 'example.com', '', '', 'blahblah=/foo', ''))
+                         ('http', 'example.com', '/', '', 'blahblah=/foo', ''))
         self.assertEqual(urlparse4.urlparse(b"http://example.com?blahblah=/foo"),
-                         (b'http', b'example.com', b'', b'', b'blahblah=/foo', b''))
+                         (b'http', b'example.com', b'/', b'', b'blahblah=/foo', b''))
 
     @pytest.mark.xfail(reason='with no scheme, gurl puts all into scheme')
     def test_withoutscheme(self):
