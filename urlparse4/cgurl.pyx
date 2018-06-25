@@ -143,7 +143,7 @@ cdef object _splitparams(string path):
     cdef string semcol = b';'
     cdef int i
 
-    if path.find(slash_string) > 0:
+    if path.find(slash_string) != -1:
         i = path.find(semcol, path.rfind(slash_char))
         if i < 0:
             return path, b''
