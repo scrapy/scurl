@@ -220,7 +220,7 @@ class SplitResultNamedTuple(tuple):
 
         if not parse_url(url, &parsed, &parsed_url):
             original_url = url.decode('utf-8') if decoded else url
-            return stdlib_urlsplit(original_url)
+            return stdlib_urlsplit(original_url, input_scheme)
 
         def _get_attr(self, prop):
             return extra_attr(self, prop, parsed_url, parsed, decoded)
@@ -260,7 +260,7 @@ class ParsedResultNamedTuple(tuple):
 
         if not parse_url(url, &parsed, &parsed_url):
             original_url = url.decode('utf-8') if decoded else url
-            return stdlib_urlparse(original_url)
+            return stdlib_urlparse(original_url, input_scheme)
 
         def _get_attr(self, prop):
             return extra_attr(self, prop, parsed_url, parsed, decoded, True)
