@@ -657,7 +657,6 @@ class UrlParseTestCase(unittest.TestCase):
                         with self.assertRaises(ValueError):
                             p.port
 
-    @pytest.mark.xfail
     def test_attributes_without_netloc(self):
         # This example is straight from RFC 3261.  It looks like it
         # should allow the username, hostname, and port to be filled
