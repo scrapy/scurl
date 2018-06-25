@@ -320,6 +320,15 @@ def urljoin(base, url, allow_fragments=True):
     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
     if allow_fragments and base:
         base, url = unicode_handling(base), unicode_handling(url)
+        """
+        this part needs to be profiled to see if creating another GURL instance
+        here takes more time than expected?
+        """
+        if not GURL(base).is_valid():
+            fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+            if decode:
+                return fallback.decode('utf-8')
+            return fallback
         joined_url = GURL(base).Resolve(url).spec()
 
         if decode:
