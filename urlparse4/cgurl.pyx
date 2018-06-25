@@ -232,8 +232,8 @@ class SplitResultNamedTuple(tuple):
                                             slice_component(parsed_url, parsed.path),
                                             slice_component(parsed_url, parsed.query),
                                             slice_component(parsed_url, parsed.ref))
-        if scheme == '' and input_scheme != '':
-            scheme = input_scheme
+        if not scheme and input_scheme:
+            scheme = input_scheme.encode('utf-8')
 
         if decoded:
             return tuple.__new__(cls, (
@@ -272,8 +272,8 @@ class ParsedResultNamedTuple(tuple):
                                             slice_component(parsed_url, parsed.path),
                                             slice_component(parsed_url, parsed.query),
                                             slice_component(parsed_url, parsed.ref))
-        if scheme == '' and input_scheme != '':
-            scheme = input_scheme
+        if not scheme and input_scheme:
+            scheme = input_scheme.encode('utf-8')
 
         if scheme in uses_params and ';'.encode('utf-8') in path:
             path, params = _splitparams(path)
