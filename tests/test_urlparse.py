@@ -942,7 +942,6 @@ class UrlParseTestCase(unittest.TestCase):
                           encoding='utf-8')
         self.assertRaises(TypeError, urlparse4.quote, b'foo', errors='strict')
 
-    @pytest.mark.xfail
     def test_issue14072(self):
         p1 = urlparse4.urlsplit('tel:+31-641044153')
         self.assertEqual(p1.scheme, 'tel')
