@@ -1,7 +1,5 @@
 from urlparse4.mozilla_url_parse cimport *
 from urlparse4.chromium_gurl cimport GURL
-from urlparse4.chromium_url_constant cimport *
-from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
 from urlparse4.chromium_url_util cimport Canonicalize
 from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
 from urlparse4.chromium_url_canon cimport CharsetConverter

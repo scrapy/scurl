@@ -1,3 +1,5 @@
+# although this file is not needed, but having these variables is good just in case
+
 from libcpp.string cimport string
 from libcpp cimport bool
 from mozilla_url_parse cimport Component, Parsed
