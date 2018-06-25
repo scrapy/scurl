@@ -323,6 +323,10 @@ def urljoin(base, url, allow_fragments=True):
     This function intends to replace urljoin from urllib,
     which uses Resolve function from class GURL of GURL chromium
     """
+    str_input = isinstance(base, str)
+    if isinstance(url, str) != str_input:
+        raise TypeError("Cannot mix str and non-str arguments")
+
     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
     if allow_fragments and base:
         base, url = unicode_handling(base), unicode_handling(url)
