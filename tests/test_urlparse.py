@@ -641,7 +641,6 @@ class UrlParseTestCase(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "out of range"):
             p.port
 
-    @pytest.mark.xfail
     def test_attributes_bad_port(self):
         """Check handling of invalid ports."""
         for bytes in (False, True):
