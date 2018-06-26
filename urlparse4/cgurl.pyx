@@ -5,7 +5,6 @@ from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
 from urlparse4.chromium_url_util cimport IsStandard, Canonicalize
 from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
 from urlparse4.chromium_url_canon cimport CharsetConverter
-import string as py_string
 
 import six
 from six.moves.urllib.parse import (urlunsplit,
@@ -18,6 +17,7 @@ from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
 from w3lib.util import to_bytes, to_native_str, to_unicode
+import string as py_string
 
 cimport cython
 from libcpp.string cimport string
