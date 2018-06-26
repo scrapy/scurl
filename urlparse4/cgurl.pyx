@@ -1,12 +1,8 @@
 from urlparse4.mozilla_url_parse cimport *
 from urlparse4.chromium_gurl cimport GURL
-<<<<<<< Updated upstream
-from urlparse4.chromium_url_util cimport Canonicalize
-=======
 from urlparse4.chromium_url_constant cimport *
 from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
 from urlparse4.chromium_url_util cimport IsStandard, Canonicalize
->>>>>>> Stashed changes
 from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
 from urlparse4.chromium_url_canon cimport CharsetConverter
 
@@ -84,13 +80,6 @@ cdef bytes unicode_handling(str):
         bytes_str = <bytes>str
     return bytes_str
 
-<<<<<<< Updated upstream
-cdef bool parse_url(char* url, Parsed * parsed, string * output_url):
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(output_url)
-    cdef bool is_valid_ = Canonicalize(url, len(url), True, NULL, output, parsed)
-    output.Complete()
-    return is_valid_
-=======
 # cdef void parse_url(bytes url, Component url_scheme, Parsed * parsed):
 #     if CompareSchemeComponent(url, url_scheme, kFileScheme):
 #         ParseFileURL(url, len(url), parsed)
@@ -114,7 +103,6 @@ cdef void parse_url(bytes url, Parsed * parsed):
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&string_url)
     cdef bool is_valid_ = Canonicalize(url, len(url), True, NULL, output, parsed)
     output.Complete()
->>>>>>> Stashed changes
 
 cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=False):
     if prop == "scheme":
@@ -254,18 +242,12 @@ class SplitResultNamedTuple(tuple):
         cdef Parsed parsed
         cdef string parsed_url = string()
 
-<<<<<<< Updated upstream
-        if not parse_url(url, &parsed, &parsed_url):
-            original_url = url.decode('utf-8') if decoded else url
-            return stdlib_urlsplit(original_url, input_scheme)
-=======
         # if not ExtractScheme(url, len(url), &url_scheme):
         #     original_url = url.decode('utf-8') if decoded else url
         #     return stdlib_urlsplit(original_url, input_scheme)
         #
         # parse_url(url, url_scheme, &parsed)
         parse_url(url, &parsed)
->>>>>>> Stashed changes
 
         def _get_attr(self, prop):
             return extra_attr(self, prop, parsed_url, parsed, decoded)
@@ -303,18 +285,12 @@ class ParsedResultNamedTuple(tuple):
         cdef Parsed parsed
         cdef string parsed_url = string()
 
-<<<<<<< Updated upstream
-        if not parse_url(url, &parsed, &parsed_url):
-            original_url = url.decode('utf-8') if decoded else url
-            return stdlib_urlparse(original_url, input_scheme)
-=======
         # if not ExtractScheme(url, len(url), &url_scheme):
         #     original_url = url.decode('utf-8') if decoded else url
         #     return stdlib_urlparse(original_url, input_scheme)
         #
         # parse_url(url, url_scheme, &parsed)
         parse_url(url, &parsed)
->>>>>>> Stashed changes
 
         def _get_attr(self, prop):
             return extra_attr(self, prop, parsed_url, parsed, decoded, True)
