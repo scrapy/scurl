@@ -176,6 +176,83 @@ cdef object _splitparams(string path):
     return path.substr(0, i), path.substr(i + 1)
 
 
+cdef class URL:
+    cdef GURL* _thisptr
+
+    def __cinit__(self, rl):
+        self._thisptr = new GURL(rl)
+
+    def __dealloc__(self):
+        if self._thisptr != NULL:
+            del self._thisptr
+
+    cpdef bint is_valid(self):
+        return self._thisptr.is_valid()
+
+    cpdef bint is_empty(self):
+        return self._thisptr.is_empty()
+
+    cpdef bint IsStandard(self):
+        return self._thisptr.IsStandard()
+
+    cpdef string Resolve(self, url):
+        return (self._thisptr.Resolve(url)).spec()
+
+    cpdef string spec(self):
+        return self._thisptr.spec()
+
+    cpdef string possibly_invalid_spec(self):
+        return self._thisptr.possibly_invalid_spec()
+
+    cpdef bint has_scheme(self):
+        return self._thisptr.has_scheme()
+
+    cpdef string scheme(self):
+        return self._thisptr.scheme()
+
+    cpdef bint has_username(self):
+        return self._thisptr.has_username()
+
+    cpdef string username(self):
+        return self._thisptr.username()
+
+    cpdef bint has_password(self):
+        return self._thisptr.has_password()
+
+    cpdef string password(self):
+        return self._thisptr.password()
+
+    cpdef bint has_host(self):
+        return self._thisptr.has_host()
+
+    cpdef string host(self):
+        return self._thisptr.host()
+
+    cpdef bint has_port(self):
+        return self._thisptr.has_port()
+
+    cpdef string port(self):
+        return self._thisptr.port()
+
+    cpdef bint has_path(self):
+        return self._thisptr.has_path()
+
+    cpdef string path(self):
+        return self._thisptr.path()
+
+    cpdef bint has_query(self):
+        return self._thisptr.has_query()
+
+    cpdef string query(self):
+        return self._thisptr.query()
+
+    cpdef bint has_ref(self):
+        return self._thisptr.has_ref()
+
+    cpdef string ref(self):
+        return self._thisptr.ref()
+
+
 # @cython.freelist(100)
 # cdef class SplitResult:
 
@@ -416,28 +493,6 @@ def urljoin(base, url, allow_fragments=True):
 
     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
 
-def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
-    # IDNA encoding can fail for too long labels (>63 characters)
-    # or missing labels (e.g. http://.example.com)
-    try:
-        netloc = parts.netloc.encode('idna')
-    except UnicodeError:
-        netloc = parts.netloc
-
-    return (
-        to_native_str(parts.scheme),
-        to_native_str(netloc),
-
-        # default encoding for path component SHOULD be UTF-8
-        quote(to_bytes(parts.path, path_encoding), _safe_chars),
-        quote(to_bytes(parts.params, path_encoding), _safe_chars),
-
-        # encoding of query and fragment follows page encoding
-        # or form-charset (if known and passed)
-        quote(to_bytes(parts.query, encoding), _safe_chars),
-        quote(to_bytes(parts.fragment, encoding), _safe_chars)
-    )
-
 def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
                      encoding=None):
     r"""Canonicalize the given url by applying the following procedures:
@@ -468,12 +523,11 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
 
     For more examples, see the tests in `tests/test_url.py`.
     """
-    try:
-        scheme, netloc, path, params, query, fragment = _safe_ParseResult(
-            parse_url(url), encoding=encoding)
-    except UnicodeEncodeError as e:
-        scheme, netloc, path, params, query, fragment = _safe_ParseResult(
-            parse_url(url), encoding='utf8')
+    url = unicode_handling(url)
+    parsed = URL(url)
+    scheme, netloc, path, params, query, fragment = (parsed.scheme().decode(), parsed.host().decode(),
+                                                     parsed.path().decode(), '', parsed.query().decode(),
+                                                     parsed.ref().decode())
 
     # 1. decode query-string as UTF-8 (or keep raw bytes),
     #    sort values,
@@ -510,39 +564,15 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
 
     # 2. decode percent-encoded sequences in path as UTF-8 (or keep raw bytes)
     #    and percent-encode path again (this normalizes to upper-case %XX)
-    uqp = _unquotepath(path)
-    path = quote(uqp, _safe_chars) or '/'
+    # uqp = _unquotepath(path)
+    # path = quote(uqp, _safe_chars) or '/'
 
     fragment = '' if not keep_fragments else fragment
 
     # every part should be safe already
     return stdlib_urlunparse((scheme,
-                       netloc.lower().rstrip(':'),
-                       path,
-                       params,
-                       query,
-                       fragment))
-
-def parse_url(url, encoding=None):
-    """Return urlparsed url from the given argument (which could be an already
-    parsed url)
-    """
-    if isinstance(url, tuple):
-        return url
-    return urlparse(to_unicode(url, encoding))
-
-def _unquotepath(path):
-    for reserved in ('2f', '2F', '3f', '3F'):
-        path = path.replace('%' + reserved, '%25' + reserved.upper())
-
-    if six.PY2:
-        # in Python 2, '%a3' becomes '\xa3', which is what we want
-        return unquote(path)
-    else:
-        # in Python 3,
-        # standard lib's unquote() does not work for non-UTF-8
-        # percent-escaped characters, they get lost.
-        # e.g., '%a3' becomes 'REPLACEMENT CHARACTER' (U+FFFD)
-        #
-        # unquote_to_bytes() returns raw bytes instead
-        return unquote_to_bytes(path)
+                              netloc.lower(),
+                              path,
+                              params,
+                              query,
+                              fragment))
