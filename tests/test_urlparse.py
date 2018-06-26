@@ -698,20 +698,19 @@ class UrlParseTestCase(unittest.TestCase):
         # Issue 754016: urlparse goes wrong with IP:port without scheme
         # RFC 1808 specifies that netloc should start with //, urlparse expects
         # the same, otherwise it classifies the portion of url as path.
-        # NOTE: canonicalize gurl converts port 80 to '' by default
         self.assertEqual(urlparse4.urlparse("path"),
                 ('','','path','','',''))
         self.assertEqual(urlparse4.urlparse("//www.python.org:80"),
                 ('','www.python.org:80','','','',''))
         self.assertEqual(urlparse4.urlparse("http://www.python.org:80"),
-                ('http','www.python.org','/','','',''))
+                ('http','www.python.org:80','','','',''))
         # Repeat for bytes input
         self.assertEqual(urlparse4.urlparse(b"path"),
                 (b'',b'',b'path',b'',b'',b''))
         self.assertEqual(urlparse4.urlparse(b"//www.python.org:80"),
                 (b'',b'www.python.org:80',b'',b'',b'',b''))
         self.assertEqual(urlparse4.urlparse(b"http://www.python.org:80"),
-                (b'http',b'www.python.org',b'/',b'',b'',b''))
+                (b'http',b'www.python.org:80',b'',b'',b'',b''))
 
     @pytest.mark.xfail(reason='path:80 gives path as scheme and 80 as path')
     def test_portseparator(self):
