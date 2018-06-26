@@ -18,11 +18,11 @@ from libcpp.string cimport string
 from libcpp cimport bool
 
 
-uses_params = [scheme.encode('utf-8') for scheme in ['', 'ftp', 'hdl',
-                                                     'prospero', 'http', 'imap',
-                                                     'https', 'shttp', 'rtsp',
-                                                     'rtspu', 'sip', 'sips',
-                                                     'mms', 'sftp', 'tel']]
+uses_params = [b'', b'ftp', b'hdl',
+               b'prospero', b'http', b'imap',
+               b'https', b'shttp', b'rtsp',
+               b'rtspu', b'sip', b'sips',
+               b'mms', b'sftp', b'tel']
 
 
 cdef bytes slice_component(bytes pyurl, Component comp):
@@ -80,29 +80,24 @@ cdef bytes unicode_handling(str):
         bytes_str = <bytes>str
     return bytes_str
 
-# cdef void parse_url(bytes url, Component url_scheme, Parsed * parsed):
-#     if CompareSchemeComponent(url, url_scheme, kFileScheme):
-#         ParseFileURL(url, len(url), parsed)
-#     elif CompareSchemeComponent(url, url_scheme, kFileSystemScheme):
-#         ParseFileSystemURL(url, len(url), parsed)
-#     elif IsStandard(url, url_scheme):
-#         ParseStandardURL(url, len(url), parsed)
-#     elif CompareSchemeComponent(url, url_scheme, kMailToScheme):
-#         """
-#         Discuss: Is this correct?
-#         """
-#         ParseMailtoURL(url, len(url), parsed)
-#     else:
-#         """
-#         TODO:
-#         trim or not to trim?
-#         """
-#         ParsePathURL(url, len(url), True, parsed)
-cdef void parse_url(bytes url, Parsed * parsed):
-    cdef string string_url = string(url)
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&string_url)
-    cdef bool is_valid_ = Canonicalize(url, len(url), True, NULL, output, parsed)
-    output.Complete()
+cdef void parse_url(bytes url, Component url_scheme, Parsed * parsed):
+    if CompareSchemeComponent(url, url_scheme, kFileScheme):
+        ParseFileURL(url, len(url), parsed)
+    elif CompareSchemeComponent(url, url_scheme, kFileSystemScheme):
+        ParseFileSystemURL(url, len(url), parsed)
+    elif IsStandard(url, url_scheme):
+        ParseStandardURL(url, len(url), parsed)
+    elif CompareSchemeComponent(url, url_scheme, kMailToScheme):
+        """
+        Discuss: Is this correct?
+        """
+        ParseMailtoURL(url, len(url), parsed)
+    else:
+        """
+        TODO:
+        trim or not to trim?
+        """
+        ParsePathURL(url, len(url), True, parsed)
 
 cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=False):
     if prop == "scheme":
@@ -147,9 +142,6 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
             return password.decode('utf-8') or None
         return password or None
     elif prop == "hostname":
-        """
-        hostname should be treated differently from netloc
-        """
         hostname = slice_component(url, parsed.host)
         if len(hostname) > 0 and chr(hostname[0]) == '[':
             hostname = hostname[1:-1]
@@ -240,25 +232,24 @@ class SplitResultNamedTuple(tuple):
     def __new__(cls, bytes url, input_scheme, decoded=False):
 
         cdef Parsed parsed
-        cdef string parsed_url = string()
+        cdef Component url_scheme
 
-        # if not ExtractScheme(url, len(url), &url_scheme):
-        #     original_url = url.decode('utf-8') if decoded else url
-        #     return stdlib_urlsplit(original_url, input_scheme)
-        #
-        # parse_url(url, url_scheme, &parsed)
-        parse_url(url, &parsed)
+        if not ExtractScheme(url, len(url), &url_scheme):
+            original_url = url.decode('utf-8') if decoded else url
+            return stdlib_urlsplit(original_url, input_scheme)
+
+        parse_url(url, url_scheme, &parsed)
 
         def _get_attr(self, prop):
-            return extra_attr(self, prop, parsed_url, parsed, decoded)
+            return extra_attr(self, prop, url, parsed, decoded)
 
         cls.__getattr__ = _get_attr
 
-        scheme, netloc, path, query, ref = (slice_component(parsed_url, parsed.scheme).lower(),
-                                            build_netloc(parsed_url, parsed),
-                                            slice_component(parsed_url, parsed.path),
-                                            slice_component(parsed_url, parsed.query),
-                                            slice_component(parsed_url, parsed.ref))
+        scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
+                                            build_netloc(url, parsed),
+                                            slice_component(url, parsed.path),
+                                            slice_component(url, parsed.query),
+                                            slice_component(url, parsed.ref))
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
 
@@ -283,25 +274,24 @@ class ParsedResultNamedTuple(tuple):
     def __new__(cls, char * url, input_scheme, decoded=False):
 
         cdef Parsed parsed
-        cdef string parsed_url = string()
+        cdef Component url_scheme
 
-        # if not ExtractScheme(url, len(url), &url_scheme):
-        #     original_url = url.decode('utf-8') if decoded else url
-        #     return stdlib_urlparse(original_url, input_scheme)
-        #
-        # parse_url(url, url_scheme, &parsed)
-        parse_url(url, &parsed)
+        if not ExtractScheme(url, len(url), &url_scheme):
+            original_url = url.decode('utf-8') if decoded else url
+            return stdlib_urlparse(original_url, input_scheme)
+
+        parse_url(url, url_scheme, &parsed)
 
         def _get_attr(self, prop):
-            return extra_attr(self, prop, parsed_url, parsed, decoded, True)
+            return extra_attr(self, prop, url, parsed, decoded, True)
 
         cls.__getattr__ = _get_attr
 
-        scheme, netloc, path, query, ref = (slice_component(parsed_url, parsed.scheme).lower(),
-                                            build_netloc(parsed_url, parsed),
-                                            slice_component(parsed_url, parsed.path),
-                                            slice_component(parsed_url, parsed.query),
-                                            slice_component(parsed_url, parsed.ref))
+        scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
+                                            build_netloc(url, parsed),
+                                            slice_component(url, parsed.path),
+                                            slice_component(url, parsed.query),
+                                            slice_component(url, parsed.ref))
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
 
