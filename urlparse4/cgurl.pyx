@@ -15,11 +15,11 @@ cimport cython
 from libcpp.string cimport string
 
 
-uses_params = [scheme.encode('utf-8') for scheme in ['', 'ftp', 'hdl',
-                                                     'prospero', 'http', 'imap',
-                                                     'https', 'shttp', 'rtsp',
-                                                     'rtspu', 'sip', 'sips',
-                                                     'mms', 'sftp', 'tel']]
+uses_params = [b'', b'ftp', b'hdl',
+               b'prospero', b'http', b'imap',
+               b'https', b'shttp', b'rtsp',
+               b'rtspu', b'sip', b'sips',
+               b'mms', b'sftp', b'tel']
 
 
 cdef bytes slice_component(bytes pyurl, Component comp):
@@ -244,7 +244,7 @@ class SplitResultNamedTuple(tuple):
                                             slice_component(url, parsed.path),
                                             slice_component(url, parsed.query),
                                             slice_component(url, parsed.ref))
-        if scheme == '' and input_scheme != '':
+        if not scheme and input_scheme:
             scheme = input_scheme
 
         if decoded:
@@ -286,10 +286,10 @@ class ParsedResultNamedTuple(tuple):
                                             slice_component(url, parsed.path),
                                             slice_component(url, parsed.query),
                                             slice_component(url, parsed.ref))
-        if scheme == '' and input_scheme != '':
+        if not scheme and input_scheme:
             scheme = input_scheme
 
-        if scheme in uses_params and ';'.encode('utf-8') in path:
+        if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
         else:
             params = b''
