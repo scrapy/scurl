@@ -7,10 +7,8 @@ from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
 from urlparse4.chromium_url_canon cimport CharsetConverter
 
 import six
-from six.moves.urllib.parse import (urlunsplit,
-                                    urldefrag, urlencode,
-                                    quote, parse_qsl,
-                                    unquote)
+from six.moves.urllib.parse import (urlunsplit, urldefrag, urlencode,
+                                    quote, parse_qsl, unquote)
 from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
 from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
