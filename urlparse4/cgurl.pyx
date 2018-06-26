@@ -1,12 +1,8 @@
 from urlparse4.mozilla_url_parse cimport *
 from urlparse4.chromium_gurl cimport GURL
-<<<<<<< HEAD
-from urlparse4.chromium_url_util cimport Canonicalize
-=======
 from urlparse4.chromium_url_constant cimport *
 from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
 from urlparse4.chromium_url_util cimport IsStandard, Canonicalize
->>>>>>> 1731c71c20f5a33502dee99461e02668d7ba17e2
 from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
 from urlparse4.chromium_url_canon cimport CharsetConverter
 
@@ -133,12 +129,6 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
             return password.decode('utf-8') or None
         return password or None
     elif prop == "hostname":
-<<<<<<< HEAD
-        """
-        hostname should be treated differently from netloc
-        """
-=======
->>>>>>> 1731c71c20f5a33502dee99461e02668d7ba17e2
         hostname = slice_component(url, parsed.host)
         if len(hostname) > 0 and chr(hostname[0]) == '[':
             hostname = hostname[1:-1]
@@ -246,11 +236,7 @@ class SplitResultNamedTuple(tuple):
                                             slice_component(url, parsed.query),
                                             slice_component(url, parsed.ref))
         if not scheme and input_scheme:
-<<<<<<< HEAD
-            scheme = input_scheme
-=======
             scheme = input_scheme.encode('utf-8')
->>>>>>> 1731c71c20f5a33502dee99461e02668d7ba17e2
 
         if decoded:
             return tuple.__new__(cls, (
@@ -290,11 +276,7 @@ class ParsedResultNamedTuple(tuple):
                                             slice_component(url, parsed.query),
                                             slice_component(url, parsed.ref))
         if not scheme and input_scheme:
-<<<<<<< HEAD
-            scheme = input_scheme
-=======
             scheme = input_scheme.encode('utf-8')
->>>>>>> 1731c71c20f5a33502dee99461e02668d7ba17e2
 
         if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
