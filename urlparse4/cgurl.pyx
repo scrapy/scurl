@@ -138,7 +138,7 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
             return password.decode('utf-8') or None
         return password or None
     elif prop == "hostname":
-        hostname = slice_component(url, parsed.host)
+        hostname = slice_component(url, parsed.host).lower()
         if len(hostname) > 0 and chr(hostname[0]) == '[':
             hostname = hostname[1:-1]
         if decoded:
