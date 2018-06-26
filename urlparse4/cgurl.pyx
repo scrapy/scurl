@@ -80,11 +80,24 @@ cdef bytes unicode_handling(str):
         bytes_str = <bytes>str
     return bytes_str
 
-cdef bool parse_url(char* url, Parsed * parsed, string * output_url):
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(output_url)
-    cdef bool is_valid_ = Canonicalize(url, len(url), True, NULL, output, parsed)
-    output.Complete()
-    return is_valid_
+cdef void parse_url(bytes url, Component url_scheme, Parsed * parsed):
+    if CompareSchemeComponent(url, url_scheme, kFileScheme):
+        ParseFileURL(url, len(url), parsed)
+    elif CompareSchemeComponent(url, url_scheme, kFileSystemScheme):
+        ParseFileSystemURL(url, len(url), parsed)
+    elif IsStandard(url, url_scheme):
+        ParseStandardURL(url, len(url), parsed)
+    elif CompareSchemeComponent(url, url_scheme, kMailToScheme):
+        """
+        Discuss: Is this correct?
+        """
+        ParseMailtoURL(url, len(url), parsed)
+    else:
+        """
+        TODO:
+        trim or not to trim?
+        """
+        ParsePathURL(url, len(url), True, parsed)
 
 cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=False):
     if prop == "scheme":
@@ -104,10 +117,6 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
             return obj[5]
         return obj[4]
     elif prop == "port":
-        """
-        TODO:
-        Port can go beyond 0
-        """
         if parsed.port.len > 0:
             port = slice_component(url, parsed.port)
             try:
@@ -214,19 +223,21 @@ class SplitResultNamedTuple(tuple):
     we will need to take care of that!
     """
 
-    __slots__ = ()  # prevent creation of instance dictionary
+    __slots__ = ()
 
     def __new__(cls, bytes url, input_scheme, decoded=False):
 
         cdef Parsed parsed
-        cdef string parsed_url = string()
+        cdef Component url_scheme
 
-        if not parse_url(url, &parsed, &parsed_url):
+        if not ExtractScheme(url, len(url), &url_scheme):
             original_url = url.decode('utf-8') if decoded else url
             return stdlib_urlsplit(original_url, input_scheme)
 
+        parse_url(url, url_scheme, &parsed)
+
         def _get_attr(self, prop):
-            return extra_attr(self, prop, parsed_url, parsed, decoded)
+            return extra_attr(self, prop, url, parsed, decoded)
 
         cls.__getattr__ = _get_attr
 
@@ -254,19 +265,21 @@ class SplitResultNamedTuple(tuple):
 
 
 class ParsedResultNamedTuple(tuple):
-    __slots__ = ()  # prevent creation of instance dictionary
+    __slots__ = ()
 
     def __new__(cls, char * url, input_scheme, decoded=False):
 
         cdef Parsed parsed
-        cdef string parsed_url = string()
+        cdef Component url_scheme
 
-        if not parse_url(url, &parsed, &parsed_url):
+        if not ExtractScheme(url, len(url), &url_scheme):
             original_url = url.decode('utf-8') if decoded else url
             return stdlib_urlparse(original_url, input_scheme)
 
+        parse_url(url, url_scheme, &parsed)
+
         def _get_attr(self, prop):
-            return extra_attr(self, prop, parsed_url, parsed, decoded, True)
+            return extra_attr(self, prop, url, parsed, decoded, True)
 
         cls.__getattr__ = _get_attr
 
