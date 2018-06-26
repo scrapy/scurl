@@ -3284,16 +3284,16 @@ static PyObject *__pyx_f_5cgurl__splitparams(std::string __pyx_v_path) {
   /* "cgurl.pyx":156
  *     cdef int i
  * 
- *     if path.find(slash_string) > 0:             # <<<<<<<<<<<<<<
+ *     if path.find(slash_string) != -1:             # <<<<<<<<<<<<<<
  *         i = path.find(semcol, path.rfind(slash_char))
  *         if i < 0:
  */
-  __pyx_t_2 = ((__pyx_v_path.find(__pyx_v_slash_string) > 0) != 0);
+  __pyx_t_2 = ((__pyx_v_path.find(__pyx_v_slash_string) != -1L) != 0);
   if (__pyx_t_2) {
 
     /* "cgurl.pyx":157
  * 
- *     if path.find(slash_string) > 0:
+ *     if path.find(slash_string) != -1:
  *         i = path.find(semcol, path.rfind(slash_char))             # <<<<<<<<<<<<<<
  *         if i < 0:
  *             return path, b''
@@ -3301,7 +3301,7 @@ static PyObject *__pyx_f_5cgurl__splitparams(std::string __pyx_v_path) {
     __pyx_v_i = __pyx_v_path.find(__pyx_v_semcol, __pyx_v_path.rfind(__pyx_v_slash_char));
 
     /* "cgurl.pyx":158
- *     if path.find(slash_string) > 0:
+ *     if path.find(slash_string) != -1:
  *         i = path.find(semcol, path.rfind(slash_char))
  *         if i < 0:             # <<<<<<<<<<<<<<
  *             return path, b''
@@ -3333,7 +3333,7 @@ static PyObject *__pyx_f_5cgurl__splitparams(std::string __pyx_v_path) {
       goto __pyx_L0;
 
       /* "cgurl.pyx":158
- *     if path.find(slash_string) > 0:
+ *     if path.find(slash_string) != -1:
  *         i = path.find(semcol, path.rfind(slash_char))
  *         if i < 0:             # <<<<<<<<<<<<<<
  *             return path, b''
@@ -3344,7 +3344,7 @@ static PyObject *__pyx_f_5cgurl__splitparams(std::string __pyx_v_path) {
     /* "cgurl.pyx":156
  *     cdef int i
  * 
- *     if path.find(slash_string) > 0:             # <<<<<<<<<<<<<<
+ *     if path.find(slash_string) != -1:             # <<<<<<<<<<<<<<
  *         i = path.find(semcol, path.rfind(slash_char))
  *         if i < 0:
  */
