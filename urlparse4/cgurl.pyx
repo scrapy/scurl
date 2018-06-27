@@ -3,6 +3,7 @@ from urlparse4.chromium_gurl cimport GURL
 from urlparse4.chromium_url_constant cimport *
 from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
 from urlparse4.chromium_url_util cimport IsStandard, Canonicalize
+from urlparse4.chromium_url_canon cimport CanonicalizePath, CanonicalizeQuery, CanonicalizeRef
 from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
 from urlparse4.chromium_url_canon cimport CharsetConverter
 
@@ -279,7 +280,7 @@ class SplitResultNamedTuple(tuple):
 class ParsedResultNamedTuple(tuple):
     __slots__ = ()
 
-    def __new__(cls, char * url, input_scheme, decoded=False):
+    def __new__(cls, char * url, input_scheme, decoded=False, canonicalized=False):
 
         cdef Parsed parsed
         cdef Component url_scheme
@@ -302,6 +303,9 @@ class ParsedResultNamedTuple(tuple):
                                             slice_component(url, parsed.ref))
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
+
+        if canonicalized:
+            path = canonicalize_path(url, parsed)
 
         if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
@@ -368,7 +372,7 @@ def parse_qsl_to_bytes(qs, keep_blank_values=False):
             r.append((name, value))
     return r
 
-def urlparse(url, scheme='', allow_fragments=True):
+def urlparse(url, scheme='', allow_fragments=True, canonicalized=False):
     """
     This function intends to replace urlparse from urllib
     using urlsplit function from urlparse4 itself.
@@ -376,7 +380,8 @@ def urlparse(url, scheme='', allow_fragments=True):
     """
     decode = not isinstance(url, bytes)
     url = unicode_handling(url)
-    return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme, decode)
+    return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url,
+                                          scheme, decode, canonicalized)
 
 def urlsplit(url, scheme='', allow_fragments=True):
     """
@@ -416,6 +421,16 @@ def urljoin(base, url, allow_fragments=True):
 
     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
 
+cdef string canonicalize_path(char * url, Parsed parsed):
+    cdef Parsed parsed_output
+    cdef Component out_path
+    cdef string output_string = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+    is_valid = CanonicalizePath(url, parsed.path, output, &out_path)
+    output.Complete()
+
+    return output_string
+
 def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
     # IDNA encoding can fail for too long labels (>63 characters)
     # or missing labels (e.g. http://.example.com)
@@ -429,8 +444,8 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
         to_native_str(netloc),
 
         # default encoding for path component SHOULD be UTF-8
-        quote(to_bytes(parts.path, path_encoding), _safe_chars),
-        quote(to_bytes(parts.params, path_encoding), _safe_chars),
+        to_unicode(parts.path, path_encoding),
+        to_unicode(parts.params, path_encoding),
 
         # encoding of query and fragment follows page encoding
         # or form-charset (if known and passed)
@@ -506,18 +521,18 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
 
     # 2. decode percent-encoded sequences in path as UTF-8 (or keep raw bytes)
     #    and percent-encode path again (this normalizes to upper-case %XX)
-    uqp = _unquotepath(path)
-    path = quote(uqp, _safe_chars) or '/'
+    # uqp = _unquotepath(path)
+    # path = quote(uqp, _safe_chars) or '/'
 
     fragment = '' if not keep_fragments else fragment
 
     # every part should be safe already
     return stdlib_urlunparse((scheme,
-                       netloc.lower().rstrip(':'),
-                       path,
-                       params,
-                       query,
-                       fragment))
+                               netloc.lower().rstrip(':'),
+                               path,
+                               params,
+                               query,
+                               fragment))
 
 def parse_url(url, encoding=None):
     """Return urlparsed url from the given argument (which could be an already
@@ -525,7 +540,7 @@ def parse_url(url, encoding=None):
     """
     if isinstance(url, tuple):
         return url
-    return urlparse(to_unicode(url, encoding))
+    return urlparse(to_unicode(url, encoding), canonicalized=True)
 
 def _unquotepath(path):
     for reserved in ('2f', '2F', '3f', '3F'):
