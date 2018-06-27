@@ -242,6 +242,7 @@ class UrlParseTestCase(unittest.TestCase):
             self.assertEqual(urlparse4.urlunsplit(urlparse4.urlsplit(u)), u)
             self.assertEqual(urlparse4.urlunparse(urlparse4.urlparse(u)), u)
 
+    @pytest.mark.xfail(reason='GURL failed to join http://a/b/c/d;p?q#f and " "')
     def test_RFC1808(self):
         # "normal" cases from RFC 1808:
         self.checkJoin(RFC1808_BASE, 'g:h', 'g:h')
@@ -268,7 +269,7 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(RFC1808_BASE, '../../g', 'http://a/g')
 
         # "abnormal" cases from RFC 1808:
-        # this test is failed as expected: join 'http://a/b/c/d;p?q#f', ''
+        self.checkJoin(RFC1808_BASE, '', 'http://a/b/c/d;p?q#f')
         self.checkJoin(RFC1808_BASE, 'g.', 'http://a/b/c/g.')
         self.checkJoin(RFC1808_BASE, '.g', 'http://a/b/c/.g')
         self.checkJoin(RFC1808_BASE, 'g..', 'http://a/b/c/g..')
@@ -526,13 +527,14 @@ class UrlParseTestCase(unittest.TestCase):
             self.assertEqual(result.url, defrag)
             self.assertEqual(result.fragment, frag)
 
+    @pytest.mark.xfail(reason='zone info, which comes after %, must not be lowercased')
     def test_urlsplit_scoped_IPv6(self):
         p = urlparse4.urlsplit('http://[FE80::822a:a8ff:fe49:470c%tESt]:1234')
-        self.assertEqual(p.hostname, "fe80::822a:a8ff:fe49:470c%test")
+        self.assertEqual(p.hostname, "fe80::822a:a8ff:fe49:470c%tESt")
         self.assertEqual(p.netloc, '[FE80::822a:a8ff:fe49:470c%tESt]:1234')
 
         p = urlparse4.urlsplit(b'http://[FE80::822a:a8ff:fe49:470c%tESt]:1234')
-        self.assertEqual(p.hostname, b"fe80::822a:a8ff:fe49:470c%test")
+        self.assertEqual(p.hostname, b"fe80::822a:a8ff:fe49:470c%tESt")
         self.assertEqual(p.netloc, b'[FE80::822a:a8ff:fe49:470c%tESt]:1234')
 
     def test_urlsplit_attributes(self):
