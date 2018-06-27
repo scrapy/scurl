@@ -15,6 +15,8 @@ from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
+# gotta do the condition on python 3 because these cant be imported with six
+from urllib.parse import _coerce_args, unquote_to_bytes
 from w3lib.util import to_bytes, to_native_str, to_unicode
 import string as py_string
 
@@ -307,6 +309,7 @@ class ParsedResultNamedTuple(tuple):
         if canonicalized:
             path = canonicalize_path(url, parsed)
             query = canonicalize_query(url, parsed)
+            fragment = canonicalize_fragment(url, parsed)
 
         if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
@@ -327,8 +330,6 @@ class ParsedResultNamedTuple(tuple):
 
     def geturl(self):
         return stdlib_urlunparse(self)
-
-from urllib.parse import _coerce_args, unquote_to_bytes
 
 def parse_qsl_to_bytes(qs, keep_blank_values=False):
     """Parse a query given as a string argument.
@@ -443,6 +444,15 @@ cdef string canonicalize_query(char * url, Parsed parsed):
 
     return output_string
 
+cdef string canonicalize_fragment(char * url, Parsed parsed):
+    cdef Component out_fragment
+    cdef string output_string = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+    CanonicalizeRef(url, parsed.ref, output, &out_fragment)
+    output.Complete()
+
+    return output_string
+
 def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
     # IDNA encoding can fail for too long labels (>63 characters)
     # or missing labels (e.g. http://.example.com)
@@ -462,7 +472,7 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
         # encoding of query and fragment follows page encoding
         # or form-charset (if known and passed)
         to_unicode(parts.query, encoding),
-        quote(to_bytes(parts.fragment, encoding), _safe_chars)
+        to_unicode(parts.fragment, encoding)
     )
 
 def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
