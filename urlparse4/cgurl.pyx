@@ -306,6 +306,7 @@ class ParsedResultNamedTuple(tuple):
 
         if canonicalized:
             path = canonicalize_path(url, parsed)
+            query = canonicalize_query(url, parsed)
 
         if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
@@ -422,12 +423,23 @@ def urljoin(base, url, allow_fragments=True):
     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
 
 cdef string canonicalize_path(char * url, Parsed parsed):
-    cdef Parsed parsed_output
     cdef Component out_path
     cdef string output_string = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
     is_valid = CanonicalizePath(url, parsed.path, output, &out_path)
     output.Complete()
+
+    return output_string
+
+cdef string canonicalize_query(char * url, Parsed parsed):
+    cdef Component out_query
+    cdef string output_string = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+    CanonicalizeQuery(url, parsed.query, NULL, output, &out_query)
+    output.Complete()
+
+    if output_string.length() > 0 and output_string[0] == "?":
+        output_string = output_string.substr(1)
 
     return output_string
 
@@ -449,7 +461,7 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
 
         # encoding of query and fragment follows page encoding
         # or form-charset (if known and passed)
-        quote(to_bytes(parts.query, encoding), _safe_chars),
+        to_unicode(parts.query, encoding),
         quote(to_bytes(parts.fragment, encoding), _safe_chars)
     )
 

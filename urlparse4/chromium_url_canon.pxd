@@ -19,9 +19,9 @@ cdef extern from "../vendor/gurl/url/url_canon.h" namespace "url":
     cdef void CanonicalizeQuery(const char* spec,
                                 const Component& query,
                                 CharsetConverter* converter,
-                                CanonOutput* output,
+                                StdStringCanonOutput* output,
                                 Component* out_query)
     cdef void CanonicalizeRef(const char* spec,
                                 const Component& path,
-                                CanonOutput* output,
+                                StdStringCanonOutput* output,
                                 Component* out_path)
