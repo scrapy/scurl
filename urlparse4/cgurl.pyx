@@ -335,7 +335,7 @@ class ParsedResultNamedTuple(tuple):
         cdef Component query_comp = MakeRange(0, len(query))
         cdef Component ref_comp = MakeRange(0, len(ref))
         if canonicalize:
-            path = canonicalize_path(path, parsed.path)
+            path = canonicalize_path(url, parsed.path)
             query = canonicalize_query(query, query_comp)
             fragment = canonicalize_fragment(ref, ref_comp)
 
