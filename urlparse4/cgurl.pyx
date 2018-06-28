@@ -383,6 +383,7 @@ def urljoin(base, url, allow_fragments=True):
         this part needs to be profiled to see if creating another GURL instance
         here takes more time than expected?
         """
+        # GURL will mark urls such as #, http:/// as invalid
         if not GURL(base).is_valid():
             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
             if decode:
