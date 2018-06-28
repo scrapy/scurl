@@ -3836,7 +3836,7 @@ static PyObject *__pyx_pf_12canonicalize_4canonicalize_url(CYTHON_UNUSED PyObjec
 /* "canonicalize.pyx":179
  *                                fragment))
  * 
- * def parse_url(url, canonicalize_encoding, encoding=None):             # <<<<<<<<<<<<<<
+ * def parse_url(url, canonicalize_encoding='utf-8', encoding=None):             # <<<<<<<<<<<<<<
  *     """Return urlparsed url from the given argument (which could be an already
  *     parsed url)
  */
@@ -3855,6 +3855,7 @@ static PyObject *__pyx_pw_12canonicalize_7parse_url(PyObject *__pyx_self, PyObje
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_url,&__pyx_n_s_canonicalize_encoding,&__pyx_n_s_encoding,0};
     PyObject* values[3] = {0,0,0};
+    values[1] = ((PyObject *)__pyx_kp_s_utf_8);
     values[2] = ((PyObject *)Py_None);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -3876,9 +3877,9 @@ static PyObject *__pyx_pw_12canonicalize_7parse_url(PyObject *__pyx_self, PyObje
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_canonicalize_encoding)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("parse_url", 0, 2, 3, 1); __PYX_ERR(0, 179, __pyx_L3_error)
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_canonicalize_encoding);
+          if (value) { values[1] = value; kw_args--; }
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -3895,7 +3896,8 @@ static PyObject *__pyx_pw_12canonicalize_7parse_url(PyObject *__pyx_self, PyObje
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
         break;
         default: goto __pyx_L5_argtuple_error;
       }
@@ -3906,7 +3908,7 @@ static PyObject *__pyx_pw_12canonicalize_7parse_url(PyObject *__pyx_self, PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("parse_url", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 179, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("parse_url", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 179, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("canonicalize.parse_url", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4073,7 +4075,7 @@ static PyObject *__pyx_pf_12canonicalize_6parse_url(CYTHON_UNUSED PyObject *__py
   /* "canonicalize.pyx":179
  *                                fragment))
  * 
- * def parse_url(url, canonicalize_encoding, encoding=None):             # <<<<<<<<<<<<<<
+ * def parse_url(url, canonicalize_encoding='utf-8', encoding=None):             # <<<<<<<<<<<<<<
  *     """Return urlparsed url from the given argument (which could be an already
  *     parsed url)
  */
@@ -5590,7 +5592,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "canonicalize.pyx":179
  *                                fragment))
  * 
- * def parse_url(url, canonicalize_encoding, encoding=None):             # <<<<<<<<<<<<<<
+ * def parse_url(url, canonicalize_encoding='utf-8', encoding=None):             # <<<<<<<<<<<<<<
  *     """Return urlparsed url from the given argument (which could be an already
  *     parsed url)
  */
@@ -6220,7 +6222,7 @@ if (!__Pyx_RefNanny) {
   /* "canonicalize.pyx":179
  *                                fragment))
  * 
- * def parse_url(url, canonicalize_encoding, encoding=None):             # <<<<<<<<<<<<<<
+ * def parse_url(url, canonicalize_encoding='utf-8', encoding=None):             # <<<<<<<<<<<<<<
  *     """Return urlparsed url from the given argument (which could be an already
  *     parsed url)
  */
