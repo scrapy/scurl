@@ -10,4 +10,4 @@ _original_urlsplit = urlsplit
 _original_urljoin = urljoin
 _original_urlparse = urlparse
 
-from cgurl import urlsplit, urljoin, urlparse, canonicalize_url, parse_url
+from cgurl import urlsplit, urljoin, urlparse
