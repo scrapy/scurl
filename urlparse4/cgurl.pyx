@@ -478,17 +478,20 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
 def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
                      encoding=None):
     r"""Canonicalize the given url by applying the following procedures:
+
     - sort query arguments, first by key, then by value
     - percent encode paths ; non-ASCII characters are percent-encoded
-    using UTF-8 (RFC-3986)
+      using UTF-8 (RFC-3986)
     - percent encode query arguments ; non-ASCII characters are percent-encoded
-    using passed `encoding` (UTF-8 by default)
+      using passed `encoding` (UTF-8 by default)
     - normalize all spaces (in query arguments) '+' (plus symbol)
     - normalize percent encodings case (%2f -> %2F)
     - remove query arguments with blank values (unless `keep_blank_values` is True)
     - remove fragments (unless `keep_fragments` is True)
+
     The url passed can be bytes or unicode, while the url returned is
     always a native str (bytes in Python 2, unicode in Python 3).
+
     >>> import w3lib.url
     >>>
     >>> # sorting query arguments
@@ -499,6 +502,7 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
     >>> w3lib.url.canonicalize_url(u'http://www.example.com/r\u00e9sum\u00e9')
     'http://www.example.com/r%C3%A9sum%C3%A9'
     >>>
+
     For more examples, see the tests in `tests/test_url.py`.
     """
     try:
