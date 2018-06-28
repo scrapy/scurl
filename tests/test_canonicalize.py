@@ -4,8 +4,8 @@ import unittest
 import warnings
 import pytest
 
-from urlparse4 import canonicalize_url, parse_url
-from urllib.parse import urlparse, urlsplit
+from urlparse4 import urlparse, urlsplit
+from urlparse4.canonicalize import parse_url, canonicalize_url
 
 
 class CanonicalizeUrlTest(unittest.TestCase):
@@ -89,21 +89,23 @@ class CanonicalizeUrlTest(unittest.TestCase):
                                           "http://www.example.com/r%C3%A9sum%C3%A9?country=%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F")
 
     def test_normalize_percent_encoding_in_paths(self):
+        # all the test cases in this function have their url paths lowercased
+        # due to the the behavior of canonicalize_url from GURL
         self.assertEqual(canonicalize_url("http://www.example.com/r%c3%a9sum%c3%a9"),
-                                          "http://www.example.com/r%C3%A9sum%C3%A9")
+                                          "http://www.example.com/r%c3%a9sum%c3%a9")
 
         # non-UTF8 encoded sequences: they should be kept untouched, only upper-cased
         # 'latin1'-encoded sequence in path
         self.assertEqual(canonicalize_url("http://www.example.com/a%a3do"),
-                                          "http://www.example.com/a%A3do")
+                                          "http://www.example.com/a%a3do")
 
         # 'latin1'-encoded path, UTF-8 encoded query string
         self.assertEqual(canonicalize_url("http://www.example.com/a%a3do?q=r%c3%a9sum%c3%a9"),
-                                          "http://www.example.com/a%A3do?q=r%C3%A9sum%C3%A9")
+                                          "http://www.example.com/a%a3do?q=r%C3%A9sum%C3%A9")
 
         # 'latin1'-encoded path and query string
         self.assertEqual(canonicalize_url("http://www.example.com/a%a3do?q=r%e9sum%e9"),
-                                          "http://www.example.com/a%A3do?q=r%E9sum%E9")
+                                          "http://www.example.com/a%a3do?q=r%E9sum%E9")
 
     def test_normalize_percent_encoding_in_query_arguments(self):
         self.assertEqual(canonicalize_url("http://www.example.com/do?k=b%a3"),
@@ -168,27 +170,29 @@ class CanonicalizeUrlTest(unittest.TestCase):
 
     def test_quoted_slash_and_question_sign(self):
         self.assertEqual(canonicalize_url("http://foo.com/AC%2FDC+rocks%3f/?yeah=1"),
-                         "http://foo.com/AC%2FDC+rocks%3F/?yeah=1")
+                         "http://foo.com/AC%2FDC+rocks%3f/?yeah=1")
         self.assertEqual(canonicalize_url("http://foo.com/AC%2FDC/"),
                          "http://foo.com/AC%2FDC/")
 
     def test_canonicalize_urlparsed(self):
+        # all the test cases in this function have their url paths lowercased
+        # due to the the behavior of canonicalize_url from GURL
         # canonicalize_url() can be passed an already urlparse'd URL
-        self.assertEqual(canonicalize_url(urlparse(u"http://www.example.com/résumé?q=résumé")),
+        self.assertEqual(canonicalize_url(urlparse(u"http://www.example.com/résumé?q=résumé", canonicalize=True)),
                                           "http://www.example.com/r%C3%A9sum%C3%A9?q=r%C3%A9sum%C3%A9")
         self.assertEqual(canonicalize_url(urlparse('http://www.example.com/caf%e9-con-leche.htm')),
-                                          'http://www.example.com/caf%E9-con-leche.htm')
+                                          'http://www.example.com/caf%e9-con-leche.htm')
         self.assertEqual(canonicalize_url(urlparse("http://www.example.com/a%a3do?q=r%c3%a9sum%c3%a9")),
-                                          "http://www.example.com/a%A3do?q=r%C3%A9sum%C3%A9")
+                                          "http://www.example.com/a%a3do?q=r%C3%A9sum%C3%A9")
 
     def test_canonicalize_parse_url(self):
         # parse_url() wraps urlparse and is used in link extractors
         self.assertEqual(canonicalize_url(parse_url(u"http://www.example.com/résumé?q=résumé")),
                                           "http://www.example.com/r%C3%A9sum%C3%A9?q=r%C3%A9sum%C3%A9")
         self.assertEqual(canonicalize_url(parse_url('http://www.example.com/caf%e9-con-leche.htm')),
-                                          'http://www.example.com/caf%E9-con-leche.htm')
+                                          'http://www.example.com/caf%e9-con-leche.htm')
         self.assertEqual(canonicalize_url(parse_url("http://www.example.com/a%a3do?q=r%c3%a9sum%c3%a9")),
-                                          "http://www.example.com/a%A3do?q=r%C3%A9sum%C3%A9")
+                                          "http://www.example.com/a%a3do?q=r%C3%A9sum%C3%A9")
 
     def test_canonicalize_url_idempotence(self):
         for url, enc in [(u'http://www.bücher.de/résumé?q=résumé', 'utf8'),
