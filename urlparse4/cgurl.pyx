@@ -15,9 +15,6 @@ from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
-# gotta do the condition on python 3 because these cant be imported with six
-from urllib.parse import _coerce_args, unquote_to_bytes
-from w3lib.util import to_bytes, to_native_str, to_unicode
 import string as py_string
 
 cimport cython
@@ -178,6 +175,35 @@ cdef object _splitparams(string path):
         i = path.find(semcol)
     return path.substr(0, i), path.substr(i + 1)
 
+cdef string canonicalize_path(char * url, Parsed parsed):
+    cdef Component out_path
+    cdef string output_string = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+    is_valid = CanonicalizePath(url, parsed.path, output, &out_path)
+    output.Complete()
+
+    return output_string
+
+cdef string canonicalize_query(char * url, Parsed parsed):
+    cdef Component out_query
+    cdef string output_string = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+    CanonicalizeQuery(url, parsed.query, NULL, output, &out_query)
+    output.Complete()
+
+    if output_string.length() > 0 and output_string[0] == "?":
+        output_string = output_string.substr(1)
+
+    return output_string
+
+cdef string canonicalize_fragment(char * url, Parsed parsed):
+    cdef Component out_fragment
+    cdef string output_string = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+    CanonicalizeRef(url, parsed.ref, output, &out_fragment)
+    output.Complete()
+
+    return output_string
 
 # @cython.freelist(100)
 # cdef class SplitResult:
@@ -282,7 +308,7 @@ class SplitResultNamedTuple(tuple):
 class ParsedResultNamedTuple(tuple):
     __slots__ = ()
 
-    def __new__(cls, char * url, input_scheme, decoded=False, canonicalized=False):
+    def __new__(cls, char * url, input_scheme, decoded=False, canonicalize=False):
 
         cdef Parsed parsed
         cdef Component url_scheme
@@ -306,7 +332,7 @@ class ParsedResultNamedTuple(tuple):
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
 
-        if canonicalized:
+        if canonicalize:
             path = canonicalize_path(url, parsed)
             query = canonicalize_query(url, parsed)
             fragment = canonicalize_fragment(url, parsed)
@@ -331,50 +357,8 @@ class ParsedResultNamedTuple(tuple):
     def geturl(self):
         return stdlib_urlunparse(self)
 
-def parse_qsl_to_bytes(qs, keep_blank_values=False):
-    """Parse a query given as a string argument.
 
-    Data are returned as a list of name, value pairs as bytes.
-
-    Arguments:
-
-    qs: percent-encoded query string to be parsed
-
-    keep_blank_values: flag indicating whether blank values in
-        percent-encoded queries should be treated as blank strings.  A
-        true value indicates that blanks should be retained as blank
-        strings.  The default false value indicates that blank values
-        are to be ignored and treated as if they were  not included.
-
-    """
-    # This code is the same as Python3's parse_qsl()
-    # (at https://hg.python.org/cpython/rev/c38ac7ab8d9a)
-    # except for the unquote(s, encoding, errors) calls replaced
-    # with unquote_to_bytes(s)
-    qs, _coerce_result = _coerce_args(qs)
-    pairs = [s2 for s1 in qs.split('&') for s2 in s1.split(';')]
-    r = []
-    for name_value in pairs:
-        if not name_value:
-            continue
-        nv = name_value.split('=', 1)
-        if len(nv) != 2:
-            # Handle case of a control-name with no equal sign
-            if keep_blank_values:
-                nv.append('')
-            else:
-                continue
-        if len(nv[1]) or keep_blank_values:
-            name = nv[0].replace('+', ' ')
-            name = unquote_to_bytes(name)
-            name = _coerce_result(name)
-            value = nv[1].replace('+', ' ')
-            value = unquote_to_bytes(value)
-            value = _coerce_result(value)
-            r.append((name, value))
-    return r
-
-def urlparse(url, scheme='', allow_fragments=True, canonicalized=False):
+def urlparse(url, scheme='', allow_fragments=True, canonicalize=False):
     """
     This function intends to replace urlparse from urllib
     using urlsplit function from urlparse4 itself.
@@ -383,7 +367,7 @@ def urlparse(url, scheme='', allow_fragments=True, canonicalized=False):
     decode = not isinstance(url, bytes)
     url = unicode_handling(url)
     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url,
-                                          scheme, decode, canonicalized)
+                                          scheme, decode, canonicalize)
 
 def urlsplit(url, scheme='', allow_fragments=True):
     """
@@ -423,37 +407,58 @@ def urljoin(base, url, allow_fragments=True):
 
     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
 
-cdef string canonicalize_path(char * url, Parsed parsed):
-    cdef Component out_path
-    cdef string output_string = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    is_valid = CanonicalizePath(url, parsed.path, output, &out_path)
-    output.Complete()
+# https://github.com/scrapy/w3lib/blob/master/w3lib/url.py
+if not six.PY2:
+    from urllib.parse import _coerce_args, unquote_to_bytes
 
-    return output_string
+    def parse_qsl_to_bytes(qs, keep_blank_values=False):
+        """Parse a query given as a string argument.
 
-cdef string canonicalize_query(char * url, Parsed parsed):
-    cdef Component out_query
-    cdef string output_string = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    CanonicalizeQuery(url, parsed.query, NULL, output, &out_query)
-    output.Complete()
+        Data are returned as a list of name, value pairs as bytes.
 
-    if output_string.length() > 0 and output_string[0] == "?":
-        output_string = output_string.substr(1)
+        Arguments:
 
-    return output_string
+        qs: percent-encoded query string to be parsed
 
-cdef string canonicalize_fragment(char * url, Parsed parsed):
-    cdef Component out_fragment
-    cdef string output_string = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    CanonicalizeRef(url, parsed.ref, output, &out_fragment)
-    output.Complete()
+        keep_blank_values: flag indicating whether blank values in
+            percent-encoded queries should be treated as blank strings.  A
+            true value indicates that blanks should be retained as blank
+            strings.  The default false value indicates that blank values
+            are to be ignored and treated as if they were  not included.
 
-    return output_string
+        """
+        # This code is the same as Python3's parse_qsl()
+        # (at https://hg.python.org/cpython/rev/c38ac7ab8d9a)
+        # except for the unquote(s, encoding, errors) calls replaced
+        # with unquote_to_bytes(s)
+        qs, _coerce_result = _coerce_args(qs)
+        pairs = [s2 for s1 in qs.split('&') for s2 in s1.split(';')]
+        r = []
+        for name_value in pairs:
+            if not name_value:
+                continue
+            nv = name_value.split('=', 1)
+            if len(nv) != 2:
+                # Handle case of a control-name with no equal sign
+                if keep_blank_values:
+                    nv.append('')
+                else:
+                    continue
+            if len(nv[1]) or keep_blank_values:
+                name = nv[0].replace('+', ' ')
+                name = unquote_to_bytes(name)
+                name = _coerce_result(name)
+                value = nv[1].replace('+', ' ')
+                value = unquote_to_bytes(value)
+                value = _coerce_result(value)
+                r.append((name, value))
+        return r
 
 def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
+    """
+    This function is from w3lib. However, it has been modified
+    to use functions from urlparse4 instead!
+    """
     # IDNA encoding can fail for too long labels (>63 characters)
     # or missing labels (e.g. http://.example.com)
     try:
@@ -504,6 +509,8 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
     >>>
 
     For more examples, see the tests in `tests/test_url.py`.
+    NOTE: This function is from w3lib. However, it has been modified
+    to use functions from urlparse4 instead!
     """
     try:
         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
@@ -563,10 +570,13 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
 def parse_url(url, encoding=None):
     """Return urlparsed url from the given argument (which could be an already
     parsed url)
+
+    NOTE: This function is from w3lib. However, it has been modified
+    to use functions from urlparse4 instead!
     """
     if isinstance(url, tuple):
         return url
-    return urlparse(to_unicode(url, encoding), canonicalized=True)
+    return urlparse(to_unicode(url, encoding), canonicalize=True)
 
 def _unquotepath(path):
     for reserved in ('2f', '2F', '3f', '3F'):
@@ -583,3 +593,36 @@ def _unquotepath(path):
         #
         # unquote_to_bytes() returns raw bytes instead
         return unquote_to_bytes(path)
+
+# https://github.com/scrapy/w3lib/blob/master/w3lib/util.py
+def to_unicode(text, encoding=None, errors='strict'):
+    """Return the unicode representation of a bytes object `text`. If `text`
+    is already an unicode object, return it as-is."""
+    if isinstance(text, six.text_type):
+        return text
+    if not isinstance(text, (bytes, six.text_type)):
+        raise TypeError('to_unicode must receive a bytes, str or unicode '
+                        'object, got %s' % type(text).__name__)
+    if encoding is None:
+        encoding = 'utf-8'
+    return text.decode(encoding, errors)
+
+def to_bytes(text, encoding=None, errors='strict'):
+    """Return the binary representation of `text`. If `text`
+    is already a bytes object, return it as-is."""
+    if isinstance(text, bytes):
+        return text
+    if not isinstance(text, six.string_types):
+        raise TypeError('to_bytes must receive a unicode, str or bytes '
+                        'object, got %s' % type(text).__name__)
+    if encoding is None:
+        encoding = 'utf-8'
+    return text.encode(encoding, errors)
+
+def to_native_str(text, encoding=None, errors='strict'):
+    """ Return str representation of `text`
+    (bytes in Python 2.x and unicode in Python 3.x). """
+    if six.PY2:
+        return to_bytes(text, encoding, errors)
+    else:
+        return to_unicode(text, encoding, errors)
