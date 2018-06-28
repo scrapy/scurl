@@ -4,8 +4,7 @@ import unittest
 import warnings
 import pytest
 
-from urlparse4 import urlparse, urlsplit
-from urlparse4.canonicalize import parse_url, canonicalize_url
+from urlparse4 import urlparse, urlsplit, parse_url, canonicalize_url
 
 
 class CanonicalizeUrlTest(unittest.TestCase):

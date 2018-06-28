@@ -325,11 +325,15 @@ class ParsedResultNamedTuple(tuple):
         # encode based on the encoding input
         if canonicalize and canonicalize_encoding != 'utf-8':
             if query:
-                query = query.decode('utf-8').encode(canonicalize_encoding)\
-                            .decode('utf-8').encode('utf-8')
+                try:
+                    query = query.decode().encode(canonicalize_encoding)
+                except UnicodeEncodeError as e:
+                    pass
             if ref:
-                ref = ref.decode('utf-8').encode(canonicalize_encoding)\
-                            .decode('utf-8').encode('utf-8')
+                try:
+                    ref = ref.decode().encode(canonicalize_encoding)
+                except UnicodeEncodeError as e:
+                    pass
 
         # cdef var cannot be wrapped inside if statement
         cdef Component query_comp = MakeRange(0, len(query))

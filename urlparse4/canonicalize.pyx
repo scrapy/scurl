@@ -176,7 +176,7 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
                                query,
                                fragment))
 
-def parse_url(url, canonicalize_encoding, encoding=None):
+def parse_url(url, canonicalize_encoding='utf-8', encoding=None):
     """Return urlparsed url from the given argument (which could be an already
     parsed url)
 
