@@ -4,7 +4,7 @@ import tarfile
 import scrapy
 import click
 import six
-from urlparse4 import canonicalize_url
+from urlparse4.canonicalize import canonicalize_url
 from scrapy.http import HtmlResponse
 
 

@@ -124,10 +124,10 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
     """
     try:
         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
-            parse_url(url), encoding=encoding)
+            parse_url(url, encoding), encoding=encoding)
     except UnicodeEncodeError as e:
         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
-            parse_url(url), encoding='utf8')
+            parse_url(url, encoding), encoding='utf8')
 
     # 1. decode query-string as UTF-8 (or keep raw bytes),
     #    sort values,
@@ -177,7 +177,7 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
                                query,
                                fragment))
 
-def parse_url(url, encoding=None):
+def parse_url(url, canonicalize_encoding, encoding=None):
     """Return urlparsed url from the given argument (which could be an already
     parsed url)
 
@@ -186,7 +186,10 @@ def parse_url(url, encoding=None):
     """
     if isinstance(url, tuple):
         return url
-    return urlparse(to_unicode(url, encoding), canonicalize=True)
+
+    if canonicalize_encoding is None:
+        canonicalize_encoding = 'utf-8'
+    return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
 
 def _unquotepath(path):
     for reserved in ('2f', '2F', '3f', '3F'):

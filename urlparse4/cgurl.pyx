@@ -164,20 +164,20 @@ cdef object _splitparams(string path):
         i = path.find(semcol)
     return path.substr(0, i), path.substr(i + 1)
 
-cdef string canonicalize_path(char * url, Parsed parsed):
+cdef string canonicalize_path(char * path, Component path_comp):
     cdef Component out_path
     cdef string output_string = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    is_valid = CanonicalizePath(url, parsed.path, output, &out_path)
+    is_valid = CanonicalizePath(path, path_comp, output, &out_path)
     output.Complete()
 
     return output_string
 
-cdef string canonicalize_query(char * url, Parsed parsed):
+cdef string canonicalize_query(char * query, Component query_comp):
     cdef Component out_query
     cdef string output_string = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    CanonicalizeQuery(url, parsed.query, NULL, output, &out_query)
+    CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
     output.Complete()
 
     if output_string.length() > 0 and output_string[0] == "?":
@@ -185,11 +185,11 @@ cdef string canonicalize_query(char * url, Parsed parsed):
 
     return output_string
 
-cdef string canonicalize_fragment(char * url, Parsed parsed):
+cdef string canonicalize_fragment(char * ref, Component ref_comp):
     cdef Component out_fragment
     cdef string output_string = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    CanonicalizeRef(url, parsed.ref, output, &out_fragment)
+    CanonicalizeRef(ref, ref_comp, output, &out_fragment)
     output.Complete()
 
     return output_string
@@ -297,7 +297,8 @@ class SplitResultNamedTuple(tuple):
 class ParsedResultNamedTuple(tuple):
     __slots__ = ()
 
-    def __new__(cls, char * url, input_scheme, decoded=False, canonicalize=False):
+    def __new__(cls, char * url, input_scheme,
+                canonicalize, canonicalize_encoding, decoded=False):
 
         cdef Parsed parsed
         cdef Component url_scheme
@@ -321,10 +322,22 @@ class ParsedResultNamedTuple(tuple):
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
 
+        # encode based on the encoding input
+        if canonicalize and canonicalize_encoding != 'utf-8':
+            if query:
+                query = query.decode('utf-8').encode(canonicalize_encoding)\
+                            .decode('utf-8').encode('utf-8')
+            if ref:
+                ref = ref.decode('utf-8').encode(canonicalize_encoding)\
+                            .decode('utf-8').encode('utf-8')
+
+        # cdef var cannot be wrapped inside if statement
+        cdef Component query_comp = MakeRange(0, len(query))
+        cdef Component ref_comp = MakeRange(0, len(ref))
         if canonicalize:
-            path = canonicalize_path(url, parsed)
-            query = canonicalize_query(url, parsed)
-            fragment = canonicalize_fragment(url, parsed)
+            path = canonicalize_path(path, parsed.path)
+            query = canonicalize_query(query, query_comp)
+            fragment = canonicalize_fragment(ref, ref_comp)
 
         if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
@@ -347,7 +360,8 @@ class ParsedResultNamedTuple(tuple):
         return stdlib_urlunparse(self)
 
 
-def urlparse(url, scheme='', allow_fragments=True, canonicalize=False):
+def urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
+             canonicalize_encoding='utf-8'):
     """
     This function intends to replace urlparse from urllib
     using urlsplit function from urlparse4 itself.
@@ -355,8 +369,8 @@ def urlparse(url, scheme='', allow_fragments=True, canonicalize=False):
     """
     decode = not isinstance(url, bytes)
     url = unicode_handling(url)
-    return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url,
-                                          scheme, decode, canonicalize)
+    return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,
+                                          canonicalize, canonicalize_encoding, decode)
 
 def urlsplit(url, scheme='', allow_fragments=True):
     """
