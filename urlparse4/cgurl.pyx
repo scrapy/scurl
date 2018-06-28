@@ -177,10 +177,11 @@ cdef string canonicalize_query(char * query, Component query_comp):
     cdef Component out_query
     cdef string output_string = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
+    # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
+    is_valid = CanonicalizePath(query, query_comp, output, &out_query)
     output.Complete()
 
-    if output_string.length() > 0 and output_string[0] == "?":
+    if output_string.length() > 0 and output_string[0] == "/":
         output_string = output_string.substr(1)
 
     return output_string
