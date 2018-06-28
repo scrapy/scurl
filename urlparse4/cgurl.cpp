@@ -5754,7 +5754,7 @@ static PyObject *__pyx_pf_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_UNUSED 
  *                 ref = ref.decode('utf-8').encode(canonicalize_encoding)\
  *                             .decode('utf-8').encode('utf-8')             # <<<<<<<<<<<<<<
  * 
- *         # cdef var cannot be wrapped inside if statementc
+ *         # cdef var cannot be wrapped inside if statement
  */
       __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_decode); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 332, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
@@ -5791,7 +5791,7 @@ static PyObject *__pyx_pf_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_UNUSED 
 
   /* "cgurl.pyx":335
  * 
- *         # cdef var cannot be wrapped inside if statementc
+ *         # cdef var cannot be wrapped inside if statement
  *         cdef Component query_comp = MakeRange(0, len(query))             # <<<<<<<<<<<<<<
  *         cdef Component ref_comp = MakeRange(0, len(ref))
  *         if canonicalize:
@@ -5800,7 +5800,7 @@ static PyObject *__pyx_pf_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_UNUSED 
   __pyx_v_query_comp = url::MakeRange(0, __pyx_t_12);
 
   /* "cgurl.pyx":336
- *         # cdef var cannot be wrapped inside if statementc
+ *         # cdef var cannot be wrapped inside if statement
  *         cdef Component query_comp = MakeRange(0, len(query))
  *         cdef Component ref_comp = MakeRange(0, len(ref))             # <<<<<<<<<<<<<<
  *         if canonicalize:
@@ -8061,7 +8061,7 @@ static int __Pyx_InitCachedConstants(void) {
  *                 ref = ref.decode('utf-8').encode(canonicalize_encoding)\
  *                             .decode('utf-8').encode('utf-8')             # <<<<<<<<<<<<<<
  * 
- *         # cdef var cannot be wrapped inside if statementc
+ *         # cdef var cannot be wrapped inside if statement
  */
   __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
