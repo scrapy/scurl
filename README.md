@@ -2,8 +2,6 @@
 
 `urlparse4` is a performance-focused replacement for Python's `urlparse` module, using C++ code from Chromium's own URL parser.
 
-It is not production-ready yet.
-
 Many credits go to [gurl-cython](https://github.com/Preetwinder/gurl-cython) for inspiration.
 
 ## Differences with Python's `urlparse`
@@ -11,13 +9,24 @@ Many credits go to [gurl-cython](https://github.com/Preetwinder/gurl-cython) for
 `urlparse4` should be a transparent, drop-in replacement in almost all cases. Still, there are a few differences to be aware of:
 
  - `urlparse4` is 2-7x faster for most operations (see benchmarks below)
- - `urlparse4` currently doesn't pass CPython's `test_urlparse.py` suite due to edge cases that Chromium's parser manages differently (usually in accordance to the RFCs, which `urlparse` doesn't follow entirely).
- - `urlparse4` only supports Python 2.7 for now
+ - `urlparse4` currently doesn't pass all of the tests in CPython's `test_urlparse.py` suite due to edge cases that Chromium's parser manages differently (usually in accordance to the RFCs, which `urlparse` doesn't follow entirely). However, the failed tests have been skipped and marked with the reasons why the tests did not pass.
+ - `urlparse4` has an additional functionality canonicalize_url, which is added as a performance-improved version of the canonicalize_url function from scrapy/w3lib.
+
+## Canonicalize url supports
+
+`urlparse4` supports canonicalizing urls that was built on the chromium GURL's canonicalize_url. This can be a replacement for
+
+There are some points that worth noticing (the differences between urlparse4 canonicalization and that of w3lib)
++ GURL chromium canonicalizes urls' path by lowercasing all the chars. Test cases from w3lib has been modified to match the result of GURL canonicalize_url.
 
 ## How to install
 
 ```
-pip install urlparse4
+git clone https://github.com/nctl144/urlparse4
+cd urlparse4
+pip install -r requirements.txt
+make clean; make build_ext
+python setup.py install
 ```
 
 ## How to use
