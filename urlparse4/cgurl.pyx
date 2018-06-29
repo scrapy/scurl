@@ -1,3 +1,5 @@
+# cython: profile=True
+
 from urlparse4.mozilla_url_parse cimport *
 from urlparse4.chromium_gurl cimport GURL
 from urlparse4.chromium_url_constant cimport *

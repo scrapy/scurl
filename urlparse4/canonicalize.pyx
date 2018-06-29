@@ -1,3 +1,5 @@
+# cython: profile=True
+
 from urlparse4 import urlparse
 
 import string
