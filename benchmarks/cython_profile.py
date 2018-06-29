@@ -10,6 +10,10 @@ pyximport.install()
 import cgurl
 import urlparse4
 
+def run_urlparse(urls):
+    for url in urls:
+        a = cgurl.urlparse(url)
+
 def run_canonicalize(urls):
     for url in urls:
         a = urlparse4.canonicalize_url(url)
@@ -50,6 +54,13 @@ def main():
             s = pstats.Stats("urlsplit_profile.prof")
             s.strip_dirs().sort_stats("time").print_stats()
 
+    elif arg.func == "urlparse":
+        with open('urls/chromiumUrls.txt') as f:
+
+            cProfile.runctx("run_urlparse(f)", globals(), locals(), "urlparse_profile.prof")
+
+            s = pstats.Stats("urlparse_profile.prof")
+            s.strip_dirs().sort_stats("time").print_stats()
     else:
         print('the arg is invalid, please enter the name of the function you want to profile')
 
