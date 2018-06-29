@@ -75,6 +75,10 @@ cdef bytes build_netloc(bytes url, Parsed parsed):
 
 
 cdef bytes unicode_handling(str):
+    """
+    This function handles the unicode string and converts it to bytes
+    which enables functions to receive unicode-type url as the input
+    """
     cdef bytes bytes_str
     if isinstance(str, unicode):
         bytes_str = <bytes>(<unicode>str).encode('utf8')
@@ -83,6 +87,9 @@ cdef bytes unicode_handling(str):
     return bytes_str
 
 cdef void parse_input_url(bytes url, Component url_scheme, Parsed * parsed):
+    """
+    This function parses the input url using GURL url_parse
+    """
     if CompareSchemeComponent(url, url_scheme, kFileScheme):
         ParseFileURL(url, len(url), parsed)
     elif CompareSchemeComponent(url, url_scheme, kFileSystemScheme):
@@ -102,6 +109,11 @@ cdef void parse_input_url(bytes url, Component url_scheme, Parsed * parsed):
         ParsePathURL(url, len(url), True, parsed)
 
 cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=False):
+    """
+    This adds the attr to the urlparse and urlsplit class
+    enables the users to call for different types of properties
+    such as scheme, path, netloc, username, password,...
+    """
     if prop == "scheme":
         return obj[0]
     elif prop == "netloc":
@@ -166,6 +178,10 @@ cdef object _splitparams(string path):
     return path.substr(0, i), path.substr(i + 1)
 
 cdef string canonicalize_component(char * url, Component parsed_comp, comp_type):
+    """
+    This function canonicalizes the components of the urls
+    Using Chromium GURL canonicalize func
+    """
     cdef Component output_comp
     cdef string canonicalized_output = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&canonicalized_output)
