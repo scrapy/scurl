@@ -54,7 +54,7 @@ def main():
             s = pstats.Stats("urlsplit_profile.prof")
             s.strip_dirs().sort_stats("time").print_stats()
 
-    elif arg.func == "urlparse":
+    elif args.func == "urlparse":
         with open('urls/chromiumUrls.txt') as f:
 
             cProfile.runctx("run_urlparse(f)", globals(), locals(), "urlparse_profile.prof")
