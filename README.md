@@ -10,11 +10,11 @@ Many credits go to [gurl-cython](https://github.com/Preetwinder/gurl-cython) for
 
  - `urlparse4` is 2-7x faster for most operations (see benchmarks below)
  - `urlparse4` currently doesn't pass all of the tests in CPython's `test_urlparse.py` suite due to edge cases that Chromium's parser manages differently (usually in accordance to the RFCs, which `urlparse` doesn't follow entirely). However, the failed tests have been skipped and marked with the reasons why the tests did not pass.
- - `urlparse4` has an additional functionality canonicalize_url, which is added as a performance-improved version of the canonicalize_url function from scrapy/w3lib.
+ - `urlparse4` has an additional functionality `canonicalize_url`, which is added as a performance-improved version of the canonicalize_url function from scrapy/w3lib.
 
 ## Canonicalize url supports
 
-`urlparse4` supports canonicalizing urls that was built on the chromium GURL's canonicalize_url. This can be a replacement for
+`urlparse4` supports canonicalizing urls that was built on the chromium GURL's canonicalize_url.
 
 There are some points that worth noticing (the differences between urlparse4 canonicalization and that of w3lib)
 + GURL chromium canonicalizes urls' path by lowercasing all the chars. Test cases from w3lib has been modified to match the result of GURL canonicalize_url.
@@ -50,11 +50,10 @@ for attr in dir(urlparse4):
 
 ## How to test
 
-You must have Docker installed and running. You can run CPython's test suite for `urlparse` like this:
+You must have Docker installed and running. You can run all the test suites for `urlparse` like this:
 
 ```
-make docker_build
-make docker_test
+tox
 ```
 
 ## Benchmarks
