@@ -14,13 +14,13 @@ def run_canonicalize(urls):
     for url in urls:
         a = urlparse4.canonicalize_url(url)
 
-def run_urlparse(urls):
+def run_urlsplit(urls):
     for url in urls:
-        a = cgurl.urlparse(url)
+        a = cgurl.urlsplit(url)
 
 def main():
     parser = argparse.ArgumentParser(description='Profile cython functions')
-    parser.add_argument('--func', default='urlparse',
+    parser.add_argument('--func', default='urlsplit',
                     help='name of the function to profile')
     args = parser.parse_args()
 
@@ -42,12 +42,12 @@ def main():
         s = pstats.Stats("canonicalize_profile.prof")
         s.strip_dirs().sort_stats("time").print_stats()
 
-    elif args.func == "urlparse":
+    elif args.func == "urlsplit":
         with open('urls/chromiumUrls.txt') as f:
 
-            cProfile.runctx("run_urlparse(f)", globals(), locals(), "urlparse_profile.prof")
+            cProfile.runctx("run_urlsplit(f)", globals(), locals(), "urlsplit_profile.prof")
 
-            s = pstats.Stats("urlparse_profile.prof")
+            s = pstats.Stats("urlsplit_profile.prof")
             s.strip_dirs().sort_stats("time").print_stats()
 
     else:
