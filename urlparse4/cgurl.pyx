@@ -5,9 +5,8 @@ from urlparse4.chromium_gurl cimport GURL
 from urlparse4.chromium_url_constant cimport *
 from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
 from urlparse4.chromium_url_util cimport IsStandard, Canonicalize
-from urlparse4.chromium_url_canon cimport CanonicalizePath, CanonicalizeQuery, CanonicalizeRef
+from urlparse4.chromium_url_canon cimport CanonicalizePath
 from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
-from urlparse4.chromium_url_canon cimport CharsetConverter
 
 import six
 from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
@@ -166,36 +165,21 @@ cdef object _splitparams(string path):
         i = path.find(semcol)
     return path.substr(0, i), path.substr(i + 1)
 
-cdef string canonicalize_path(char * path, Component path_comp):
-    cdef Component out_path
-    cdef string output_string = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    is_valid = CanonicalizePath(path, path_comp, output, &out_path)
-    output.Complete()
-
-    return output_string
-
-cdef string canonicalize_query(char * query, Component query_comp):
-    cdef Component out_query
-    cdef string output_string = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
+cdef string canonicalize_component(char * url, Component parsed_comp, comp_type):
+    cdef Component output_comp
+    cdef string canonicalized_output = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&canonicalized_output)
+    # CanonicalizeQuery has different way of canonicalize encoded urls
+    # so we will use canonicalizePath for now!
     # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
-    is_valid = CanonicalizePath(query, query_comp, output, &out_query)
+    is_valid = CanonicalizePath(url, parsed_comp, output, &output_comp)
     output.Complete()
 
-    if output_string.length() > 0 and output_string[0] == "/":
-        output_string = output_string.substr(1)
+    if comp_type in ('ref', 'query'):
+        if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":
+            canonicalized_output = canonicalized_output.substr(1)
 
-    return output_string
-
-cdef string canonicalize_fragment(char * ref, Component ref_comp):
-    cdef Component out_fragment
-    cdef string output_string = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&output_string)
-    CanonicalizeRef(ref, ref_comp, output, &out_fragment)
-    output.Complete()
-
-    return output_string
+    return canonicalized_output
 
 # @cython.freelist(100)
 # cdef class SplitResult:
@@ -342,9 +326,9 @@ class ParsedResultNamedTuple(tuple):
         cdef Component query_comp = MakeRange(0, len(query))
         cdef Component ref_comp = MakeRange(0, len(ref))
         if canonicalize:
-            path = canonicalize_path(url, parsed.path)
-            query = canonicalize_query(query, query_comp)
-            fragment = canonicalize_fragment(ref, ref_comp)
+            path = canonicalize_component(url, parsed.path, 'path')
+            query = canonicalize_component(query, query_comp, 'query')
+            fragment = canonicalize_component(ref, ref_comp, 'ref')
 
         if scheme in uses_params and b';' in path:
             path, params = _splitparams(path)
