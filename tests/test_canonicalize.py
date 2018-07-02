@@ -2,7 +2,7 @@ import unittest
 import warnings
 import pytest
 
-from urlparse4 import canonicalize_url, parse_url
+from scurl import canonicalize_url, parse_url
 from urllib.parse import urlparse, urlsplit
 
 

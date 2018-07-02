@@ -1,5 +1,5 @@
 clean:
-	rm -rf *.so urlparse4/*.so build urlparse4/*.c urlparse4/*.cpp urlparse4/*.html dist .cache tests/__pycache__ *.rst
+	rm -rf *.so scurl/*.so build scurl/*.c scurl/*.cpp scurl/*.html dist .cache tests/__pycache__ *.rst
 
 benchmark:
 	python benchmarks/urls.py
@@ -8,16 +8,16 @@ test:
 	py.test tests/ -v
 
 docker_build:
-	docker build -t commonsearch/urlparse4 .
+	docker build -t commonsearch/scurl .
 
 docker_shell:
-	docker run -v "$(PWD):/cosr/urlparse4:rw" -w /cosr/urlparse4 -i -t commonsearch/urlparse4 bash
+	docker run -v "$(PWD):/cosr/scurl:rw" -w /cosr/scurl -i -t nctl144/scurl bash
 
 docker_test:
-	docker run -v "$(PWD):/cosr/urlparse4:rw" -w /cosr/urlparse4 -i -t commonsearch/urlparse4 make test
+	docker run -v "$(PWD):/cosr/scurl:rw" -w /cosr/scurl -i -t nctl144/scurl make test
 
 docker_benchmark:
-	docker run -v "$(PWD):/cosr/urlparse4:rw" -w /cosr/urlparse4 -i -t commonsearch/urlparse4 make benchmark
+	docker run -v "$(PWD):/cosr/scurl:rw" -w /cosr/scurl -i -t nctl144/scurl make benchmark
 
 build_ext:
 	python setup.py build_ext --inplace

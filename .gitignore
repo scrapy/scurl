@@ -6,7 +6,7 @@
 /.cache
 /tmp
 /MANIFEST
-/urlparse4/*.html
+/scurl/*.html
 /dist
 
 # Unit test / coverage reports
