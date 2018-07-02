@@ -5,7 +5,7 @@ sys.path.insert(-1, os.path.dirname(os.path.dirname(__file__)))
 
 from test import test_support
 import unittest
-import urlparse4 as urlparse
+import scurl as urlparse
 import pytest
 
 
@@ -21,7 +21,7 @@ urljoin_testcases = [
 ]
 
 
-class UrlParse4TestCase(unittest.TestCase):
+class ScurlTestCase(unittest.TestCase):
     @pytest.mark.xfail
     def test_urlsplit(self):
         for case in urlsplit_testcases:

@@ -6,7 +6,7 @@
 /.cache
 /tmp
 /MANIFEST
-/urlparse4/*.html
+/scurl/*.html
 /dist
 
 # Unit test / coverage reports
@@ -17,3 +17,5 @@ htmlcov
 .pytest_cache
 
 *egg-info
+
+.DS_Store

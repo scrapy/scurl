@@ -17,7 +17,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 	liburiparser-dev \
 	vim
 
-RUN mkdir -p /cosr/urlparse4
+RUN mkdir -p /cosr/scurl
 
 # Upgrade pip
 RUN pip install --upgrade --ignore-installed pip

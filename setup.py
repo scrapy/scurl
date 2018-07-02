@@ -5,7 +5,7 @@ VERSION = "0.1.3"
 
 extension = Extension(
     name="cgurl",
-    sources=["urlparse4/cgurl.pyx",
+    sources=["scurl/cgurl.pyx",
              "vendor/gurl/base/third_party/icu/icu_utf.cc",
              "vendor/gurl/base/strings/string16.cc",
              "vendor/gurl/base/strings/string_piece.cc",
@@ -38,16 +38,16 @@ extension = Extension(
 )
 
 
-if not os.path.isfile("urlparse4/cgurl.cpp"):
+if not os.path.isfile("scurl/cgurl.cpp"):
     try:
         from Cython.Build import cythonize
         ext_modules = cythonize(extension, annotate=True)
     except:
-        print("urlparse4/cgurl.cpp not found and Cython failed to run to recreate it. Please install/upgrade Cython and try again.")
+        print("scurl/cgurl.cpp not found and Cython failed to run to recreate it. Please install/upgrade Cython and try again.")
         raise
 else:
     ext_modules = [extension]
-    ext_modules[0].sources[0] = "urlparse4/cgurl.cpp"
+    ext_modules[0].sources[0] = "scurl/cgurl.cpp"
 
 try:
     import pypandoc
@@ -56,14 +56,14 @@ except ImportError:
     long_description = open('README.md').read()
 
 setup(
-    name="urlparse4",
-    packages=['urlparse4'],
+    name="scurl",
+    packages=['scurl'],
     version=VERSION,
-    description="Performance-focused replacement for Python's urlparse module",
-    author="Common Search contributors",
-    author_email="contact@commonsearch.org",
+    description="",
+    author="",
+    author_email="",
     license="Apache License, Version 2.0",
-    url="https://github.com/commonsearch/urlparse4",
+    url="https://github.com/nctl144/scurl",
     keywords=["urlparse", "urlsplit", "urljoin", "url", "parser", "urlparser", "parsing", "gurl", "cython", "faster", "speed", "performance"],
     platforms='any',
     classifiers=[

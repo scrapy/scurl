@@ -1,29 +1,29 @@
-# urlparse4
+# scurl
 
-`urlparse4` is a performance-focused replacement for Python's `urlparse` module, using C++ code from Chromium's own URL parser.
+`scurl` is a performance-focused replacement for Python's `urlparse` module, using C++ code from Chromium's own URL parser.
 
 Many credits go to [gurl-cython](https://github.com/Preetwinder/gurl-cython) for inspiration.
 
 ## Differences with Python's `urlparse`
 
-`urlparse4` should be a transparent, drop-in replacement in almost all cases. Still, there are a few differences to be aware of:
+`scurl` should be a transparent, drop-in replacement in almost all cases. Still, there are a few differences to be aware of:
 
- - `urlparse4` is 2-7x faster for most operations (see benchmarks below)
- - `urlparse4` currently doesn't pass all of the tests in CPython's `test_urlparse.py` suite due to edge cases that Chromium's parser manages differently (usually in accordance to the RFCs, which `urlparse` doesn't follow entirely). However, the failed tests have been skipped and marked with the reasons why the tests did not pass.
- - `urlparse4` has an additional functionality `canonicalize_url`, which is added as a performance-improved version of the canonicalize_url function from scrapy/w3lib.
+ - `scurl` is 2-7x faster for most operations (see benchmarks below)
+ - `scurl` currently doesn't pass all of the tests in CPython's `test_urlparse.py` suite due to edge cases that Chromium's parser manages differently (usually in accordance to the RFCs, which `urlparse` doesn't follow entirely). However, the failed tests have been skipped and marked with the reasons why the tests did not pass.
+ - `scurl` has an additional functionality `canonicalize_url`, which is added as a performance-improved version of the canonicalize_url function from scrapy/w3lib.
 
 ## Canonicalize url supports
 
-`urlparse4` supports canonicalizing urls that was built on the chromium GURL's canonicalize_url.
+`scurl` supports canonicalizing urls that was built on the chromium GURL's canonicalize_url.
 
-There are some points that worth noticing (the differences between urlparse4 canonicalization and that of w3lib)
+There are some points that worth noticing (the differences between scurl canonicalization and that of w3lib)
 + GURL chromium canonicalizes urls' path by lowercasing all the chars. Test cases from w3lib has been modified to match the result of GURL canonicalize_url.
 
 ## How to install
 
 ```
-git clone https://github.com/nctl144/urlparse4
-cd urlparse4
+git clone https://github.com/nctl144/scurl
+cd scurl
 pip install -r requirements.txt
 make clean; make build_ext
 python setup.py install
@@ -31,20 +31,20 @@ python setup.py install
 
 ## How to use
 
-The most straightforward way to use `urlparse4` is to replace your imports of `urlparse` with this:
+The most straightforward way to use `scurl` is to replace your imports of `urlparse` with this:
 
 ```
-import urlparse4 as urlparse
+import scurl as urlparse
 ```
 
 You could also monkey-patch its methods in the global `urlparse` module like this:
 
 ```
-import urlparse4
+import scurl
 import urlparse
 
-for attr in dir(urlparse4):
-	setattr(urlparse, attr, getattr(urlparse4, attr))
+for attr in dir(scurl):
+	setattr(urlparse, attr, getattr(scurl, attr))
 
 ```
 
@@ -60,7 +60,7 @@ tox
 
 We are testing the following librairies on a sample of 100k URLs from Blink and DMOZ:
 
- - urlparse4 ;-)
+ - scurl ;-)
  - [CPython's urlparse](https://github.com/python/cpython/blob/2.7/Lib/urlparse.py)
  - [urlparse2](https://github.com/mwhooker/urlparse2)
  - [YURL](http://github.com/homm/yurl/)
@@ -87,7 +87,7 @@ Name              Sum            Mean               Median             90%
 
 urlsplit:
 ----              ----           ----               ----               ----
-urlparse4         1.681858       1.61251965484e-06  1.99999999984e-06  2.00000000006e-06
+scurl         1.681858       1.61251965484e-06  1.99999999984e-06  2.00000000006e-06
 pygurl            2.031712       1.94795014382e-06  1.99999999984e-06  2.00000000028e-06
 uritools          2.638991       2.53019271333e-06  2.00000000028e-06  3.00000000042e-06
 yurl              3.910247       3.74903835091e-06  3.00000000131e-06  4.99999999981e-06
@@ -97,7 +97,7 @@ cyuri             9.912275       9.50361936721e-06  8.00000000112e-06  1.3000000
 
 urljoin_sibling:
 ----              ----           ----               ----               ----
-urlparse4         2.008453       1.92565004794e-06  2.00000000206e-06  2.00000000206e-06
+scurl         2.008453       1.92565004794e-06  2.00000000206e-06  2.00000000206e-06
 pygurl            2.193427       2.10299808245e-06  2.00000000206e-06  2.99999999953e-06
 uritools          10.575344      1.01393518696e-05  9.99999999607e-06  1.20000000052e-05
 yurl              13.213052      1.26683144775e-05  1.19999999981e-05  1.60000000022e-05
@@ -107,7 +107,7 @@ cyuri             5.742724       5.50596740172e-06  5.00000000159e-06  7.0000000
 
 hostname:
 ----              ----           ----               ----               ----
-urlparse4         1.883982       1.80631064237e-06  1.99999999495e-06  2.00000000916e-06
+scurl         1.883982       1.80631064237e-06  1.99999999495e-06  2.00000000916e-06
 pygurl            1.67332099999  1.60433461169e-06  1.99999999495e-06  2.00000000916e-06
 uritools          3.31632199999  3.17959923297e-06  3.00000000664e-06  4.00000000411e-06
 yurl              3.853319       3.69445733461e-06  3.00000000664e-06  4.00000000411e-06

@@ -19,7 +19,7 @@ import pygurl
 import cyuri
 
 sys.path.insert(-1, os.path.dirname(os.path.dirname(__file__)))
-import urlparse4
+import scurl
 
 gc.disable()
 
@@ -58,7 +58,7 @@ def title(name):
 cyuri_parser = cyuri.uriparser()
 
 title("urlsplit")
-benchmark("urlparse4", lambda url: urlparse4.urlsplit(url))
+benchmark("scurl", lambda url: scurl.urlsplit(url))
 benchmark("pygurl", lambda url: pygurl.ParseStandard(url))
 benchmark("uritools", lambda url: uritools_urisplit(url))
 benchmark("yurl", lambda url: yurl_url(url))
@@ -67,7 +67,7 @@ benchmark("urlparse", lambda url: urlparse.urlsplit(url))
 benchmark("cyuri", lambda url: cyuri_parser.components(url))
 
 title("urljoin_sibling")
-benchmark("urlparse4", lambda url: urlparse4.urljoin(url, "sibling.html?q=1#e=b"))
+benchmark("scurl", lambda url: scurl.urljoin(url, "sibling.html?q=1#e=b"))
 benchmark("pygurl", lambda url: pygurl.URL(url).Resolve("sibling.html?q=1#e=b"))
 benchmark("uritools", lambda url: uritools_urijoin(url, "sibling.html?q=1#e=b"))
 benchmark("yurl", lambda url: yurl_url(url) + yurl_url("sibling.html?q=1#e=b"))
@@ -78,7 +78,7 @@ benchmark("cyuri", lambda url: cyuri_parser.join(url, "sibling.html?q=1#e=b"))
 # Not very representative because some libraries have functions to access the host directly without parsing the rest.
 # Might still be useful for some people!
 title("hostname")
-benchmark("urlparse4", lambda url: urlparse4.urlsplit(url).hostname)
+benchmark("scurl", lambda url: scurl.urlsplit(url).hostname)
 benchmark("pygurl", lambda url: pygurl.URL(url).host())
 benchmark("uritools", lambda url: uritools_urisplit(url).host)
 benchmark("yurl", lambda url: yurl_url(url).host)
