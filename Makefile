@@ -28,3 +28,6 @@ sdist:
 pypi: clean build_ext
 	pip install pypandoc
 	python setup.py sdist upload -r pypi-commonsearch
+
+install:
+	python setup.py install
