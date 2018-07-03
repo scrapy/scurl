@@ -1,4 +1,5 @@
 # cython: linetrace=True
+# distutils: define_macros=CYTHON_TRACE=1
 
 from scurl.mozilla_url_parse cimport *
 from scurl.chromium_gurl cimport GURL
