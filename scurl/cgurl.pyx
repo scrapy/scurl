@@ -1,4 +1,4 @@
-# cython: profile=True
+# cython: linetrace=True
 
 from scurl.mozilla_url_parse cimport *
 from scurl.chromium_gurl cimport GURL
