@@ -3,4 +3,3 @@ plugins = Cython.Coverage
 source = scurl/
 omit =
     tests
-    *__init__.py
