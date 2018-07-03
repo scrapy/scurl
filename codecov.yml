@@ -4,3 +4,6 @@ comment:
 coverage:
   status:
     project: false
+
+codecov:
+  token: 3c3db3b7-6674-4655-aab0-b10e6b7b3da0
