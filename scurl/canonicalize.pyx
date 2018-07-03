@@ -1,4 +1,4 @@
-# cython: profile=True
+# cython: linetrace=True
 
 from scurl import urlparse
 
