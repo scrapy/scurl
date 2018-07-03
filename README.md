@@ -1,6 +1,10 @@
 # SCURL
 
 ## About SCURL
+
+First of all, we give special thanks to urlparse4 for being the repo that this library is based on
+and gurl-cython for being the inspiration library for this project!
+
 Scurl is a library that is meant to replace some functions in urllib, such as urlparse,
 urlsplit and urljoin. It is built using the Chromium urlparse source, called GURL and
 Cython wrapper.
