@@ -18,7 +18,7 @@
         "language": "c++",
         "name": "canonicalize",
         "sources": [
-            "urlparse4/canonicalize.pyx"
+            "scurl/canonicalize.pyx"
         ]
     },
     "module_name": "canonicalize"
@@ -804,7 +804,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "urlparse4/canonicalize.pyx",
+  "scurl/canonicalize.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -1391,6 +1391,7 @@ static const char __pyx_k_pairs[] = "pairs";
 static const char __pyx_k_parts[] = "parts";
 static const char __pyx_k_query[] = "query";
 static const char __pyx_k_quote[] = "quote";
+static const char __pyx_k_scurl[] = "scurl";
 static const char __pyx_k_split[] = "split";
 static const char __pyx_k_upper[] = "upper";
 static const char __pyx_k_utf_8[] = "utf-8";
@@ -1422,7 +1423,6 @@ static const char __pyx_k_parse_url[] = "parse_url";
 static const char __pyx_k_text_type[] = "text_type";
 static const char __pyx_k_urldefrag[] = "urldefrag";
 static const char __pyx_k_urlencode[] = "urlencode";
-static const char __pyx_k_urlparse4[] = "urlparse4";
 static const char __pyx_k_name_value[] = "name_value";
 static const char __pyx_k_safe_chars[] = "_safe_chars";
 static const char __pyx_k_to_unicode[] = "to_unicode";
@@ -1453,12 +1453,12 @@ static const char __pyx_k_UnicodeEncodeError[] = "UnicodeEncodeError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_parse_qsl_to_bytes[] = "parse_qsl_to_bytes";
 static const char __pyx_k_canonicalize_encoding[] = "canonicalize_encoding";
+static const char __pyx_k_scurl_canonicalize_pyx[] = "scurl/canonicalize.pyx";
 static const char __pyx_k_six_moves_urllib_parse[] = "six.moves.urllib.parse";
 static const char __pyx_k_canonicalize_url_line_93[] = "canonicalize_url (line 93)";
-static const char __pyx_k_urlparse4_canonicalize_pyx[] = "urlparse4/canonicalize.pyx";
 static const char __pyx_k_to_bytes_must_receive_a_unicode[] = "to_bytes must receive a unicode, str or bytes object, got %s";
 static const char __pyx_k_to_unicode_must_receive_a_bytes[] = "to_unicode must receive a bytes, str or unicode object, got %s";
-static const char __pyx_k_Canonicalize_the_given_url_by_ap[] = "Canonicalize the given url by applying the following procedures:\n\n    - sort query arguments, first by key, then by value\n    - percent encode paths ; non-ASCII characters are percent-encoded\n      using UTF-8 (RFC-3986)\n    - percent encode query arguments ; non-ASCII characters are percent-encoded\n      using passed `encoding` (UTF-8 by default)\n    - normalize all spaces (in query arguments) '+' (plus symbol)\n    - normalize percent encodings case (%2f -> %2F)\n    - remove query arguments with blank values (unless `keep_blank_values` is True)\n    - remove fragments (unless `keep_fragments` is True)\n\n    The url passed can be bytes or unicode, while the url returned is\n    always a native str (bytes in Python 2, unicode in Python 3).\n\n    >>> import w3lib.url\n    >>>\n    >>> # sorting query arguments\n    >>> w3lib.url.canonicalize_url('http://www.example.com/do?c=3&b=5&b=2&a=50')\n    'http://www.example.com/do?a=50&b=2&b=5&c=3'\n    >>>\n    >>> # UTF-8 conversion + percent-encoding of non-ASCII characters\n    >>> w3lib.url.canonicalize_url(u'http://www.example.com/r\\u00e9sum\\u00e9')\n    'http://www.example.com/r%C3%A9sum%C3%A9'\n    >>>\n\n    For more examples, see the tests in `tests/test_url.py`.\n\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from urlparse4 instead!\n    ";
+static const char __pyx_k_Canonicalize_the_given_url_by_ap[] = "Canonicalize the given url by applying the following procedures:\n\n    - sort query arguments, first by key, then by value\n    - percent encode paths ; non-ASCII characters are percent-encoded\n      using UTF-8 (RFC-3986)\n    - percent encode query arguments ; non-ASCII characters are percent-encoded\n      using passed `encoding` (UTF-8 by default)\n    - normalize all spaces (in query arguments) '+' (plus symbol)\n    - normalize percent encodings case (%2f -> %2F)\n    - remove query arguments with blank values (unless `keep_blank_values` is True)\n    - remove fragments (unless `keep_fragments` is True)\n\n    The url passed can be bytes or unicode, while the url returned is\n    always a native str (bytes in Python 2, unicode in Python 3).\n\n    >>> import w3lib.url\n    >>>\n    >>> # sorting query arguments\n    >>> w3lib.url.canonicalize_url('http://www.example.com/do?c=3&b=5&b=2&a=50')\n    'http://www.example.com/do?a=50&b=2&b=5&c=3'\n    >>>\n    >>> # UTF-8 conversion + percent-encoding of non-ASCII characters\n    >>> w3lib.url.canonicalize_url(u'http://www.example.com/r\\u00e9sum\\u00e9')\n    'http://www.example.com/r%C3%A9sum%C3%A9'\n    >>>\n\n    For more examples, see the tests in `tests/test_url.py`.\n\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from scurl instead!\n    ";
 static PyObject *__pyx_kp_s_25;
 static PyObject *__pyx_kp_s_2F;
 static PyObject *__pyx_kp_s_2f;
@@ -1536,6 +1536,8 @@ static PyObject *__pyx_n_s_s2;
 static PyObject *__pyx_n_s_safe_ParseResult;
 static PyObject *__pyx_n_s_safe_chars;
 static PyObject *__pyx_n_s_scheme;
+static PyObject *__pyx_n_s_scurl;
+static PyObject *__pyx_kp_s_scurl_canonicalize_pyx;
 static PyObject *__pyx_n_s_six;
 static PyObject *__pyx_n_s_six_moves_urllib_parse;
 static PyObject *__pyx_n_s_sort;
@@ -1561,8 +1563,6 @@ static PyObject *__pyx_n_s_urldefrag;
 static PyObject *__pyx_n_s_urlencode;
 static PyObject *__pyx_n_s_urllib_parse;
 static PyObject *__pyx_n_s_urlparse;
-static PyObject *__pyx_n_s_urlparse4;
-static PyObject *__pyx_kp_s_urlparse4_canonicalize_pyx;
 static PyObject *__pyx_n_s_urlunparse;
 static PyObject *__pyx_n_s_urlunsplit;
 static PyObject *__pyx_n_s_utf8;
@@ -2430,7 +2430,7 @@ static PyObject *__pyx_pf_12canonicalize_parse_qsl_to_bytes(CYTHON_UNUSED PyObje
 
 /* Python wrapper */
 static PyObject *__pyx_pw_12canonicalize_3_safe_ParseResult(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_12canonicalize_2_safe_ParseResult[] = "\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from urlparse4 instead!\n    ";
+static char __pyx_doc_12canonicalize_2_safe_ParseResult[] = "\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from scurl instead!\n    ";
 static PyMethodDef __pyx_mdef_12canonicalize_3_safe_ParseResult = {"_safe_ParseResult", (PyCFunction)__pyx_pw_12canonicalize_3_safe_ParseResult, METH_VARARGS|METH_KEYWORDS, __pyx_doc_12canonicalize_2_safe_ParseResult};
 static PyObject *__pyx_pw_12canonicalize_3_safe_ParseResult(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_parts = 0;
@@ -3062,7 +3062,7 @@ static PyObject *__pyx_pf_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED PyObje
 
 /* Python wrapper */
 static PyObject *__pyx_pw_12canonicalize_5canonicalize_url(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_12canonicalize_4canonicalize_url[] = "Canonicalize the given url by applying the following procedures:\n\n    - sort query arguments, first by key, then by value\n    - percent encode paths ; non-ASCII characters are percent-encoded\n      using UTF-8 (RFC-3986)\n    - percent encode query arguments ; non-ASCII characters are percent-encoded\n      using passed `encoding` (UTF-8 by default)\n    - normalize all spaces (in query arguments) '+' (plus symbol)\n    - normalize percent encodings case (%2f -> %2F)\n    - remove query arguments with blank values (unless `keep_blank_values` is True)\n    - remove fragments (unless `keep_fragments` is True)\n\n    The url passed can be bytes or unicode, while the url returned is\n    always a native str (bytes in Python 2, unicode in Python 3).\n\n    >>> import w3lib.url\n    >>>\n    >>> # sorting query arguments\n    >>> w3lib.url.canonicalize_url('http://www.example.com/do?c=3&b=5&b=2&a=50')\n    'http://www.example.com/do?a=50&b=2&b=5&c=3'\n    >>>\n    >>> # UTF-8 conversion + percent-encoding of non-ASCII characters\n    >>> w3lib.url.canonicalize_url(u'http://www.example.com/r\\u00e9sum\\u00e9')\n    'http://www.example.com/r%C3%A9sum%C3%A9'\n    >>>\n\n    For more examples, see the tests in `tests/test_url.py`.\n\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from urlparse4 instead!\n    ";
+static char __pyx_doc_12canonicalize_4canonicalize_url[] = "Canonicalize the given url by applying the following procedures:\n\n    - sort query arguments, first by key, then by value\n    - percent encode paths ; non-ASCII characters are percent-encoded\n      using UTF-8 (RFC-3986)\n    - percent encode query arguments ; non-ASCII characters are percent-encoded\n      using passed `encoding` (UTF-8 by default)\n    - normalize all spaces (in query arguments) '+' (plus symbol)\n    - normalize percent encodings case (%2f -> %2F)\n    - remove query arguments with blank values (unless `keep_blank_values` is True)\n    - remove fragments (unless `keep_fragments` is True)\n\n    The url passed can be bytes or unicode, while the url returned is\n    always a native str (bytes in Python 2, unicode in Python 3).\n\n    >>> import w3lib.url\n    >>>\n    >>> # sorting query arguments\n    >>> w3lib.url.canonicalize_url('http://www.example.com/do?c=3&b=5&b=2&a=50')\n    'http://www.example.com/do?a=50&b=2&b=5&c=3'\n    >>>\n    >>> # UTF-8 conversion + percent-encoding of non-ASCII characters\n    >>> w3lib.url.canonicalize_url(u'http://www.example.com/r\\u00e9sum\\u00e9')\n    'http://www.example.com/r%C3%A9sum%C3%A9'\n    >>>\n\n    For more examples, see the tests in `tests/test_url.py`.\n\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from scurl instead!\n    ";
 static PyMethodDef __pyx_mdef_12canonicalize_5canonicalize_url = {"canonicalize_url", (PyCFunction)__pyx_pw_12canonicalize_5canonicalize_url, METH_VARARGS|METH_KEYWORDS, __pyx_doc_12canonicalize_4canonicalize_url};
 static PyObject *__pyx_pw_12canonicalize_5canonicalize_url(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_url = 0;
@@ -3203,7 +3203,7 @@ static PyObject *__pyx_pf_12canonicalize_4canonicalize_url(CYTHON_UNUSED PyObjec
   __Pyx_TraceCall("canonicalize_url", __pyx_f[0], 93, 0, __PYX_ERR(0, 93, __pyx_L1_error));
 
   /* "canonicalize.pyx":126
- *     to use functions from urlparse4 instead!
+ *     to use functions from scurl instead!
  *     """
  *     try:             # <<<<<<<<<<<<<<
  *         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
@@ -3398,7 +3398,7 @@ static PyObject *__pyx_pf_12canonicalize_4canonicalize_url(CYTHON_UNUSED PyObjec
       __pyx_t_11 = 0;
 
       /* "canonicalize.pyx":126
- *     to use functions from urlparse4 instead!
+ *     to use functions from scurl instead!
  *     """
  *     try:             # <<<<<<<<<<<<<<
  *         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
@@ -3623,7 +3623,7 @@ static PyObject *__pyx_pf_12canonicalize_4canonicalize_url(CYTHON_UNUSED PyObjec
     __pyx_L5_except_error:;
 
     /* "canonicalize.pyx":126
- *     to use functions from urlparse4 instead!
+ *     to use functions from scurl instead!
  *     """
  *     try:             # <<<<<<<<<<<<<<
  *         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
@@ -4057,7 +4057,7 @@ static PyObject *__pyx_pf_12canonicalize_4canonicalize_url(CYTHON_UNUSED PyObjec
 
 /* Python wrapper */
 static PyObject *__pyx_pw_12canonicalize_7parse_url(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_12canonicalize_6parse_url[] = "Return urlparsed url from the given argument (which could be an already\n    parsed url)\n\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from urlparse4 instead!\n    ";
+static char __pyx_doc_12canonicalize_6parse_url[] = "Return urlparsed url from the given argument (which could be an already\n    parsed url)\n\n    NOTE: This function is from w3lib. However, it has been modified\n    to use functions from scurl instead!\n    ";
 static PyMethodDef __pyx_mdef_12canonicalize_7parse_url = {"parse_url", (PyCFunction)__pyx_pw_12canonicalize_7parse_url, METH_VARARGS|METH_KEYWORDS, __pyx_doc_12canonicalize_6parse_url};
 static PyObject *__pyx_pw_12canonicalize_7parse_url(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_url = 0;
@@ -4153,7 +4153,7 @@ static PyObject *__pyx_pf_12canonicalize_6parse_url(CYTHON_UNUSED PyObject *__py
   __Pyx_INCREF(__pyx_v_canonicalize_encoding);
 
   /* "canonicalize.pyx":188
- *     to use functions from urlparse4 instead!
+ *     to use functions from scurl instead!
  *     """
  *     if isinstance(url, tuple):             # <<<<<<<<<<<<<<
  *         return url
@@ -4176,7 +4176,7 @@ static PyObject *__pyx_pf_12canonicalize_6parse_url(CYTHON_UNUSED PyObject *__py
     goto __pyx_L0;
 
     /* "canonicalize.pyx":188
- *     to use functions from urlparse4 instead!
+ *     to use functions from scurl instead!
  *     """
  *     if isinstance(url, tuple):             # <<<<<<<<<<<<<<
  *         return url
@@ -5649,6 +5649,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_safe_ParseResult, __pyx_k_safe_ParseResult, sizeof(__pyx_k_safe_ParseResult), 0, 0, 1, 1},
   {&__pyx_n_s_safe_chars, __pyx_k_safe_chars, sizeof(__pyx_k_safe_chars), 0, 0, 1, 1},
   {&__pyx_n_s_scheme, __pyx_k_scheme, sizeof(__pyx_k_scheme), 0, 0, 1, 1},
+  {&__pyx_n_s_scurl, __pyx_k_scurl, sizeof(__pyx_k_scurl), 0, 0, 1, 1},
+  {&__pyx_kp_s_scurl_canonicalize_pyx, __pyx_k_scurl_canonicalize_pyx, sizeof(__pyx_k_scurl_canonicalize_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_six, __pyx_k_six, sizeof(__pyx_k_six), 0, 0, 1, 1},
   {&__pyx_n_s_six_moves_urllib_parse, __pyx_k_six_moves_urllib_parse, sizeof(__pyx_k_six_moves_urllib_parse), 0, 0, 1, 1},
   {&__pyx_n_s_sort, __pyx_k_sort, sizeof(__pyx_k_sort), 0, 0, 1, 1},
@@ -5674,8 +5676,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_urlencode, __pyx_k_urlencode, sizeof(__pyx_k_urlencode), 0, 0, 1, 1},
   {&__pyx_n_s_urllib_parse, __pyx_k_urllib_parse, sizeof(__pyx_k_urllib_parse), 0, 0, 1, 1},
   {&__pyx_n_s_urlparse, __pyx_k_urlparse, sizeof(__pyx_k_urlparse), 0, 0, 1, 1},
-  {&__pyx_n_s_urlparse4, __pyx_k_urlparse4, sizeof(__pyx_k_urlparse4), 0, 0, 1, 1},
-  {&__pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_k_urlparse4_canonicalize_pyx, sizeof(__pyx_k_urlparse4_canonicalize_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_urlunparse, __pyx_k_urlunparse, sizeof(__pyx_k_urlunparse), 0, 0, 1, 1},
   {&__pyx_n_s_urlunsplit, __pyx_k_urlunsplit, sizeof(__pyx_k_urlunsplit), 0, 0, 1, 1},
   {&__pyx_n_s_utf8, __pyx_k_utf8, sizeof(__pyx_k_utf8), 0, 0, 1, 1},
@@ -5797,7 +5797,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__30 = PyTuple_Pack(11, __pyx_n_s_qs, __pyx_n_s_keep_blank_values, __pyx_n_s_coerce_result, __pyx_n_s_pairs, __pyx_n_s_r, __pyx_n_s_name_value, __pyx_n_s_nv, __pyx_n_s_name_2, __pyx_n_s_value, __pyx_n_s_s1, __pyx_n_s_s2); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj_ = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_parse_qsl_to_bytes, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj_)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_codeobj_ = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_parse_qsl_to_bytes, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj_)) __PYX_ERR(0, 24, __pyx_L1_error)
 
   /* "canonicalize.pyx":67
  *         return r
@@ -5809,7 +5809,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__31 = PyTuple_Pack(4, __pyx_n_s_parts, __pyx_n_s_encoding, __pyx_n_s_path_encoding, __pyx_n_s_netloc); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_safe_ParseResult, 67, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_safe_ParseResult, 67, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 67, __pyx_L1_error)
 
   /* "canonicalize.pyx":93
  *     )
@@ -5821,7 +5821,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__32 = PyTuple_Pack(12, __pyx_n_s_url, __pyx_n_s_keep_blank_values, __pyx_n_s_keep_fragments, __pyx_n_s_encoding, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_path, __pyx_n_s_params, __pyx_n_s_query, __pyx_n_s_fragment, __pyx_n_s_e, __pyx_n_s_keyvals); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(4, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_canonicalize_url, 93, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(4, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_canonicalize_url, 93, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 93, __pyx_L1_error)
 
   /* "canonicalize.pyx":181
  *                                fragment))
@@ -5833,7 +5833,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__33 = PyTuple_Pack(3, __pyx_n_s_url, __pyx_n_s_canonicalize_encoding, __pyx_n_s_encoding); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_parse_url, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_parse_url, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 181, __pyx_L1_error)
 
   /* "canonicalize.pyx":195
  *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
@@ -5845,7 +5845,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__34 = PyTuple_Pack(2, __pyx_n_s_path, __pyx_n_s_reserved); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_unquotepath, 195, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_unquotepath, 195, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 195, __pyx_L1_error)
 
   /* "canonicalize.pyx":215
  * # https://github.com/scrapy/w3lib/blob/master/w3lib/util.py
@@ -5857,7 +5857,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__35 = PyTuple_Pack(3, __pyx_n_s_text, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_to_unicode, 215, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_to_unicode, 215, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 215, __pyx_L1_error)
 
   /* "canonicalize.pyx":227
  *     return text.decode(encoding, errors)
@@ -5869,7 +5869,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__36 = PyTuple_Pack(3, __pyx_n_s_text, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_to_bytes, 227, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_to_bytes, 227, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 227, __pyx_L1_error)
 
   /* "canonicalize.pyx":239
  *     return text.encode(encoding, errors)
@@ -5881,7 +5881,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__37 = PyTuple_Pack(3, __pyx_n_s_text, __pyx_n_s_encoding, __pyx_n_s_errors); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_urlparse4_canonicalize_pyx, __pyx_n_s_to_native_str, 239, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_to_native_str, 239, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6143,7 +6143,7 @@ if (!__Pyx_RefNanny) {
   /* "canonicalize.pyx":3
  * # cython: profile=True
  * 
- * from urlparse4 import urlparse             # <<<<<<<<<<<<<<
+ * from scurl import urlparse             # <<<<<<<<<<<<<<
  * 
  * import string
  */
@@ -6152,7 +6152,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_urlparse);
   __Pyx_GIVEREF(__pyx_n_s_urlparse);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_urlparse);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_urlparse4, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_scurl, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_urlparse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
@@ -6162,7 +6162,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "canonicalize.pyx":5
- * from urlparse4 import urlparse
+ * from scurl import urlparse
  * 
  * import string             # <<<<<<<<<<<<<<
  * import six
@@ -6520,7 +6520,7 @@ if (!__Pyx_RefNanny) {
   /* "canonicalize.pyx":1
  * # cython: profile=True             # <<<<<<<<<<<<<<
  * 
- * from urlparse4 import urlparse
+ * from scurl import urlparse
  */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);

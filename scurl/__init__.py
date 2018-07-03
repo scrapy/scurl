@@ -12,6 +12,6 @@ _original_urlparse = urlparse
 
 from cgurl import urlsplit, urljoin, urlparse
 """
-TODO: find some way to import parse_url
+TODO: find some way to not import parse_url
 """
 from canonicalize import canonicalize_url, parse_url

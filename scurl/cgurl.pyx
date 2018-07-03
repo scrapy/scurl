@@ -1,12 +1,12 @@
 # cython: profile=True
 
-from urlparse4.mozilla_url_parse cimport *
-from urlparse4.chromium_gurl cimport GURL
-from urlparse4.chromium_url_constant cimport *
-from urlparse4.chromium_url_util_internal cimport CompareSchemeComponent
-from urlparse4.chromium_url_util cimport IsStandard, Canonicalize
-from urlparse4.chromium_url_canon cimport CanonicalizePath
-from urlparse4.chromium_url_canon_stdstring cimport StdStringCanonOutput
+from scurl.mozilla_url_parse cimport *
+from scurl.chromium_gurl cimport GURL
+from scurl.chromium_url_constant cimport *
+from scurl.chromium_url_util_internal cimport CompareSchemeComponent
+from scurl.chromium_url_util cimport IsStandard, Canonicalize
+from scurl.chromium_url_canon cimport CanonicalizePath
+from scurl.chromium_url_canon_stdstring cimport StdStringCanonOutput
 
 import six
 from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
@@ -371,7 +371,7 @@ def urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
              canonicalize_encoding='utf-8'):
     """
     This function intends to replace urlparse from urllib
-    using urlsplit function from urlparse4 itself.
+    using urlsplit function from scurl itself.
     Can this function be further enhanced?
     """
     decode = not isinstance(url, bytes)

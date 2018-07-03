@@ -1,6 +1,6 @@
 # cython: profile=True
 
-from urlparse4 import urlparse
+from scurl import urlparse
 
 import string
 import six
@@ -67,7 +67,7 @@ if not six.PY2:
 def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
     """
     NOTE: This function is from w3lib. However, it has been modified
-    to use functions from urlparse4 instead!
+    to use functions from scurl instead!
     """
     # IDNA encoding can fail for too long labels (>63 characters)
     # or missing labels (e.g. http://.example.com)
@@ -121,7 +121,7 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
     For more examples, see the tests in `tests/test_url.py`.
 
     NOTE: This function is from w3lib. However, it has been modified
-    to use functions from urlparse4 instead!
+    to use functions from scurl instead!
     """
     try:
         scheme, netloc, path, params, query, fragment = _safe_ParseResult(
@@ -183,7 +183,7 @@ def parse_url(url, canonicalize_encoding='utf-8', encoding=None):
     parsed url)
 
     NOTE: This function is from w3lib. However, it has been modified
-    to use functions from urlparse4 instead!
+    to use functions from scurl instead!
     """
     if isinstance(url, tuple):
         return url

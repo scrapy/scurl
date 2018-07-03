@@ -1,4 +1,4 @@
-from urlparse4 import urlsplit, urljoin, urlparse
+from scurl import urlsplit, urljoin, urlparse
 from timeit import default_timer as timer
 
 import argparse
