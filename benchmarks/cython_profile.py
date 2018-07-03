@@ -8,7 +8,7 @@ import pyximport
 pyximport.install()
 
 import cgurl
-import urlparse4
+import scurl
 
 def run_urlparse(urls):
     for url in urls:
@@ -16,7 +16,7 @@ def run_urlparse(urls):
 
 def run_canonicalize(urls):
     for url in urls:
-        a = urlparse4.canonicalize_url(url)
+        a = scurl.canonicalize_url(url)
 
 def run_urlsplit(urls):
     for url in urls:
