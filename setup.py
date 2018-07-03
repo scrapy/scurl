@@ -3,39 +3,49 @@ import os
 
 VERSION = "0.1.3"
 
-extension = Extension(
-    name="cgurl",
-    sources=["urlparse4/cgurl.pyx",
-             "vendor/gurl/base/third_party/icu/icu_utf.cc",
-             "vendor/gurl/base/strings/string16.cc",
-             "vendor/gurl/base/strings/string_piece.cc",
-             "vendor/gurl/base/strings/string_util.cc",
-             "vendor/gurl/base/strings/utf_string_conversions.cc",
-             "vendor/gurl/base/strings/utf_string_conversion_utils.cc",
-             "vendor/gurl/url/gurl.cc",
-             "vendor/gurl/url/url_canon_etc.cc",
-             "vendor/gurl/url/url_canon_filesystemurl.cc",
-             "vendor/gurl/url/url_canon_fileurl.cc",
-             "vendor/gurl/url/url_canon_host.cc",
-             "vendor/gurl/url/url_canon_internal.cc",
-             "vendor/gurl/url/url_canon_ip.cc",
-             "vendor/gurl/url/url_canon_mailtourl.cc",
-             "vendor/gurl/url/url_canon_path.cc",
-             "vendor/gurl/url/url_canon_pathurl.cc",
-             "vendor/gurl/url/url_canon_query.cc",
-             "vendor/gurl/url/url_canon_relative.cc",
-             "vendor/gurl/url/url_canon_stdstring.cc",
-             "vendor/gurl/url/url_canon_stdurl.cc",
-             "vendor/gurl/url/url_constants.cc",
-             "vendor/gurl/url/url_parse_file.cc",
-             "vendor/gurl/url/url_util.cc",
-             "vendor/gurl/url/third_party/mozilla/url_parse.cc"
-             ],
-    language="c++",
-    extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
-                        "-fPIC", "-Ofast", "-pthread", "-w"],
-    extra_link_args=["-std=gnu++0x", "-w"],
-)
+extension = [
+    Extension(
+        name="cgurl",
+        sources=["urlparse4/cgurl.pyx",
+                 "vendor/gurl/base/third_party/icu/icu_utf.cc",
+                 "vendor/gurl/base/strings/string16.cc",
+                 "vendor/gurl/base/strings/string_piece.cc",
+                 "vendor/gurl/base/strings/string_util.cc",
+                 "vendor/gurl/base/strings/utf_string_conversions.cc",
+                 "vendor/gurl/base/strings/utf_string_conversion_utils.cc",
+                 "vendor/gurl/url/gurl.cc",
+                 "vendor/gurl/url/url_canon_etc.cc",
+                 "vendor/gurl/url/url_canon_filesystemurl.cc",
+                 "vendor/gurl/url/url_canon_fileurl.cc",
+                 "vendor/gurl/url/url_canon_host.cc",
+                 "vendor/gurl/url/url_canon_internal.cc",
+                 "vendor/gurl/url/url_canon_ip.cc",
+                 "vendor/gurl/url/url_canon_mailtourl.cc",
+                 "vendor/gurl/url/url_canon_path.cc",
+                 "vendor/gurl/url/url_canon_pathurl.cc",
+                 "vendor/gurl/url/url_canon_query.cc",
+                 "vendor/gurl/url/url_canon_relative.cc",
+                 "vendor/gurl/url/url_canon_stdstring.cc",
+                 "vendor/gurl/url/url_canon_stdurl.cc",
+                 "vendor/gurl/url/url_constants.cc",
+                 "vendor/gurl/url/url_parse_file.cc",
+                 "vendor/gurl/url/url_util.cc",
+                 "vendor/gurl/url/third_party/mozilla/url_parse.cc"
+                 ],
+        language="c++",
+        extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
+                            "-fPIC", "-Ofast", "-pthread", "-w"],
+        extra_link_args=["-std=gnu++0x", "-w"],
+    ),
+    Extension(
+        name="canonicalize",
+        sources=["urlparse4/canonicalize.pyx"],
+        language="c++",
+        extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
+                            "-fPIC", "-Ofast", "-pthread", "-w"],
+        extra_link_args=["-std=gnu++0x", "-w"],
+    )
+]
 
 
 if not os.path.isfile("urlparse4/cgurl.cpp"):
@@ -46,8 +56,9 @@ if not os.path.isfile("urlparse4/cgurl.cpp"):
         print("urlparse4/cgurl.cpp not found and Cython failed to run to recreate it. Please install/upgrade Cython and try again.")
         raise
 else:
-    ext_modules = [extension]
+    ext_modules = extension
     ext_modules[0].sources[0] = "urlparse4/cgurl.cpp"
+    ext_modules[1].sources[0] = "urlparse4/canonicalize.cpp"
 
 try:
     import pypandoc

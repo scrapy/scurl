@@ -17,6 +17,7 @@ cdef extern from "../vendor/gurl/url/third_party/mozilla/url_parse.h" namespace 
         Component query
         Component ref
 
+    cdef Component MakeRange(int begin, int end)
     cdef void ParseStandardURL(const char* url, int url_len, Parsed* parsed)
     cdef void ParseFileURL(const char* url, int url_len, Parsed* parsed)
     cdef void ParseMailtoURL(const char* url, int url_len, Parsed* parsed)

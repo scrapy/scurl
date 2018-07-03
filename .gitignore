@@ -16,4 +16,6 @@ nosetests.xml
 htmlcov
 .pytest_cache
 
+*.prof
+
 *egg-info
