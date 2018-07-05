@@ -6,7 +6,7 @@ VERSION = "0.1.3"
 
 extension = [
     Extension(
-        name="cgurl",
+        name="scurl.cgurl",
         sources=["scurl/cgurl.pyx",
                  "vendor/gurl/base/third_party/icu/icu_utf.cc",
                  "vendor/gurl/base/strings/string16.cc",
@@ -39,7 +39,7 @@ extension = [
         extra_link_args=["-std=gnu++0x", "-w"],
     ),
     Extension(
-        name="canonicalize",
+        name="scurl.canonicalize",
         sources=["scurl/canonicalize.pyx"],
         language="c++",
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
