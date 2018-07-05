@@ -11,13 +11,13 @@ matrix:
   include:
     - python: '3.6'
       env:
-        - TOXENV=py36-pure-cover,codecov
+        - TOXENV=py36-pure-cover
     - python: '3.6'
       env:
         - TOXENV=py36-pure-nocov
     - python: '3.6'
       env:
-        - TOXENV=py36-cython-cover,codecov
+        - TOXENV=py36-cython-cover
     - python: '3.6'
       env:
         - TOXENV=py36-cython-nocov
