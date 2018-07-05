@@ -21,6 +21,9 @@
             "-std=gnu++0x",
             "-w"
         ],
+        "include_dirs": [
+            "."
+        ],
         "language": "c++",
         "name": "scurl.canonicalize",
         "sources": [

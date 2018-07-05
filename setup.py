@@ -38,6 +38,7 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
+        include_dirs=['.']
     ),
     Extension(
         name="scurl.canonicalize",
@@ -46,6 +47,7 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
+        include_dirs=['.']
     )
 ]
 

@@ -31,7 +31,8 @@
             "-w"
         ],
         "include_dirs": [
-            "./scurl"
+            "./scurl",
+            "."
         ],
         "language": "c++",
         "name": "scurl.cgurl",
