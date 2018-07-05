@@ -1,5 +1,3 @@
-# based on https://github.com/ionelmc/python-hunter/blob/master/.travis.yml
-
 language: python
 sudo: false
 branches:
@@ -10,17 +8,7 @@ branches:
 matrix:
   include:
     - python: '3.6'
-      env:
-        - TOXENV=py36-pure-cover
-    - python: '3.6'
-      env:
-        - TOXENV=py36-pure-nocov
-    - python: '3.6'
-      env:
-        - TOXENV=py36-cython-cover
-    - python: '3.6'
-      env:
-        - TOXENV=py36-cython-nocov
+      env: TOXENV=py36
 install:
     - |
       if [ "$TOXENV" = "pypy" ]; then
