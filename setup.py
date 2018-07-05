@@ -70,7 +70,7 @@ except ImportError:
 
 setup(
     name="scurl",
-    packages=['scurl', 'scurl.cgurl', 'scurl.canonicalize'],
+    packages=find_packages(exclude=('tests', 'tests.*')),
     version=VERSION,
     description="",
     license="Apache License, Version 2.0",
