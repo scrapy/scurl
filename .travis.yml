@@ -1,3 +1,5 @@
+# based on https://github.com/ionelmc/python-hunter/blob/master/.travis.yml
+
 language: python
 sudo: false
 branches:
@@ -7,8 +9,18 @@ branches:
     - /^\d\.\d+\.\d+(rc\d+|\.dev\d+)?$/
 matrix:
   include:
-    - python: 3.6
-      env: TOXENV=py36
+    - python: '3.6'
+      env:
+        - TOXENV=py36-pure-cover,report,coveralls,codecov
+    - python: '3.6'
+      env:
+        - TOXENV=py36-pure-nocov
+    - python: '3.6'
+      env:
+        - TOXENV=py36-cython-cover,report,coveralls,codecov
+    - python: '3.6'
+      env:
+        - TOXENV=py36-cython-nocov
 install:
     - pip install -U pip tox Cython codecov
 script:
