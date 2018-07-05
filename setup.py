@@ -1,6 +1,7 @@
 from setuptools.extension import Extension
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
+from os.path import splitext
 
 VERSION = "0.1.3"
 
@@ -69,11 +70,9 @@ except ImportError:
 
 setup(
     name="scurl",
-    packages=['scurl'],
+    packages=['scurl', 'scurl.cgurl', 'scurl.canonicalize'],
     version=VERSION,
     description="",
-    author="",
-    author_email="",
     license="Apache License, Version 2.0",
     url="https://github.com/nctl144/scurl",
     keywords=["urlparse", "urlsplit", "urljoin", "url", "parser", "urlparser", "parsing", "gurl", "cython", "faster", "speed", "performance"],
