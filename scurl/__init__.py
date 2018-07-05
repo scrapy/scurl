@@ -10,8 +10,8 @@ _original_urlsplit = urlsplit
 _original_urljoin = urljoin
 _original_urlparse = urlparse
 
-from scurl.cgurl import urlsplit, urljoin, urlparse
+from cgurl import urlsplit, urljoin, urlparse
 """
 TODO: find some way to not import parse_url
 """
-from scurl.canonicalize import canonicalize_url, parse_url
+from canonicalize import canonicalize_url, parse_url
