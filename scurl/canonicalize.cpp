@@ -2797,12 +2797,12 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED
   /* "scurl/canonicalize.pyx":85
  * 
  *         # default encoding for path component SHOULD be UTF-8
- *         to_unicode(parts.path, path_encoding),             # <<<<<<<<<<<<<<
- *         to_unicode(parts.params, path_encoding),
+ *         to_native_str(parts.path, path_encoding),             # <<<<<<<<<<<<<<
+ *         to_native_str(parts.params, path_encoding),
  * 
  */
   __Pyx_TraceLine(85,0,__PYX_ERR(0, 85, __pyx_L1_error))
-  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_unicode); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_native_str); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_parts, __pyx_n_s_path); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -2856,13 +2856,13 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED
 
   /* "scurl/canonicalize.pyx":86
  *         # default encoding for path component SHOULD be UTF-8
- *         to_unicode(parts.path, path_encoding),
- *         to_unicode(parts.params, path_encoding),             # <<<<<<<<<<<<<<
+ *         to_native_str(parts.path, path_encoding),
+ *         to_native_str(parts.params, path_encoding),             # <<<<<<<<<<<<<<
  * 
  *         # encoding of query and fragment follows page encoding
  */
   __Pyx_TraceLine(86,0,__PYX_ERR(0, 86, __pyx_L1_error))
-  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_unicode); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_native_str); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_parts, __pyx_n_s_params); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -2917,12 +2917,12 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED
   /* "scurl/canonicalize.pyx":90
  *         # encoding of query and fragment follows page encoding
  *         # or form-charset (if known and passed)
- *         to_unicode(parts.query, encoding),             # <<<<<<<<<<<<<<
- *         to_unicode(parts.fragment, encoding)
+ *         to_native_str(parts.query, encoding),             # <<<<<<<<<<<<<<
+ *         to_native_str(parts.fragment, encoding)
  *     )
  */
   __Pyx_TraceLine(90,0,__PYX_ERR(0, 90, __pyx_L1_error))
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_unicode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_native_str); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_parts, __pyx_n_s_query); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -2976,13 +2976,13 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED
 
   /* "scurl/canonicalize.pyx":91
  *         # or form-charset (if known and passed)
- *         to_unicode(parts.query, encoding),
- *         to_unicode(parts.fragment, encoding)             # <<<<<<<<<<<<<<
+ *         to_native_str(parts.query, encoding),
+ *         to_native_str(parts.fragment, encoding)             # <<<<<<<<<<<<<<
  *     )
  * 
  */
   __Pyx_TraceLine(91,0,__PYX_ERR(0, 91, __pyx_L1_error))
-  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_unicode); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_native_str); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_parts, __pyx_n_s_fragment); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
