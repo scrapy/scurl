@@ -18,6 +18,7 @@ htmlcov
 
 *.prof
 
+.eggs
 *egg-info
 
 .DS_Store

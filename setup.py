@@ -1,11 +1,13 @@
-from distutils.core import setup, Extension
+from setuptools.extension import Extension
+from setuptools import setup, find_packages
 import os
+from os.path import splitext
 
 VERSION = "0.1.3"
 
 extension = [
     Extension(
-        name="cgurl",
+        name="scurl.cgurl",
         sources=["scurl/cgurl.pyx",
                  "vendor/gurl/base/third_party/icu/icu_utf.cc",
                  "vendor/gurl/base/strings/string16.cc",
@@ -36,14 +38,16 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
+        include_dirs=['.']
     ),
     Extension(
-        name="canonicalize",
+        name="scurl.canonicalize",
         sources=["scurl/canonicalize.pyx"],
         language="c++",
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
+        include_dirs=['.']
     )
 ]
 
@@ -68,11 +72,9 @@ except ImportError:
 
 setup(
     name="scurl",
-    packages=['scurl'],
+    packages=find_packages(exclude=('tests', 'tests.*')),
     version=VERSION,
     description="",
-    author="",
-    author_email="",
     license="Apache License, Version 2.0",
     url="https://github.com/nctl144/scurl",
     keywords=["urlparse", "urlsplit", "urljoin", "url", "parser", "urlparser", "parsing", "gurl", "cython", "faster", "speed", "performance"],
@@ -95,5 +97,7 @@ setup(
     ],
     long_description=long_description,
     ext_modules=ext_modules,
-    include_package_data=True
+    include_package_data=True,
+    setup_requires=["pytest-runner",],
+    tests_require=["pytest",],
 )

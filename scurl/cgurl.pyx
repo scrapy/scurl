@@ -1,4 +1,5 @@
-# cython: profile=True
+# cython: linetrace=True
+# distutils: define_macros=CYTHON_TRACE=1
 
 from scurl.mozilla_url_parse cimport *
 from scurl.chromium_gurl cimport GURL
@@ -14,7 +15,6 @@ from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
-import string as py_string
 
 cimport cython
 from libcpp.string cimport string

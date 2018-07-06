@@ -1,0 +1,9 @@
+[run]
+plugins = Cython.Coverage
+source = scurl/
+include = scurl/*
+omit =
+    tests/*
+    .eggs/*
+    benchmarks/*
+    setup.py
