@@ -1,5 +1,6 @@
-# https://github.com/scrapy/w3lib/blob/master/tests/test_url.py
+# -*- coding: utf-8 -*-
 
+# https://github.com/scrapy/w3lib/blob/master/tests/test_url.py
 import unittest
 import warnings
 import pytest

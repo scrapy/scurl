@@ -153,8 +153,13 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
         return password or None
     elif prop == "hostname":
         hostname = slice_component(url, parsed.host).lower()
-        if len(hostname) > 0 and chr(hostname[0]) == '[':
-            hostname = hostname[1:-1]
+        if len(hostname) > 0:
+            if six.PY2:
+                if hostname[0] == '[':
+                    hostname = hostname[1:-1]
+            else:
+                if chr(hostname[0]) == '[':
+                    hostname = hostname[1:-1]
         if decoded:
             return hostname.decode('utf-8') or None
         return hostname or None
@@ -329,14 +334,14 @@ class ParsedResultNamedTuple(tuple):
         if canonicalize and canonicalize_encoding != 'utf-8':
             if query:
                 try:
-                    query = query.decode().encode(canonicalize_encoding)
+                    query = query.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    pass
+                    print('Failed to encode query to the selected encoding!')
             if ref:
                 try:
-                    ref = ref.decode().encode(canonicalize_encoding)
+                    ref = ref.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    pass
+                    print('Failed to encode query to the selected encoding!')
 
         # cdef var cannot be wrapped inside if statement
         cdef Component query_comp = MakeRange(0, len(query))
