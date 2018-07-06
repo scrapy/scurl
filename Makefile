@@ -31,3 +31,6 @@ pypi: clean build_ext
 
 install:
 	python setup.py install
+
+develop:
+	python setup.py develop
