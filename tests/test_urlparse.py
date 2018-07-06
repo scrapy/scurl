@@ -158,7 +158,7 @@ class UrlParseTestCase(unittest.TestCase):
             self.assertEqual(result, expect_without_blanks,
                             "Error parsing %r" % orig)
 
-    @pytest.mark.xfail
+    @pytest.mark.xfail(reason="GURL failed to parse these schemes for now")
     def test_roundtrips(self):
         str_cases = [
             ('file:///tmp/junk.txt',
