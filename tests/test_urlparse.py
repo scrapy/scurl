@@ -5,6 +5,9 @@ import scurl
 import warnings
 import pytest
 
+if six.PY2:
+    pytest.skip("Env is python2, skipping python3 tests", allow_module_level=True)
+
 RFC1808_BASE = "http://a/b/c/d;p?q#f"
 RFC2396_BASE = "http://a/b/c/d;p?q"
 RFC3986_BASE = 'http://a/b/c/d;p?q'
