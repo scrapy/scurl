@@ -1,5 +1,8 @@
 # SCURL
 
+[![Build Status](https://travis-ci.org/nctl144/scurl.svg?branch=master)](https://travis-ci.org/nctl144/scurl)
+
+
 ## About SCURL
 
 First of all, we give special thanks to urlparse4 for being the repo that this library is based on
