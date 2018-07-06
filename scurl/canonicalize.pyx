@@ -82,13 +82,13 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
         to_native_str(netloc),
 
         # default encoding for path component SHOULD be UTF-8
-        to_unicode(parts.path, path_encoding),
-        to_unicode(parts.params, path_encoding),
+        to_native_str(parts.path, path_encoding),
+        to_native_str(parts.params, path_encoding),
 
         # encoding of query and fragment follows page encoding
         # or form-charset (if known and passed)
-        to_unicode(parts.query, encoding),
-        to_unicode(parts.fragment, encoding)
+        to_native_str(parts.query, encoding),
+        to_native_str(parts.fragment, encoding)
     )
 
 def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
