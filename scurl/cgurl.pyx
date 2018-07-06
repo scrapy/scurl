@@ -329,12 +329,12 @@ class ParsedResultNamedTuple(tuple):
         if canonicalize and canonicalize_encoding != 'utf-8':
             if query:
                 try:
-                    query = query.decode().encode(canonicalize_encoding)
+                    query = query.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
                     pass
             if ref:
                 try:
-                    ref = ref.decode().encode(canonicalize_encoding)
+                    ref = ref.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
                     pass
 
