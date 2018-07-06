@@ -4,6 +4,7 @@ import unittest
 import scurl
 import warnings
 import pytest
+import six
 
 if six.PY2:
     pytest.skip("Env is python2, skipping python3 tests", allow_module_level=True)
