@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nctl144/scurl.svg?branch=master)](https://travis-ci.org/nctl144/scurl)
 
+[![codecov](https://codecov.io/gh/nctl144/scurl/branch/master/graph/badge.svg)](https://codecov.io/gh/nctl144/scurl)
 
 ## About SCURL
 
