@@ -21,6 +21,7 @@ cimport cython
 from libcpp.string cimport string
 from libcpp cimport bool
 
+logger = logging.getLogger('scurl')
 
 uses_params = [b'', b'ftp', b'hdl',
                b'prospero', b'http', b'imap',
@@ -332,12 +333,12 @@ class ParsedResultNamedTuple(tuple):
                 try:
                     query = query.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    logging.debug('Failed to encode query to the selected encoding!')
+                    logger.debug('Failed to encode query to the selected encoding!')
             if ref:
                 try:
                     ref = ref.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    logging.debug('Failed to encode query to the selected encoding!')
+                    logger.debug('Failed to encode query to the selected encoding!')
 
         # cdef var cannot be wrapped inside if statement
         cdef Component query_comp = MakeRange(0, len(query))
