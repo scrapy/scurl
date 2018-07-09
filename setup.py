@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 from os.path import splitext
 
-VERSION = "0.1.3"
+VERSION = "0.1.0"
 
 extension = [
     Extension(
