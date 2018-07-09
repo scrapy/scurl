@@ -246,7 +246,6 @@ class UrlParseTestCase(unittest.TestCase):
             self.assertEqual(scurl.urlunsplit(scurl.urlsplit(u)), u)
             self.assertEqual(scurl.urlunparse(scurl.urlparse(u)), u)
 
-    @pytest.mark.xfail(reason='GURL failed to join http://a/b/c/d;p?q#f and " "')
     def test_RFC1808(self):
         # "normal" cases from RFC 1808:
         self.checkJoin(RFC1808_BASE, 'g:h', 'g:h')
@@ -273,7 +272,6 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(RFC1808_BASE, '../../g', 'http://a/g')
 
         # "abnormal" cases from RFC 1808:
-        self.checkJoin(RFC1808_BASE, '', 'http://a/b/c/d;p?q#f')
         self.checkJoin(RFC1808_BASE, 'g.', 'http://a/b/c/g.')
         self.checkJoin(RFC1808_BASE, '.g', 'http://a/b/c/.g')
         self.checkJoin(RFC1808_BASE, 'g..', 'http://a/b/c/g..')
@@ -983,6 +981,10 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(p1.path, '863-1234')
         self.assertEqual(p1.params, 'phone-context=+1-914-555')
 
+    @pytest.mark.xfail(reason='GURL failed to join http://a/b/c/d;p?q#f and " "')
+    def test_join_xfailed_RFC1808(self):
+        # "abnormal" cases from RFC 1808:
+        self.checkJoin(RFC1808_BASE, '', 'http://a/b/c/d;p?q#f')
 
 if __name__ == "__main__":
     unittest.main()
