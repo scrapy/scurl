@@ -302,7 +302,7 @@ class SplitResultNamedTuple(tuple):
 class ParsedResultNamedTuple(tuple):
     __slots__ = ()
 
-    def __new__(cls, char * url, input_scheme,
+    def __new__(cls, bytes url, input_scheme,
                 canonicalize, canonicalize_encoding, decoded=False):
 
         cdef Parsed parsed
