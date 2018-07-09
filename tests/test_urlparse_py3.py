@@ -1,4 +1,4 @@
-# https://github.com/python/cpython/blob/master/Lib/test/test_urlparse.py
+# https://github.com/python/cpython/blob/9863de0355caf23c44b708a5d68b603e135f7ae9/Lib/test/test_urlparse.py
 
 import unittest
 import scurl
