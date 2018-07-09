@@ -15,6 +15,7 @@ from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
+import logging
 
 cimport cython
 from libcpp.string cimport string
@@ -153,13 +154,8 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
         return password or None
     elif prop == "hostname":
         hostname = slice_component(url, parsed.host).lower()
-        if len(hostname) > 0:
-            if six.PY2:
-                if hostname[0] == '[':
-                    hostname = hostname[1:-1]
-            else:
-                if chr(hostname[0]) == '[':
-                    hostname = hostname[1:-1]
+        if len(hostname) > 0 and hostname[:1] == b'[':
+            hostname = hostname[1:-1]
         if decoded:
             return hostname.decode('utf-8') or None
         return hostname or None
@@ -336,12 +332,12 @@ class ParsedResultNamedTuple(tuple):
                 try:
                     query = query.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    print('Failed to encode query to the selected encoding!')
+                    logging.debug('Failed to encode query to the selected encoding!')
             if ref:
                 try:
                     ref = ref.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    print('Failed to encode query to the selected encoding!')
+                    logging.debug('Failed to encode query to the selected encoding!')
 
         # cdef var cannot be wrapped inside if statement
         cdef Component query_comp = MakeRange(0, len(query))
