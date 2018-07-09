@@ -4,6 +4,8 @@ if six.PY2:
     from urlparse import *
 else:
     from urllib.parse import *
+    # these cannot be imported in py34
+    from urllib.parse import DefragResult, SplitResult, ParseResult
 
 
 _original_urlsplit = urlsplit
