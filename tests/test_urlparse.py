@@ -455,7 +455,6 @@ class UrlParseTestCase(unittest.TestCase):
         # issue 23703: don't duplicate filename
         self.checkJoin('a', 'b', 'b')
 
-    @pytest.mark.xfail(reason='marked as failed for now, it does not raise exception for invalid urls')
     def test_RFC2732(self):
         str_cases = [
             ('http://Test.python.org:5432/foo/', 'test.python.org', 5432),
@@ -495,16 +494,6 @@ class UrlParseTestCase(unittest.TestCase):
         for url, hostname, port in str_cases + bytes_cases:
             urlparsed = scurl.urlparse(url)
             self.assertEqual((urlparsed.hostname, urlparsed.port) , (hostname, port))
-
-        str_cases = [
-                'http://::12.34.56.78]/',
-                'http://[::1/foo/',
-                'ftp://[::1/foo/bad]/bad',
-                'http://[::1/foo/bad]/bad',
-                'http://[::ffff:12.34.56.78']
-        bytes_cases = [x.encode('ascii') for x in str_cases]
-        for invalid_url in str_cases + bytes_cases:
-            self.assertRaises(ValueError, scurl.urlparse, invalid_url)
 
     def test_urldefrag(self):
         str_cases = [
@@ -985,6 +974,18 @@ class UrlParseTestCase(unittest.TestCase):
     def test_join_xfailed_RFC1808(self):
         # "abnormal" cases from RFC 1808:
         self.checkJoin(RFC1808_BASE, '', 'http://a/b/c/d;p?q#f')
+
+    @pytest.mark.xfail(reason='GURL havent handled invalid ipv6 urls yet')
+    def test_test_RFC2732_valueerror_not_raised(self):
+        str_cases = [
+                'http://::12.34.56.78]/',
+                'http://[::1/foo/',
+                'ftp://[::1/foo/bad]/bad',
+                'http://[::1/foo/bad]/bad',
+                'http://[::ffff:12.34.56.78']
+        bytes_cases = [x.encode('ascii') for x in str_cases]
+        for invalid_url in str_cases + bytes_cases:
+            self.assertRaises(ValueError, scurl.urlparse, invalid_url)
 
 if __name__ == "__main__":
     unittest.main()
