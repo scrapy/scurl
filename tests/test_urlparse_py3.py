@@ -5,9 +5,10 @@ import scurl
 import warnings
 import pytest
 import sys
+import six
 
-if sys.version_info < (3, 5):
-    pytest.skip("Env is python2 or python34, skipping python>=3.5 tests", allow_module_level=True)
+if six.PY2:
+    pytest.skip("Env is python2, skipping python3 tests", allow_module_level=True)
 
 RFC1808_BASE = "http://a/b/c/d;p?q#f"
 RFC2396_BASE = "http://a/b/c/d;p?q"
@@ -896,6 +897,8 @@ class UrlParseTestCase(unittest.TestCase):
         result = scurl.urlencode({'a': Trivial()}, True)
         self.assertEqual(result, 'a=trivial')
 
+    @pytest.mark.skipif(sys.version_info < (3,5),
+                        reason="quote_via is not implemented in py34")
     def test_urlencode_quote_via(self):
         result = scurl.urlencode({'a': 'some value'})
         self.assertEqual(result, "a=some+value")
