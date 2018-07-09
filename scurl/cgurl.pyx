@@ -15,11 +15,13 @@ from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
+import logging
 
 cimport cython
 from libcpp.string cimport string
 from libcpp cimport bool
 
+logger = logging.getLogger('scurl')
 
 uses_params = [b'', b'ftp', b'hdl',
                b'prospero', b'http', b'imap',
@@ -153,7 +155,7 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
         return password or None
     elif prop == "hostname":
         hostname = slice_component(url, parsed.host).lower()
-        if len(hostname) > 0 and chr(hostname[0]) == '[':
+        if len(hostname) > 0 and hostname[:1] == b'[':
             hostname = hostname[1:-1]
         if decoded:
             return hostname.decode('utf-8') or None
@@ -300,7 +302,7 @@ class SplitResultNamedTuple(tuple):
 class ParsedResultNamedTuple(tuple):
     __slots__ = ()
 
-    def __new__(cls, char * url, input_scheme,
+    def __new__(cls, bytes url, input_scheme,
                 canonicalize, canonicalize_encoding, decoded=False):
 
         cdef Parsed parsed
@@ -329,14 +331,14 @@ class ParsedResultNamedTuple(tuple):
         if canonicalize and canonicalize_encoding != 'utf-8':
             if query:
                 try:
-                    query = query.decode().encode(canonicalize_encoding)
+                    query = query.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    pass
+                    logger.debug('Failed to encode query to the selected encoding!')
             if ref:
                 try:
-                    ref = ref.decode().encode(canonicalize_encoding)
+                    ref = ref.decode('utf-8').encode(canonicalize_encoding)
                 except UnicodeEncodeError as e:
-                    pass
+                    logger.debug('Failed to encode query to the selected encoding!')
 
         # cdef var cannot be wrapped inside if statement
         cdef Component query_comp = MakeRange(0, len(query))
