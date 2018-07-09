@@ -4,10 +4,10 @@ import unittest
 import scurl
 import warnings
 import pytest
-import six
+import sys
 
-if six.PY2:
-    pytest.skip("Env is python2, skipping python3 tests", allow_module_level=True)
+if sys.version_info < (3, 5):
+    pytest.skip("Env is python2 or python34, skipping python>=3.5 tests", allow_module_level=True)
 
 RFC1808_BASE = "http://a/b/c/d;p?q#f"
 RFC2396_BASE = "http://a/b/c/d;p?q"
