@@ -11,7 +11,8 @@ logger = logging.getLogger('scurl')
 try:
     from Cython.Compiler import Options as CythonOptions
 except ImportError as e:
-    pass
+    logger.debug('Cython is not installed on your env.\
+                  Please get the latest version of Cython and try again!')
 
 try:
     if (os.environ['TOX'] == 'true' and
@@ -22,8 +23,9 @@ try:
         cython_defaults['linetrace'] = True
         logger.warning('Warning: Enabling line tracing in Cython extension.\
                         This will make the performance of the library less effective!')
-except KeyError:
-    pass
+except KeyError as e:
+    logger.debug('The current environment is not TOX,\
+                  linetrace in Cython will not be enabled')
 
 extension = [
     Extension(
@@ -78,7 +80,7 @@ if not os.path.isfile("scurl/cgurl.cpp"):
     try:
         from Cython.Build import cythonize
         ext_modules = cythonize(extension, annotate=True)
-    except:
+    except ImportError:
         print("scurl/cgurl.cpp not found and Cython failed to run to recreate it. Please install/upgrade Cython and try again.")
         raise
 else:
