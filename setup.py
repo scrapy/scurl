@@ -2,8 +2,29 @@ from setuptools.extension import Extension
 from setuptools import setup, find_packages
 import os
 from os.path import splitext
+import logging
 
 VERSION = "0.1.0"
+ext_macros = []
+logger = logging.getLogger('scurl')
+
+try:
+    from Cython.Compiler import Options as CythonOptions
+except ImportError as e:
+    pass
+
+print(os.environ)
+
+try:
+    if ((os.environ['TOX'] == 'true' or os.environ['TRAVIS'] == 'true') and
+         (os.environ['TOX_PYPY'] != 'true')):
+        ext_macros.append(('CYTHON_TRACE', '1'))
+        cython_defaults = CythonOptions.get_directive_defaults()
+        cython_defaults['linetrace'] = True
+        logger.warning('Warning: Enabling line tracing in Cython extension.\
+                        This will make the performance of the library less effective!')
+except KeyError:
+    pass
 
 extension = [
     Extension(
@@ -38,7 +59,8 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
-        include_dirs=['.']
+        include_dirs=['.'],
+        define_macros=ext_macros
     ),
     Extension(
         name="scurl.canonicalize",
@@ -47,7 +69,8 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
-        include_dirs=['.']
+        include_dirs=['.'],
+        define_macros=ext_macros
     )
 ]
 
