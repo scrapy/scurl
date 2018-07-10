@@ -1,4 +1,4 @@
-# https://github.com/python/cpython/blob/2.7/Lib/test/test_urlparse.py
+# https://github.com/python/cpython/blob/789f95ac9784036741fb04257bdc52e96e80685a/Lib/test/test_urlparse.py
 
 from test import test_support
 import unittest

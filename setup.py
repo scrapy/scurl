@@ -2,8 +2,27 @@ from setuptools.extension import Extension
 from setuptools import setup, find_packages
 import os
 from os.path import splitext
+import logging
+import platform
 
-VERSION = "0.1.3"
+VERSION = "0.1.0"
+ext_macros = []
+logger = logging.getLogger('scurl')
+
+try:
+    from Cython.Compiler import Options as CythonOptions
+except ImportError as e:
+    logger.debug('Cython is not installed on your env.\
+                  Please get the latest version of Cython and try again!')
+
+if os.environ.get('CYTHON_TRACE'):
+    if platform.python_implementation() != 'PyPy':
+        # enable linetrace in Cython
+        ext_macros.append(('CYTHON_TRACE', '1'))
+        cython_defaults = CythonOptions.get_directive_defaults()
+        cython_defaults['linetrace'] = True
+        logger.warning('Warning: Enabling line tracing in Cython extension.\
+                        This will make the performance of the library less effective!')
 
 extension = [
     Extension(
@@ -38,7 +57,8 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
-        include_dirs=['.']
+        include_dirs=['.'],
+        define_macros=ext_macros
     ),
     Extension(
         name="scurl.canonicalize",
@@ -47,7 +67,8 @@ extension = [
         extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
         extra_link_args=["-std=gnu++0x", "-w"],
-        include_dirs=['.']
+        include_dirs=['.'],
+        define_macros=ext_macros
     )
 ]
 
@@ -56,7 +77,7 @@ if not os.path.isfile("scurl/cgurl.cpp"):
     try:
         from Cython.Build import cythonize
         ext_modules = cythonize(extension, annotate=True)
-    except:
+    except ImportError:
         print("scurl/cgurl.cpp not found and Cython failed to run to recreate it. Please install/upgrade Cython and try again.")
         raise
 else:
@@ -81,15 +102,13 @@ setup(
     platforms='any',
     classifiers=[
         "Programming Language :: Python",
+        'Programming Language :: Python :: 2',
         "Programming Language :: Python :: 2.7",
-        # 'Development Status :: 1 - Planning',
-        # 'Development Status :: 2 - Pre-Alpha',
-        'Development Status :: 3 - Alpha',
-        # 'Development Status :: 4 - Beta',
-        # 'Development Status :: 5 - Production/Stable',
-        # 'Development Status :: 6 - Mature',
-        # 'Development Status :: 7 - Inactive',
-        "Environment :: Other Environment",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
@@ -98,6 +117,5 @@ setup(
     long_description=long_description,
     ext_modules=ext_modules,
     include_package_data=True,
-    setup_requires=["pytest-runner",],
-    tests_require=["pytest",],
+    zip_safe=False
 )

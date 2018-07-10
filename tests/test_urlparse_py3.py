@@ -1,9 +1,10 @@
-# https://github.com/python/cpython/blob/master/Lib/test/test_urlparse.py
+# https://github.com/python/cpython/blob/9863de0355caf23c44b708a5d68b603e135f7ae9/Lib/test/test_urlparse.py
 
 import unittest
 import scurl
 import warnings
 import pytest
+import sys
 import six
 
 if six.PY2:
@@ -896,6 +897,8 @@ class UrlParseTestCase(unittest.TestCase):
         result = scurl.urlencode({'a': Trivial()}, True)
         self.assertEqual(result, 'a=trivial')
 
+    @pytest.mark.skipif(sys.version_info < (3,5),
+                        reason="quote_via is not implemented in py34")
     def test_urlencode_quote_via(self):
         result = scurl.urlencode({'a': 'some value'})
         self.assertEqual(result, "a=some+value")
