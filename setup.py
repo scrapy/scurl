@@ -109,8 +109,10 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: Cython',
+        'Programming Language :: Python :: Implementation :: PyPy',
         "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries"
     ],
     long_description=long_description,
