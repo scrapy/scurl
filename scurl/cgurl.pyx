@@ -135,7 +135,8 @@ cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=Fals
             try:
                 port = int(port, 10)
             except ValueError:
-                message = f'Port could not be cast to integer value as {port!r}'
+                # change to format() to support pypy
+                message = 'Port could not be cast to integer value as {}'.format(repr(port))
                 raise ValueError(message) from None
             if not ( 0 <= port <= 65535):
                 raise ValueError("Port out of range 0-65535")
