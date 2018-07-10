@@ -13,8 +13,6 @@ try:
 except ImportError as e:
     pass
 
-print(os.environ)
-
 try:
     if (os.environ['TOX'] == 'true' and
         os.environ['TOX_PYPY'] != 'true'):
