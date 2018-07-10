@@ -93,5 +93,6 @@ setup(
     ],
     long_description=long_description,
     ext_modules=ext_modules,
-    include_package_data=True
+    include_package_data=True,
+    zip_safe=False
 )
