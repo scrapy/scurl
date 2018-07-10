@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 import os
 from os.path import splitext
 import logging
+import platform
 
 VERSION = "0.1.0"
 ext_macros = []
@@ -15,8 +16,7 @@ except ImportError as e:
                   Please get the latest version of Cython and try again!')
 
 try:
-    if (os.environ['TOX'] == 'true' and
-        os.environ['TOX_PYPY'] != 'true'):
+    if platform.python_implementation() != 'PyPy':
         # enable linetrace in Cython
         ext_macros.append(('CYTHON_TRACE', '1'))
         cython_defaults = CythonOptions.get_directive_defaults()
