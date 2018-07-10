@@ -15,18 +15,14 @@ except ImportError as e:
     logger.debug('Cython is not installed on your env.\
                   Please get the latest version of Cython and try again!')
 
-try:
-    if os.environ['CYTHON_TRACE']:
-        if platform.python_implementation() != 'PyPy':
-            # enable linetrace in Cython
-            ext_macros.append(('CYTHON_TRACE', '1'))
-            cython_defaults = CythonOptions.get_directive_defaults()
-            cython_defaults['linetrace'] = True
-            logger.warning('Warning: Enabling line tracing in Cython extension.\
-                            This will make the performance of the library less effective!')
-except KeyError as e:
-    logger.debug('The current environment is not TOX,\
-                  linetrace in Cython will not be enabled')
+if os.environ.get('CYTHON_TRACE'):
+    if platform.python_implementation() != 'PyPy':
+        # enable linetrace in Cython
+        ext_macros.append(('CYTHON_TRACE', '1'))
+        cython_defaults = CythonOptions.get_directive_defaults()
+        cython_defaults['linetrace'] = True
+        logger.warning('Warning: Enabling line tracing in Cython extension.\
+                        This will make the performance of the library less effective!')
 
 extension = [
     Extension(
