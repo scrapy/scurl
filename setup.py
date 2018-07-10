@@ -16,8 +16,9 @@ except ImportError as e:
 print(os.environ)
 
 try:
-    if ((os.environ['TOX'] == 'true' or os.environ['TRAVIS'] == 'true') and
-         (os.environ['TOX_PYPY'] != 'true')):
+    if (os.environ['TOX'] == 'true' and
+        os.environ['TOX_PYPY'] != 'true'):
+        # enable linetrace in Cython
         ext_macros.append(('CYTHON_TRACE', '1'))
         cython_defaults = CythonOptions.get_directive_defaults()
         cython_defaults['linetrace'] = True
