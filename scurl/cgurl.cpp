@@ -4,24 +4,24 @@
 {
     "distutils": {
         "depends": [
-            "vendor/gurl/url/gurl.h",
-            "vendor/gurl/url/third_party/mozilla/url_parse.h",
-            "vendor/gurl/url/url_canon.h",
-            "vendor/gurl/url/url_canon_stdstring.h",
-            "vendor/gurl/url/url_constants.h",
-            "vendor/gurl/url/url_util.h",
-            "vendor/gurl/url/url_util_internal.h"
+            "vendor/chromium/url/gurl.h",
+            "vendor/chromium/url/third_party/mozilla/url_parse.h",
+            "vendor/chromium/url/url_canon.h",
+            "vendor/chromium/url/url_canon_stdstring.h",
+            "vendor/chromium/url/url_constants.h",
+            "vendor/chromium/url/url_util.h",
+            "vendor/chromium/url/url_util_internal.h"
         ],
         "extra_compile_args": [
-            "-std=gnu++0x",
-            "-I./vendor/gurl/",
+            "-std=c++14",
+            "-I./vendor/chromium/",
             "-fPIC",
             "-Ofast",
             "-pthread",
             "-w"
         ],
         "extra_link_args": [
-            "-std=gnu++0x",
+            "-std=c++14",
             "-w"
         ],
         "include_dirs": [
@@ -32,30 +32,30 @@
         "name": "scurl.cgurl",
         "sources": [
             "scurl/cgurl.pyx",
-            "vendor/gurl/base/third_party/icu/icu_utf.cc",
-            "vendor/gurl/base/strings/string16.cc",
-            "vendor/gurl/base/strings/string_piece.cc",
-            "vendor/gurl/base/strings/string_util.cc",
-            "vendor/gurl/base/strings/utf_string_conversions.cc",
-            "vendor/gurl/base/strings/utf_string_conversion_utils.cc",
-            "vendor/gurl/url/gurl.cc",
-            "vendor/gurl/url/url_canon_etc.cc",
-            "vendor/gurl/url/url_canon_filesystemurl.cc",
-            "vendor/gurl/url/url_canon_fileurl.cc",
-            "vendor/gurl/url/url_canon_host.cc",
-            "vendor/gurl/url/url_canon_internal.cc",
-            "vendor/gurl/url/url_canon_ip.cc",
-            "vendor/gurl/url/url_canon_mailtourl.cc",
-            "vendor/gurl/url/url_canon_path.cc",
-            "vendor/gurl/url/url_canon_pathurl.cc",
-            "vendor/gurl/url/url_canon_query.cc",
-            "vendor/gurl/url/url_canon_relative.cc",
-            "vendor/gurl/url/url_canon_stdstring.cc",
-            "vendor/gurl/url/url_canon_stdurl.cc",
-            "vendor/gurl/url/url_constants.cc",
-            "vendor/gurl/url/url_parse_file.cc",
-            "vendor/gurl/url/url_util.cc",
-            "vendor/gurl/url/third_party/mozilla/url_parse.cc"
+            "vendor/chromium/base/third_party/icu/icu_utf.cc",
+            "vendor/chromium/base/strings/string16.cc",
+            "vendor/chromium/base/strings/string_piece.cc",
+            "vendor/chromium/base/strings/string_util.cc",
+            "vendor/chromium/base/strings/utf_string_conversions.cc",
+            "vendor/chromium/base/strings/utf_string_conversion_utils.cc",
+            "vendor/chromium/url/gurl.cc",
+            "vendor/chromium/url/url_canon_etc.cc",
+            "vendor/chromium/url/url_canon_filesystemurl.cc",
+            "vendor/chromium/url/url_canon_fileurl.cc",
+            "vendor/chromium/url/url_canon_host.cc",
+            "vendor/chromium/url/url_canon_internal.cc",
+            "vendor/chromium/url/url_canon_ip.cc",
+            "vendor/chromium/url/url_canon_mailtourl.cc",
+            "vendor/chromium/url/url_canon_path.cc",
+            "vendor/chromium/url/url_canon_pathurl.cc",
+            "vendor/chromium/url/url_canon_query.cc",
+            "vendor/chromium/url/url_canon_relative.cc",
+            "vendor/chromium/url/url_canon_stdstring.cc",
+            "vendor/chromium/url/url_canon_stdurl.cc",
+            "vendor/chromium/url/url_constants.cc",
+            "vendor/chromium/url/url_parse_file.cc",
+            "vendor/chromium/url/url_util.cc",
+            "vendor/chromium/url/third_party/mozilla/url_parse.cc"
         ]
     },
     "module_name": "scurl.cgurl"
@@ -638,19 +638,19 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE__scurl__cgurl
 #define __PYX_HAVE_API__scurl__cgurl
 /* Early includes */
-#include "../vendor/gurl/url/third_party/mozilla/url_parse.h"
+#include "../vendor/chromium/url/third_party/mozilla/url_parse.h"
 #include <string.h>
 #include "ios"
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
 #include <string>
-#include "../vendor/gurl/url/gurl.h"
-#include "../vendor/gurl/url/url_constants.h"
-#include "../vendor/gurl/url/url_util_internal.h"
-#include "../vendor/gurl/url/url_canon_stdstring.h"
-#include "../vendor/gurl/url/url_canon.h"
-#include "../vendor/gurl/url/url_util.h"
+#include "../vendor/chromium/url/gurl.h"
+#include "../vendor/chromium/url/url_constants.h"
+#include "../vendor/chromium/url/url_util_internal.h"
+#include "../vendor/chromium/url/url_canon_stdstring.h"
+#include "../vendor/chromium/url/url_canon.h"
+#include "../vendor/chromium/url/url_util.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */

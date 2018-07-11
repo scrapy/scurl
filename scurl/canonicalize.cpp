@@ -4,15 +4,15 @@
 {
     "distutils": {
         "extra_compile_args": [
-            "-std=gnu++0x",
-            "-I./vendor/gurl/",
+            "-std=c++14",
+            "-I./vendor/chromium/",
             "-fPIC",
             "-Ofast",
             "-pthread",
             "-w"
         ],
         "extra_link_args": [
-            "-std=gnu++0x",
+            "-std=c++14",
             "-w"
         ],
         "include_dirs": [
