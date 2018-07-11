@@ -1,7 +1,7 @@
 from libcpp cimport bool
 
 
-cdef extern from "../vendor/gurl/url/third_party/mozilla/url_parse.h" namespace "url":
+cdef extern from "../vendor/chromium/url/third_party/mozilla/url_parse.h" namespace "url":
     cdef struct Component:
         int begin
         int len

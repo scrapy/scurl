@@ -5,7 +5,7 @@ from libcpp cimport bool
 from mozilla_url_parse cimport Component, Parsed
 
 
-cdef extern from "../vendor/gurl/url/url_constants.h" namespace "url":
+cdef extern from "../vendor/chromium/url/url_constants.h" namespace "url":
 
     extern const char kAboutBlankURL[];
 
