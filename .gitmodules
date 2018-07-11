@@ -1,6 +1,6 @@
-[submodule "vendor/chromium/url"]
-	path = vendor/chromium/url
+[submodule "third_party/chromium/url"]
+	path = third_party/chromium/url
 	url = https://chromium.googlesource.com/chromium/src/url/
-[submodule "vendor/chromium/base"]
-	path = vendor/chromium/base
+[submodule "third_party/chromium/base"]
+	path = third_party/chromium/base
 	url = https://chromium.googlesource.com/chromium/src/base/

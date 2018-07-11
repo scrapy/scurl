@@ -3,7 +3,7 @@ from mozilla_url_parse cimport Component, Parsed
 from chromium_url_canon_stdstring cimport StdStringCanonOutput
 
 
-cdef extern from "../vendor/chromium/url/url_canon.h" namespace "url":
+cdef extern from "../third_party/chromium/url/url_canon.h" namespace "url":
     cdef cppclass CanonOutputT:
         pass
 

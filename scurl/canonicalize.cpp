@@ -5,7 +5,7 @@
     "distutils": {
         "extra_compile_args": [
             "-std=c++14",
-            "-I./vendor/chromium/",
+            "-I./third_party/chromium/",
             "-fPIC",
             "-Ofast",
             "-pthread",
