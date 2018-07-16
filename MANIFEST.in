@@ -1,4 +1,4 @@
-recursive-include vendor *.cpp *.h *.cc
+recursive-include third_party *.cpp *.h *.cc
 recursive-include scurl *.pxd *.pyx *.cpp
 include README.md
 include LICENSE
