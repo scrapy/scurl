@@ -32,12 +32,6 @@
         "name": "scurl.cgurl",
         "sources": [
             "scurl/cgurl.pyx",
-            "third_party/chromium/base/third_party/icu/icu_utf.cc",
-            "third_party/chromium/base/strings/string16.cc",
-            "third_party/chromium/base/strings/string_piece.cc",
-            "third_party/chromium/base/strings/string_util.cc",
-            "third_party/chromium/base/strings/utf_string_conversions.cc",
-            "third_party/chromium/base/strings/utf_string_conversion_utils.cc",
             "third_party/chromium/url/gurl.cc",
             "third_party/chromium/url/url_canon_etc.cc",
             "third_party/chromium/url/url_canon_filesystemurl.cc",

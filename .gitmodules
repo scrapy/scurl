@@ -6,3 +6,6 @@
 	path = third_party/chromium/base
 	url = https://github.com/nctl144/base-chromium
 	branch = scurl
+[submodule "third_party/chromium/testing"]
+	path = third_party/chromium/testing
+	url = https://chromium.googlesource.com/chromium/src/testing

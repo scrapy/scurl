@@ -27,12 +27,12 @@ if os.environ.get('CYTHON_TRACE'):
 
 ext_sources = [
     "scurl/cgurl.pyx",
-    "third_party/chromium/base/third_party/icu/icu_utf.cc",
-    "third_party/chromium/base/strings/string16.cc",
-    "third_party/chromium/base/strings/string_piece.cc",
-    "third_party/chromium/base/strings/string_util.cc",
-    "third_party/chromium/base/strings/utf_string_conversions.cc",
-    "third_party/chromium/base/strings/utf_string_conversion_utils.cc",
+    # "third_party/chromium/base/third_party/icu/icu_utf.cc",
+    # "third_party/chromium/base/strings/string16.cc",
+    # "third_party/chromium/base/strings/string_piece.cc",
+    # "third_party/chromium/base/strings/string_util.cc",
+    # "third_party/chromium/base/strings/utf_string_conversions.cc",
+    # "third_party/chromium/base/strings/utf_string_conversion_utils.cc",
     "third_party/chromium/url/gurl.cc",
     "third_party/chromium/url/url_canon_etc.cc",
     "third_party/chromium/url/url_canon_filesystemurl.cc",
@@ -53,10 +53,9 @@ ext_sources = [
     "third_party/chromium/url/third_party/mozilla/url_parse.cc"
 ]
 
-# ext_sources.extend(
-#     glob("third_party/chromium/url/*.cc") +
-#     glob("third_party/chromium/url/third_party/mozilla/*.cc")
-# )
+ext_sources.extend(
+    glob("third_party/chromium/base/**/*.cc", recursive=True)
+)
 
 extension = [
     Extension(
