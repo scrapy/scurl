@@ -33,28 +33,29 @@ ext_sources = [
     # "third_party/chromium/base/strings/string_util.cc",
     # "third_party/chromium/base/strings/utf_string_conversions.cc",
     # "third_party/chromium/base/strings/utf_string_conversion_utils.cc",
-    "third_party/chromium/url/gurl.cc",
-    "third_party/chromium/url/url_canon_etc.cc",
-    "third_party/chromium/url/url_canon_filesystemurl.cc",
-    "third_party/chromium/url/url_canon_fileurl.cc",
-    "third_party/chromium/url/url_canon_host.cc",
-    "third_party/chromium/url/url_canon_internal.cc",
-    "third_party/chromium/url/url_canon_ip.cc",
-    "third_party/chromium/url/url_canon_mailtourl.cc",
-    "third_party/chromium/url/url_canon_path.cc",
-    "third_party/chromium/url/url_canon_pathurl.cc",
-    "third_party/chromium/url/url_canon_query.cc",
-    "third_party/chromium/url/url_canon_relative.cc",
-    "third_party/chromium/url/url_canon_stdstring.cc",
-    "third_party/chromium/url/url_canon_stdurl.cc",
-    "third_party/chromium/url/url_constants.cc",
-    "third_party/chromium/url/url_parse_file.cc",
-    "third_party/chromium/url/url_util.cc",
-    "third_party/chromium/url/third_party/mozilla/url_parse.cc"
+    # "third_party/chromium/url/gurl.cc",
+    # "third_party/chromium/url/url_canon_etc.cc",
+    # "third_party/chromium/url/url_canon_filesystemurl.cc",
+    # "third_party/chromium/url/url_canon_fileurl.cc",
+    # "third_party/chromium/url/url_canon_host.cc",
+    # "third_party/chromium/url/url_canon_internal.cc",
+    # "third_party/chromium/url/url_canon_ip.cc",
+    # "third_party/chromium/url/url_canon_mailtourl.cc",
+    # "third_party/chromium/url/url_canon_path.cc",
+    # "third_party/chromium/url/url_canon_pathurl.cc",
+    # "third_party/chromium/url/url_canon_query.cc",
+    # "third_party/chromium/url/url_canon_relative.cc",
+    # "third_party/chromium/url/url_canon_stdstring.cc",
+    # "third_party/chromium/url/url_canon_stdurl.cc",
+    # "third_party/chromium/url/url_constants.cc",
+    # "third_party/chromium/url/url_parse_file.cc",
+    # "third_party/chromium/url/url_util.cc",
+    # "third_party/chromium/url/third_party/mozilla/url_parse.cc"
 ]
 
 ext_sources.extend(
-    glob("third_party/chromium/base/**/*.cc", recursive=True)
+    glob("third_party/chromium/base/**/*.cc", recursive=True) +
+    glob("third_party/chromium/url/**/*.cc", recursive=True)
 )
 
 extension = [
