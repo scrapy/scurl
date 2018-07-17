@@ -41,6 +41,7 @@
             "third_party/chromium/url/url_canon_relative.cc",
             "third_party/chromium/url/url_canon_filesystemurl.cc",
             "third_party/chromium/url/url_canon_pathurl.cc",
+            "third_party/chromium/url/url_canon.cc",
             "third_party/chromium/url/url_canon_ip.cc",
             "third_party/chromium/url/url_canon_stdstring.cc",
             "third_party/chromium/url/url_canon_mailtourl.cc",

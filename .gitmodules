@@ -1,11 +1,6 @@
 [submodule "third_party/chromium/url"]
 	path = third_party/chromium/url
 	url = https://github.com/nctl144/url-chromium
-	branch = scurl
 [submodule "third_party/chromium/base"]
 	path = third_party/chromium/base
 	url = https://github.com/nctl144/base-chromium
-	branch = scurl
-[submodule "third_party/chromium/third_party"]
-	path = third_party/chromium/third_party
-	url = https://chromium.googlesource.com/chromium/src/third_party/
