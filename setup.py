@@ -54,7 +54,7 @@ ext_sources = [
 ]
 
 ext_sources.extend(
-    glob("third_party/chromium/base/**/*.cc", recursive=True) +
+    glob("third_party/chromium/base/**/*.cc", recursive=True) + 
     glob("third_party/chromium/url/**/*.cc", recursive=True)
 )
 
