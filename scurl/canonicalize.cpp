@@ -4,7 +4,7 @@
 {
     "distutils": {
         "extra_compile_args": [
-            "-std=c++14",
+            "-std=gnu++14",
             "-I./third_party/chromium/",
             "-fPIC",
             "-Ofast",
@@ -12,7 +12,7 @@
             "-w"
         ],
         "extra_link_args": [
-            "-std=c++14",
+            "-std=gnu++14",
             "-w"
         ],
         "include_dirs": [

@@ -13,15 +13,16 @@
             "third_party/chromium/url/url_util_internal.h"
         ],
         "extra_compile_args": [
-            "-std=c++14",
+            "-std=gnu++14",
             "-I./third_party/chromium/",
             "-fPIC",
             "-Ofast",
             "-pthread",
-            "-w"
+            "-w",
+            "-DU_COMMON_IMPLEMENTATION"
         ],
         "extra_link_args": [
-            "-std=c++14",
+            "-std=gnu++14",
             "-w"
         ],
         "include_dirs": [
@@ -33,24 +34,24 @@
         "sources": [
             "scurl/cgurl.pyx",
             "third_party/chromium/base/strings/string_util_constants.cc",
+            "third_party/chromium/url/gurl.cc",
             "third_party/chromium/url/url_canon_etc.cc",
-            "third_party/chromium/url/url_util.cc",
+            "third_party/chromium/url/url_canon_icu.cc",
+            "third_party/chromium/url/url_canon_filesystemurl.cc",
+            "third_party/chromium/url/url_canon_fileurl.cc",
             "third_party/chromium/url/url_canon_host.cc",
-            "third_party/chromium/url/url_constants.cc",
+            "third_party/chromium/url/url_canon_internal.cc",
+            "third_party/chromium/url/url_canon_ip.cc",
+            "third_party/chromium/url/url_canon_mailtourl.cc",
+            "third_party/chromium/url/url_canon_path.cc",
+            "third_party/chromium/url/url_canon_pathurl.cc",
             "third_party/chromium/url/url_canon_query.cc",
             "third_party/chromium/url/url_canon_relative.cc",
-            "third_party/chromium/url/url_canon_filesystemurl.cc",
-            "third_party/chromium/url/url_canon_pathurl.cc",
-            "third_party/chromium/url/url_canon.cc",
-            "third_party/chromium/url/url_canon_ip.cc",
             "third_party/chromium/url/url_canon_stdstring.cc",
-            "third_party/chromium/url/url_canon_mailtourl.cc",
-            "third_party/chromium/url/url_canon_fileurl.cc",
             "third_party/chromium/url/url_canon_stdurl.cc",
-            "third_party/chromium/url/gurl.cc",
-            "third_party/chromium/url/url_canon_path.cc",
-            "third_party/chromium/url/url_canon_internal.cc",
+            "third_party/chromium/url/url_constants.cc",
             "third_party/chromium/url/url_parse_file.cc",
+            "third_party/chromium/url/url_util.cc",
             "third_party/chromium/url/third_party/mozilla/url_parse.cc"
         ]
     },
