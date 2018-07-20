@@ -47,6 +47,7 @@ addons:
     - g++-6
 before_install: sudo apt-get update -qq
 script:
+  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
   - g++-6 --version
   - tox
 after_success:
