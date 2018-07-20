@@ -47,7 +47,9 @@ addons:
 before_install: sudo apt-get update -qq
 script:
   - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/gcc
   - gcc --version
+  - g++ --version
   - tox
 after_success:
   - codecov
