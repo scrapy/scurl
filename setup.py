@@ -64,9 +64,9 @@ extension = [
         name="scurl.cgurl",
         sources=ext_sources,
         language="c++",
-        extra_compile_args=["-std=gnu++14", "-I./third_party/chromium/",
+        extra_compile_args=["-std=c++14", "-I./third_party/chromium/",
                             "-fPIC", "-Ofast", "-pthread", "-w", '-DU_COMMON_IMPLEMENTATION'],
-        extra_link_args=["-std=gnu++14", "-w"],
+        extra_link_args=["-std=c++14", "-w"],
         include_dirs=['.'],
         define_macros=ext_macros
     ),
@@ -74,9 +74,9 @@ extension = [
         name="scurl.canonicalize",
         sources=["scurl/canonicalize.pyx"],
         language="c++",
-        extra_compile_args=["-std=gnu++14", "-I./third_party/chromium/",
+        extra_compile_args=["-std=c++14", "-I./third_party/chromium/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
-        extra_link_args=["-std=gnu++14", "-w"],
+        extra_link_args=["-std=c++14", "-w"],
         include_dirs=['.'],
         define_macros=ext_macros
     )
