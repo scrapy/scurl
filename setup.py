@@ -26,36 +26,38 @@ if os.environ.get('CYTHON_TRACE'):
                         This will make the performance of the library less effective!')
 
 ext_sources = [
-    "scurl/cgurl.pyx",
+    'scurl/cgurl.pyx',
+    'third_party/chromium/base/callback_internal.cc',
+    'third_party/chromium/base/at_exit.cc',
+    'third_party/chromium/base/lazy_instance_helpers.cc',
+    'third_party/chromium/base/strings/utf_string_conversion_utils.cc',
+    'third_party/chromium/base/strings/string_piece.cc',
+    'third_party/chromium/base/strings/string16.cc',
+    'third_party/chromium/base/strings/string_util.cc',
+    'third_party/chromium/base/strings/utf_string_conversions.cc',
+    'third_party/chromium/base/strings/string_util_constants.cc',
+    'third_party/chromium/base/third_party/icu/icu_utf.cc',
+    'third_party/chromium/url/gurl.cc',
+    'third_party/chromium/url/url_canon.cc',
+    'third_party/chromium/url/url_canon_etc.cc',
+    # 'third_party/chromium/url/url_canon_icu.cc',
+    'third_party/chromium/url/url_canon_filesystemurl.cc',
+    'third_party/chromium/url/url_canon_fileurl.cc',
+    'third_party/chromium/url/url_canon_host.cc',
+    'third_party/chromium/url/url_canon_internal.cc',
+    'third_party/chromium/url/url_canon_ip.cc',
+    'third_party/chromium/url/url_canon_mailtourl.cc',
+    'third_party/chromium/url/url_canon_path.cc',
+    'third_party/chromium/url/url_canon_pathurl.cc',
+    'third_party/chromium/url/url_canon_query.cc',
+    'third_party/chromium/url/url_canon_relative.cc',
+    'third_party/chromium/url/url_canon_stdstring.cc',
+    'third_party/chromium/url/url_canon_stdurl.cc',
+    'third_party/chromium/url/url_constants.cc',
+    'third_party/chromium/url/url_parse_file.cc',
+    'third_party/chromium/url/url_util.cc',
+    'third_party/chromium/url/third_party/mozilla/url_parse.cc',
 ]
-
-ext_sources.extend(
-    glob("third_party/chromium/base/**/*.cc", recursive=True)
-)
-
-ext_sources.extend(
-    # glob("third_party/chromium/third_party/icu/source/common/*.cpp") + 
-    [
-    "third_party/chromium/url/gurl.cc",
-    "third_party/chromium/url/url_canon_etc.cc",
-    "third_party/chromium/url/url_canon_icu.cc",
-    "third_party/chromium/url/url_canon_filesystemurl.cc",
-    "third_party/chromium/url/url_canon_fileurl.cc",
-    "third_party/chromium/url/url_canon_host.cc",
-    "third_party/chromium/url/url_canon_internal.cc",
-    "third_party/chromium/url/url_canon_ip.cc",
-    "third_party/chromium/url/url_canon_mailtourl.cc",
-    "third_party/chromium/url/url_canon_path.cc",
-    "third_party/chromium/url/url_canon_pathurl.cc",
-    "third_party/chromium/url/url_canon_query.cc",
-    "third_party/chromium/url/url_canon_relative.cc",
-    "third_party/chromium/url/url_canon_stdstring.cc",
-    "third_party/chromium/url/url_canon_stdurl.cc",
-    "third_party/chromium/url/url_constants.cc",
-    "third_party/chromium/url/url_parse_file.cc",
-    "third_party/chromium/url/url_util.cc",
-    "third_party/chromium/url/third_party/mozilla/url_parse.cc",
-])
 
 extension = [
     Extension(
