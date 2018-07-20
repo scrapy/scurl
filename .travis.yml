@@ -21,9 +21,8 @@ matrix:
       env: TOXENV=py36
 compiler: g++
 dist: trusty
-before_install: sudo apt-get update -qq
 install:
-  - export CXX="g++-5"
+  - export CXX="g++-6"
   - |
     if [ "$TOXENV" = "pypy" ]; then
       export PYPY_VERSION="pypy-6.0.0-linux_x86_64-portable"
@@ -40,15 +39,15 @@ install:
       source "$HOME/virtualenvs/$PYPY_VERSION/bin/activate"
     fi
   - pip install -U pip tox Cython codecov
-script:
-  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
-  - gcc --version
-  - tox
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - g++-5
+    - g++-6
+before_install: sudo apt-get update -qq
+script:
+  - g++-6 --version
+  - tox
 after_success:
   - codecov
