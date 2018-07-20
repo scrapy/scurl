@@ -19,9 +19,11 @@ matrix:
       env: TOXENV=pypy3
     - python: 3.6
       env: TOXENV=py36
-compiler: gcc
+compiler: g++
 dist: trusty
+before_install: sudo apt-get update -qq
 install:
+  - export CXX="g++-5"
   - |
     if [ "$TOXENV" = "pypy" ]; then
       export PYPY_VERSION="pypy-6.0.0-linux_x86_64-portable"
@@ -47,7 +49,6 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - gcc-5
     - g++-5
 after_success:
   - codecov
