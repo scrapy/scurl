@@ -3,7 +3,7 @@ from libcpp cimport bool
 from mozilla_url_parse cimport Component, Parsed
 
 
-cdef extern from "../vendor/gurl/url/gurl.h":
+cdef extern from "../third_party/chromium/url/gurl.h":
     cdef cppclass GURL:
         GURL()
         GURL(const string & url_string)

@@ -4,6 +4,7 @@ import os
 from os.path import splitext
 import logging
 import platform
+from glob import glob
 
 VERSION = "0.1.0"
 ext_macros = []
@@ -24,39 +25,48 @@ if os.environ.get('CYTHON_TRACE'):
         logger.warning('Warning: Enabling line tracing in Cython extension.\
                         This will make the performance of the library less effective!')
 
+ext_sources = [
+    'scurl/cgurl.pyx',
+    'third_party/chromium/base/callback_internal.cc',
+    'third_party/chromium/base/at_exit.cc',
+    'third_party/chromium/base/lazy_instance_helpers.cc',
+    'third_party/chromium/base/strings/utf_string_conversion_utils.cc',
+    'third_party/chromium/base/strings/string_piece.cc',
+    'third_party/chromium/base/strings/string16.cc',
+    'third_party/chromium/base/strings/string_util.cc',
+    'third_party/chromium/base/strings/utf_string_conversions.cc',
+    'third_party/chromium/base/strings/string_util_constants.cc',
+    'third_party/chromium/base/third_party/icu/icu_utf.cc',
+    'third_party/chromium/url/gurl.cc',
+    'third_party/chromium/url/url_canon.cc',
+    'third_party/chromium/url/url_canon_etc.cc',
+    # 'third_party/chromium/url/url_canon_icu.cc',
+    'third_party/chromium/url/url_canon_filesystemurl.cc',
+    'third_party/chromium/url/url_canon_fileurl.cc',
+    'third_party/chromium/url/url_canon_host.cc',
+    'third_party/chromium/url/url_canon_internal.cc',
+    'third_party/chromium/url/url_canon_ip.cc',
+    'third_party/chromium/url/url_canon_mailtourl.cc',
+    'third_party/chromium/url/url_canon_path.cc',
+    'third_party/chromium/url/url_canon_pathurl.cc',
+    'third_party/chromium/url/url_canon_query.cc',
+    'third_party/chromium/url/url_canon_relative.cc',
+    'third_party/chromium/url/url_canon_stdstring.cc',
+    'third_party/chromium/url/url_canon_stdurl.cc',
+    'third_party/chromium/url/url_constants.cc',
+    'third_party/chromium/url/url_parse_file.cc',
+    'third_party/chromium/url/url_util.cc',
+    'third_party/chromium/url/third_party/mozilla/url_parse.cc',
+]
+
 extension = [
     Extension(
         name="scurl.cgurl",
-        sources=["scurl/cgurl.pyx",
-                 "vendor/gurl/base/third_party/icu/icu_utf.cc",
-                 "vendor/gurl/base/strings/string16.cc",
-                 "vendor/gurl/base/strings/string_piece.cc",
-                 "vendor/gurl/base/strings/string_util.cc",
-                 "vendor/gurl/base/strings/utf_string_conversions.cc",
-                 "vendor/gurl/base/strings/utf_string_conversion_utils.cc",
-                 "vendor/gurl/url/gurl.cc",
-                 "vendor/gurl/url/url_canon_etc.cc",
-                 "vendor/gurl/url/url_canon_filesystemurl.cc",
-                 "vendor/gurl/url/url_canon_fileurl.cc",
-                 "vendor/gurl/url/url_canon_host.cc",
-                 "vendor/gurl/url/url_canon_internal.cc",
-                 "vendor/gurl/url/url_canon_ip.cc",
-                 "vendor/gurl/url/url_canon_mailtourl.cc",
-                 "vendor/gurl/url/url_canon_path.cc",
-                 "vendor/gurl/url/url_canon_pathurl.cc",
-                 "vendor/gurl/url/url_canon_query.cc",
-                 "vendor/gurl/url/url_canon_relative.cc",
-                 "vendor/gurl/url/url_canon_stdstring.cc",
-                 "vendor/gurl/url/url_canon_stdurl.cc",
-                 "vendor/gurl/url/url_constants.cc",
-                 "vendor/gurl/url/url_parse_file.cc",
-                 "vendor/gurl/url/url_util.cc",
-                 "vendor/gurl/url/third_party/mozilla/url_parse.cc"
-                 ],
+        sources=ext_sources,
         language="c++",
-        extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
-                            "-fPIC", "-Ofast", "-pthread", "-w"],
-        extra_link_args=["-std=gnu++0x", "-w"],
+        extra_compile_args=["-std=gnu++14", "-I./third_party/chromium/",
+                            "-fPIC", "-Ofast", "-pthread", "-w", '-DU_COMMON_IMPLEMENTATION'],
+        extra_link_args=["-std=gnu++14", "-w"],
         include_dirs=['.'],
         define_macros=ext_macros
     ),
@@ -64,9 +74,9 @@ extension = [
         name="scurl.canonicalize",
         sources=["scurl/canonicalize.pyx"],
         language="c++",
-        extra_compile_args=["-std=gnu++0x", "-I./vendor/gurl/",
+        extra_compile_args=["-std=gnu++14", "-I./third_party/chromium/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],
-        extra_link_args=["-std=gnu++0x", "-w"],
+        extra_link_args=["-std=gnu++14", "-w"],
         include_dirs=['.'],
         define_macros=ext_macros
     )

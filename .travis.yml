@@ -1,5 +1,5 @@
 language: python
-sudo: false
+sudo: required
 branches:
   only:
     - master
@@ -19,24 +19,37 @@ matrix:
       env: TOXENV=pypy3
     - python: 3.6
       env: TOXENV=py36
+dist: trusty
 install:
-    - |
-      if [ "$TOXENV" = "pypy" ]; then
-        export PYPY_VERSION="pypy-6.0.0-linux_x86_64-portable"
-        wget "https://bitbucket.org/squeaky/portable-pypy/downloads/${PYPY_VERSION}.tar.bz2"
-        tar -jxf ${PYPY_VERSION}.tar.bz2
-        virtualenv --python="$PYPY_VERSION/bin/pypy" "$HOME/virtualenvs/$PYPY_VERSION"
-        source "$HOME/virtualenvs/$PYPY_VERSION/bin/activate"
-      fi
-      if [ "$TOXENV" = "pypy3" ]; then
-        export PYPY_VERSION="pypy3.5-5.9-beta-linux_x86_64-portable"
-        wget "https://bitbucket.org/squeaky/portable-pypy/downloads/${PYPY_VERSION}.tar.bz2"
-        tar -jxf ${PYPY_VERSION}.tar.bz2
-        virtualenv --python="$PYPY_VERSION/bin/pypy3" "$HOME/virtualenvs/$PYPY_VERSION"
-        source "$HOME/virtualenvs/$PYPY_VERSION/bin/activate"
-      fi
-    - pip install -U pip tox Cython codecov
+  - |
+    if [ "$TOXENV" = "pypy" ]; then
+      export PYPY_VERSION="pypy-6.0.0-linux_x86_64-portable"
+      wget "https://bitbucket.org/squeaky/portable-pypy/downloads/${PYPY_VERSION}.tar.bz2"
+      tar -jxf ${PYPY_VERSION}.tar.bz2
+      virtualenv --python="$PYPY_VERSION/bin/pypy" "$HOME/virtualenvs/$PYPY_VERSION"
+      source "$HOME/virtualenvs/$PYPY_VERSION/bin/activate"
+    fi
+    if [ "$TOXENV" = "pypy3" ]; then
+      export PYPY_VERSION="pypy3.5-5.9-beta-linux_x86_64-portable"
+      wget "https://bitbucket.org/squeaky/portable-pypy/downloads/${PYPY_VERSION}.tar.bz2"
+      tar -jxf ${PYPY_VERSION}.tar.bz2
+      virtualenv --python="$PYPY_VERSION/bin/pypy3" "$HOME/virtualenvs/$PYPY_VERSION"
+      source "$HOME/virtualenvs/$PYPY_VERSION/bin/activate"
+    fi
+  - pip install -U pip tox Cython codecov
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
+before_install: sudo apt-get update -qq
 script:
-    - tox
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+  - gcc --version
+  - g++ --version
+  - tox
 after_success:
-    - codecov
+  - codecov
