@@ -163,8 +163,8 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
 
     # 2. decode percent-encoded sequences in path as UTF-8 (or keep raw bytes)
     #    and percent-encode path again (this normalizes to upper-case %XX)
-    # uqp = _unquotepath(path)
-    # path = quote(uqp, _safe_chars) or '/'
+    uqp = _unquotepath(path)
+    path = quote(uqp, _safe_chars) or '/'
 
     fragment = '' if not keep_fragments else fragment
 
