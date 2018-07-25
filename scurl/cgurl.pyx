@@ -18,13 +18,15 @@ cimport cython
 from libcpp.string cimport string
 from libcpp cimport bool
 
+
 logger = logging.getLogger('scurl')
 
-uses_params = [b'', b'ftp', b'hdl',
-               b'prospero', b'http', b'imap',
-               b'https', b'shttp', b'rtsp',
-               b'rtspu', b'sip', b'sips',
-               b'mms', b'sftp', b'tel']
+cdef char * uses_params[15]
+uses_params[:] = ['', 'ftp', 'hdl',
+                   'prospero', 'http', 'imap',
+                   'https', 'shttp', 'rtsp',
+                   'rtspu', 'sip', 'sips',
+                   'mms', 'sftp', 'tel']
 
 cdef bytes slice_component(char * url, Component comp):
     if comp.len <= 0:
@@ -76,7 +78,7 @@ cdef bytes unicode_handling(str):
         bytes_str = <bytes>str
     return bytes_str
 
-cdef void parse_input_url(bytes url, Component url_scheme, Parsed * parsed):
+cdef void parse_input_url(char * url, Component url_scheme, Parsed * parsed):
     """
     This function parses the input url using GURL url_parse
     """
@@ -98,7 +100,7 @@ cdef void parse_input_url(bytes url, Component url_scheme, Parsed * parsed):
         """
         ParsePathURL(url, len(url), True, parsed)
 
-cdef object extra_attr(obj, prop, bytes url, Parsed parsed, decoded, params=False):
+cdef object extra_attr(obj, prop, char * url, Parsed parsed, decoded, params=False):
     """
     This adds the attr to the urlparse and urlsplit class
     enables the users to call for different types of properties
@@ -284,7 +286,11 @@ class ParsedResultNamedTuple(tuple):
             query = canonicalize_component(query, query_comp, 'query')
             fragment = canonicalize_component(ref, ref_comp, 'ref')
 
-        if scheme in uses_params and b';' in path:
+        cdef bool in_uses_params = False
+        for param in uses_params:
+            if param == scheme:
+                in_uses_params = True
+        if in_uses_params and b';' in path:
             path, params = _splitparams(path)
         else:
             params = b''
