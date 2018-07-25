@@ -347,10 +347,6 @@ cpdef urljoin(base, url, allow_fragments=True):
     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
     if allow_fragments and base:
         base, url = unicode_handling(base), unicode_handling(url)
-        """
-        this part needs to be profiled to see if creating another GURL instance
-        here takes more time than expected?
-        """
         GURL_container = new GURL(base)
         # GURL will mark urls such as #, http:/// as invalid
         if not GURL_container.is_valid():
@@ -358,6 +354,7 @@ cpdef urljoin(base, url, allow_fragments=True):
             if decode:
                 return fallback.decode('utf-8')
             return fallback
+
         joined_url = GURL_container.Resolve(url).spec()
 
         if decode:
