@@ -26,22 +26,13 @@ uses_params = [b'', b'ftp', b'hdl',
                b'rtspu', b'sip', b'sips',
                b'mms', b'sftp', b'tel']
 
-cdef bytes slice_component(bytes pyurl, Component comp):
+cdef bytes slice_component(char * url, Component comp):
     if comp.len <= 0:
         return b""
 
-    return pyurl[comp.begin:comp.begin + comp.len]
-
-
-cdef bytes cslice_component(char * url, Component comp):
-    if comp.len <= 0:
-        return b""
-
-    # TODO: check if std::string brings any speedups
     return url[comp.begin:comp.begin + comp.len]
 
-
-cdef bytes build_netloc(bytes url, Parsed parsed):
+cdef bytes build_netloc(char * url, Parsed parsed):
     if parsed.host.len <= 0:
         return b""
 
@@ -314,7 +305,7 @@ class ParsedResultNamedTuple(tuple):
         return stdlib_urlunparse(self)
 
 
-cpdef urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
+cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=False,
              canonicalize_encoding='utf-8'):
     """
     This function intends to replace urlparse from urllib
@@ -326,7 +317,7 @@ cpdef urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,
                                           canonicalize, canonicalize_encoding, decode)
 
-cpdef urlsplit(url, scheme='', allow_fragments=True):
+cpdef urlsplit(url, scheme='', bool allow_fragments=True):
     """
     This function intends to replace urljoin from urllib,
     which uses Urlparse class from GURL Chromium
@@ -335,7 +326,7 @@ cpdef urlsplit(url, scheme='', allow_fragments=True):
     url = unicode_handling(url)
     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
 
-cpdef urljoin(base, url, allow_fragments=True):
+cpdef urljoin(base, url, bool allow_fragments=True):
     """
     This function intends to replace urljoin from urllib,
     which uses Resolve function from class GURL of GURL chromium
