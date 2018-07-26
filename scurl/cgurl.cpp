@@ -7208,7 +7208,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  *     if allow_fragments and base:             # <<<<<<<<<<<<<<
  *         base, url = unicode_handling(base), unicode_handling(url)
- *         """
+ *         GURL_container = new GURL(base)
  */
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_allow_fragments); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 348, __pyx_L1_error)
   if (__pyx_t_1) {
@@ -7225,8 +7225,8 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  *     if allow_fragments and base:
  *         base, url = unicode_handling(base), unicode_handling(url)             # <<<<<<<<<<<<<<
- *         """
- *         this part needs to be profiled to see if creating another GURL instance
+ *         GURL_container = new GURL(base)
+ *         # GURL will mark urls such as #, http:/// as invalid
  */
     __pyx_t_3 = __pyx_f_5scurl_5cgurl_unicode_handling(__pyx_v_base); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 349, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -7237,17 +7237,17 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
     __Pyx_DECREF_SET(__pyx_v_url, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "scurl/cgurl.pyx":354
- *         here takes more time than expected?
- *         """
+    /* "scurl/cgurl.pyx":350
+ *     if allow_fragments and base:
+ *         base, url = unicode_handling(base), unicode_handling(url)
  *         GURL_container = new GURL(base)             # <<<<<<<<<<<<<<
  *         # GURL will mark urls such as #, http:/// as invalid
  *         if not GURL_container.is_valid():
  */
-    __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_v_base); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L1_error)
+    __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_v_base); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 350, __pyx_L1_error)
     __pyx_v_GURL_container = new GURL(__pyx_t_6);
 
-    /* "scurl/cgurl.pyx":356
+    /* "scurl/cgurl.pyx":352
  *         GURL_container = new GURL(base)
  *         # GURL will mark urls such as #, http:/// as invalid
  *         if not GURL_container.is_valid():             # <<<<<<<<<<<<<<
@@ -7257,16 +7257,16 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
     __pyx_t_2 = ((!(__pyx_v_GURL_container->is_valid() != 0)) != 0);
     if (__pyx_t_2) {
 
-      /* "scurl/cgurl.pyx":357
+      /* "scurl/cgurl.pyx":353
  *         # GURL will mark urls such as #, http:/// as invalid
  *         if not GURL_container.is_valid():
  *             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)             # <<<<<<<<<<<<<<
  *             if decode:
  *                 return fallback.decode('utf-8')
  */
-      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_stdlib_urljoin); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_stdlib_urljoin); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 353, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 353, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_v_base);
       __Pyx_GIVEREF(__pyx_v_base);
@@ -7274,10 +7274,10 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
       __Pyx_INCREF(__pyx_v_url);
       __Pyx_GIVEREF(__pyx_v_url);
       PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_url);
-      __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 353, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_allow_fragments, __pyx_v_allow_fragments) < 0) __PYX_ERR(0, 357, __pyx_L1_error)
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 357, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_allow_fragments, __pyx_v_allow_fragments) < 0) __PYX_ERR(0, 353, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 353, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7285,7 +7285,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
       __pyx_v_fallback = __pyx_t_8;
       __pyx_t_8 = 0;
 
-      /* "scurl/cgurl.pyx":358
+      /* "scurl/cgurl.pyx":354
  *         if not GURL_container.is_valid():
  *             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
  *             if decode:             # <<<<<<<<<<<<<<
@@ -7295,24 +7295,24 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
       __pyx_t_2 = (__pyx_v_decode != 0);
       if (__pyx_t_2) {
 
-        /* "scurl/cgurl.pyx":359
+        /* "scurl/cgurl.pyx":355
  *             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
  *             if decode:
  *                 return fallback.decode('utf-8')             # <<<<<<<<<<<<<<
  *             return fallback
- *         joined_url = GURL_container.Resolve(url).spec()
+ * 
  */
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_fallback, __pyx_n_s_decode); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 359, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_fallback, __pyx_n_s_decode); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 355, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 359, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 355, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_r = __pyx_t_7;
         __pyx_t_7 = 0;
         goto __pyx_L0;
 
-        /* "scurl/cgurl.pyx":358
+        /* "scurl/cgurl.pyx":354
  *         if not GURL_container.is_valid():
  *             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
  *             if decode:             # <<<<<<<<<<<<<<
@@ -7321,19 +7321,19 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  */
       }
 
-      /* "scurl/cgurl.pyx":360
+      /* "scurl/cgurl.pyx":356
  *             if decode:
  *                 return fallback.decode('utf-8')
  *             return fallback             # <<<<<<<<<<<<<<
- *         joined_url = GURL_container.Resolve(url).spec()
  * 
+ *         joined_url = GURL_container.Resolve(url).spec()
  */
       __Pyx_XDECREF(__pyx_r);
       __Pyx_INCREF(__pyx_v_fallback);
       __pyx_r = __pyx_v_fallback;
       goto __pyx_L0;
 
-      /* "scurl/cgurl.pyx":356
+      /* "scurl/cgurl.pyx":352
  *         GURL_container = new GURL(base)
  *         # GURL will mark urls such as #, http:/// as invalid
  *         if not GURL_container.is_valid():             # <<<<<<<<<<<<<<
@@ -7342,17 +7342,17 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  */
     }
 
-    /* "scurl/cgurl.pyx":361
- *                 return fallback.decode('utf-8')
+    /* "scurl/cgurl.pyx":358
  *             return fallback
+ * 
  *         joined_url = GURL_container.Resolve(url).spec()             # <<<<<<<<<<<<<<
  * 
  *         if decode:
  */
-    __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_v_url); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 361, __pyx_L1_error)
+    __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_v_url); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 358, __pyx_L1_error)
     __pyx_v_joined_url = __pyx_v_GURL_container->Resolve(__pyx_t_6).spec();
 
-    /* "scurl/cgurl.pyx":363
+    /* "scurl/cgurl.pyx":360
  *         joined_url = GURL_container.Resolve(url).spec()
  * 
  *         if decode:             # <<<<<<<<<<<<<<
@@ -7362,7 +7362,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
     __pyx_t_2 = (__pyx_v_decode != 0);
     if (__pyx_t_2) {
 
-      /* "scurl/cgurl.pyx":364
+      /* "scurl/cgurl.pyx":361
  * 
  *         if decode:
  *             return joined_url.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -7370,13 +7370,13 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  * 
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_7 = __Pyx_decode_cpp_string(__pyx_v_joined_url, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_decode_cpp_string(__pyx_v_joined_url, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_r = __pyx_t_7;
       __pyx_t_7 = 0;
       goto __pyx_L0;
 
-      /* "scurl/cgurl.pyx":363
+      /* "scurl/cgurl.pyx":360
  *         joined_url = GURL_container.Resolve(url).spec()
  * 
  *         if decode:             # <<<<<<<<<<<<<<
@@ -7385,7 +7385,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  */
     }
 
-    /* "scurl/cgurl.pyx":365
+    /* "scurl/cgurl.pyx":362
  *         if decode:
  *             return joined_url.decode('utf-8')
  *         return joined_url             # <<<<<<<<<<<<<<
@@ -7393,7 +7393,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_7 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_joined_url); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_7 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_joined_url); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 362, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_r = __pyx_t_7;
     __pyx_t_7 = 0;
@@ -7404,19 +7404,19 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  *     if allow_fragments and base:             # <<<<<<<<<<<<<<
  *         base, url = unicode_handling(base), unicode_handling(url)
- *         """
+ *         GURL_container = new GURL(base)
  */
   }
 
-  /* "scurl/cgurl.pyx":367
+  /* "scurl/cgurl.pyx":364
  *         return joined_url
  * 
  *     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_stdlib_urljoin); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_stdlib_urljoin); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_INCREF(__pyx_v_base);
   __Pyx_GIVEREF(__pyx_v_base);
@@ -7424,10 +7424,10 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
   __Pyx_INCREF(__pyx_v_url);
   __Pyx_GIVEREF(__pyx_v_url);
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_v_url);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_allow_fragments, __pyx_v_allow_fragments) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 367, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_allow_fragments, __pyx_v_allow_fragments) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8406,14 +8406,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "scurl/cgurl.pyx":359
+  /* "scurl/cgurl.pyx":355
  *             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
  *             if decode:
  *                 return fallback.decode('utf-8')             # <<<<<<<<<<<<<<
  *             return fallback
- *         joined_url = GURL_container.Resolve(url).spec()
+ * 
  */
-  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
