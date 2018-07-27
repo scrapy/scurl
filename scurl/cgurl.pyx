@@ -138,8 +138,74 @@ cdef string canonicalize_component(char * url, Component parsed_comp, comp_type)
 
     return canonicalized_output
 
+cdef class _NetlocResultMixinBase(object):
+    """Shared methods for the parsed result objects containing a netloc element"""
+    __slots__ = ()
 
-cdef class UrlsplitResultAttribute:
+    @property
+    def username(self):
+        return self._userinfo[0]
+
+    @property
+    def password(self):
+        return self._userinfo[1]
+
+    @property
+    def hostname(self):
+        hostname = self._hostinfo[0]
+        if not hostname:
+            return None
+        # Scoped IPv6 address may have zone info, which must not be lowercased
+        # like http://[fe80::822a:a8ff:fe49:470c%tESt]:1234/keys
+        separator = '%' if isinstance(hostname, str) else b'%'
+        hostname, percent, zone = hostname.partition(separator)
+        return hostname.lower() + percent + zone
+
+    @property
+    def port(self):
+        port = self._hostinfo[1]
+        if port is not None:
+            try:
+                port = int(port, 10)
+            except ValueError:
+                message = f'Port could not be cast to integer value as {port!r}'
+                raise ValueError(message) from None
+            if not ( 0 <= port <= 65535):
+                raise ValueError("Port out of range 0-65535")
+        return port
+
+
+cdef class _NetlocResultMixinStr(_NetlocResultMixinBase):
+    __slots__ = ()
+
+    @property
+    def _userinfo(self):
+        netloc = self[1]
+        userinfo, have_info, hostinfo = netloc.rpartition('@')
+        if have_info:
+            username, have_password, password = userinfo.partition(':')
+            if not have_password:
+                password = None
+        else:
+            username = password = None
+        return username, password
+
+    @property
+    def _hostinfo(self):
+        netloc = self[1]
+        _, _, hostinfo = netloc.rpartition('@')
+        _, have_open_br, bracketed = hostinfo.partition('[')
+        if have_open_br:
+            hostname, _, port = bracketed.partition(']')
+            _, _, port = port.partition(':')
+        else:
+            hostname, _, port = hostinfo.partition(':')
+        if not port:
+            port = None
+        return hostname, port
+
+
+cdef class UrlsplitResultAttribute(_NetlocResultMixinStr):
     __slots__ = ()
 
     @property
@@ -161,48 +227,6 @@ cdef class UrlsplitResultAttribute:
     @property
     def fragment(self):
         return self[4]
-
-    @property
-    def port(self):
-        if not self.port_component:
-            return None
-        port = self.port_component
-        try:
-            port = int(self.port_component, 10)
-        except ValueError:
-            # change to format() to support pypy
-            message = 'Port could not be cast to integer value as {}'.format(repr(port))
-            raise ValueError(message) from None
-        if not ( 0 <= port <= 65535):
-            raise ValueError("Port out of range 0-65535")
-        return port
-
-    @property
-    def username(self):
-        if not self.username_component:
-            return None
-        if self.decode_component:
-            return self.username_component.decode('utf-8')
-        return self.username_component
-
-    @property
-    def password(self):
-        if not self.password_component:
-            return None
-        if self.decode_component:
-            return self.password_component.decode('utf-8')
-        return self.password_component
-
-    @property
-    def hostname(self):
-        if not self.hostname_component:
-            return None
-        hostname = self.hostname_component.lower()
-        if len(hostname) > 0 and hostname[:1] == b'[':
-            hostname = hostname[1:-1]
-        if self.decode_component:
-            return hostname.decode('utf-8') or None
-        return hostname
 
 
 cdef class UrlparseResultAttribute(UrlsplitResultAttribute):
@@ -243,14 +267,6 @@ class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):
             return stdlib_urlsplit(original_url, input_scheme)
 
         parse_input_url(url, url_scheme, &parsed)
-
-        # extra attributes for the class
-        cls.port_component = slice_component(url, parsed.port)
-        cls.username_component = slice_component(url, parsed.username)
-        cls.password_component = slice_component(url, parsed.password)
-        cls.hostname_component = slice_component(url, parsed.host)
-        cls.decode_component = decode
-
 
         # scheme needs to be lowered
         # create a func that lowercase all the letters
@@ -309,13 +325,6 @@ class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
             path, params = _splitparams(path)
         else:
             params = b''
-
-        # extra attributes for the class
-        cls.port_component = slice_component(url, parsed.port)
-        cls.username_component = slice_component(url, parsed.username)
-        cls.password_component = slice_component(url, parsed.password)
-        cls.hostname_component = slice_component(url, parsed.host)
-        cls.decode_component = decode
 
         # encode based on the encoding input
         if canonicalize and canonicalize_encoding != 'utf-8':
