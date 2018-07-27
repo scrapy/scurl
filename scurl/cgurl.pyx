@@ -197,59 +197,6 @@ cdef string canonicalize_component(char * url, Component parsed_comp, comp_type)
 
     return canonicalized_output
 
-# @cython.freelist(100)
-# cdef class SplitResult:
-
-#     cdef Parsed parsed
-#     # cdef char * url
-#     cdef bytes pyurl
-
-#     def __cinit__(self, char* url):
-#         # self.url = url
-#         self.pyurl = url
-#         if url[0:5] == b"file:":
-#             ParseFileURL(url, len(url), &self.parsed)
-#         else:
-#             ParseStandardURL(url, len(url), &self.parsed)
-
-#     property scheme:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.scheme)
-
-#     property path:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.path)
-
-#     property query:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.query)
-
-#     property fragment:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.ref)
-
-#     property username:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.username)
-
-#     property password:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.password)
-
-#     property port:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.port)
-
-#     # Not in regular urlsplit() !
-#     property host:
-#         def __get__(self):
-#             return slice_component(self.pyurl, self.parsed.host)
-
-#     property netloc:
-#         def __get__(self):
-#             return build_netloc(self.pyurl, self.parsed)
-
-
 class SplitResultNamedTuple(tuple):
     """
     There is some repetition in the class,
@@ -367,7 +314,7 @@ class ParsedResultNamedTuple(tuple):
         return stdlib_urlunparse(self)
 
 
-def urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
+cpdef urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
              canonicalize_encoding='utf-8'):
     """
     This function intends to replace urlparse from urllib
@@ -379,7 +326,7 @@ def urlparse(url, scheme='', allow_fragments=True, canonicalize=False,
     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,
                                           canonicalize, canonicalize_encoding, decode)
 
-def urlsplit(url, scheme='', allow_fragments=True):
+cpdef urlsplit(url, scheme='', allow_fragments=True):
     """
     This function intends to replace urljoin from urllib,
     which uses Urlparse class from GURL Chromium
@@ -388,7 +335,7 @@ def urlsplit(url, scheme='', allow_fragments=True):
     url = unicode_handling(url)
     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
 
-def urljoin(base, url, allow_fragments=True):
+cpdef urljoin(base, url, allow_fragments=True):
     """
     This function intends to replace urljoin from urllib,
     which uses Resolve function from class GURL of GURL chromium
@@ -400,17 +347,15 @@ def urljoin(base, url, allow_fragments=True):
     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
     if allow_fragments and base:
         base, url = unicode_handling(base), unicode_handling(url)
-        """
-        this part needs to be profiled to see if creating another GURL instance
-        here takes more time than expected?
-        """
+        GURL_container = new GURL(base)
         # GURL will mark urls such as #, http:/// as invalid
-        if not GURL(base).is_valid():
+        if not GURL_container.is_valid():
             fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
             if decode:
                 return fallback.decode('utf-8')
             return fallback
-        joined_url = GURL(base).Resolve(url).spec()
+
+        joined_url = GURL_container.Resolve(url).spec()
 
         if decode:
             return joined_url.decode('utf-8')
