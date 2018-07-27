@@ -66,7 +66,7 @@ cdef bytes build_netloc(char * url, Parsed parsed):
         raise ValueError
 
 
-cdef bytes unicode_handling(str):
+cdef char * unicode_handling(str):
     """
     This function handles the unicode string and converts it to bytes
     which enables functions to receive unicode-type url as the input
@@ -233,33 +233,32 @@ class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):
 
     __slots__ = ()
 
-    def __new__(cls, bytes url, input_scheme, decode=False):
+    def __new__(cls, char * url, input_scheme, decode=False):
 
         cdef Parsed parsed
         cdef Component url_scheme
-        cdef char * url_char = url
 
-        if not ExtractScheme(url_char, len(url_char), &url_scheme):
+        if not ExtractScheme(url, len(url), &url_scheme):
             original_url = url.decode('utf-8') if decode else url
             return stdlib_urlsplit(original_url, input_scheme)
 
-        parse_input_url(url_char, url_scheme, &parsed)
+        parse_input_url(url, url_scheme, &parsed)
 
         # extra attributes for the class
-        cls.port_component = slice_component(url_char, parsed.port)
-        cls.username_component = slice_component(url_char, parsed.username)
-        cls.password_component = slice_component(url_char, parsed.password)
-        cls.hostname_component = slice_component(url_char, parsed.host)
+        cls.port_component = slice_component(url, parsed.port)
+        cls.username_component = slice_component(url, parsed.username)
+        cls.password_component = slice_component(url, parsed.password)
+        cls.hostname_component = slice_component(url, parsed.host)
         cls.decode_component = decode
 
 
         # scheme needs to be lowered
         # create a func that lowercase all the letters
-        scheme, netloc, path, query, ref = (slice_component(url_char, parsed.scheme).lower(),
-                                            build_netloc(url_char, parsed),
-                                            slice_component(url_char, parsed.path),
-                                            slice_component(url_char, parsed.query),
-                                            slice_component(url_char, parsed.ref))
+        scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
+                                            build_netloc(url, parsed),
+                                            slice_component(url, parsed.path),
+                                            slice_component(url, parsed.query),
+                                            slice_component(url, parsed.ref))
 
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
@@ -282,24 +281,23 @@ class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):
 class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
     __slots__ = ()
 
-    def __new__(cls, bytes url not None, input_scheme,
+    def __new__(cls, char * url, input_scheme,
                 canonicalize, canonicalize_encoding, decode=False):
 
         cdef Parsed parsed
         cdef Component url_scheme
-        cdef char * url_char = url
 
-        if not ExtractScheme(url_char, len(url_char), &url_scheme):
+        if not ExtractScheme(url, len(url), &url_scheme):
             original_url = url.decode('utf-8') if decode else url
             return stdlib_urlparse(original_url, input_scheme)
 
-        parse_input_url(url_char, url_scheme, &parsed)
+        parse_input_url(url, url_scheme, &parsed)
 
-        scheme, netloc, path, query, ref = (slice_component(url_char, parsed.scheme).lower(),
-                                            build_netloc(url_char, parsed),
-                                            slice_component(url_char, parsed.path),
-                                            slice_component(url_char, parsed.query),
-                                            slice_component(url_char, parsed.ref))
+        scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
+                                            build_netloc(url, parsed),
+                                            slice_component(url, parsed.path),
+                                            slice_component(url, parsed.query),
+                                            slice_component(url, parsed.ref))
         if not scheme and input_scheme:
             scheme = input_scheme.encode('utf-8')
 
@@ -313,10 +311,10 @@ class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
             params = b''
 
         # extra attributes for the class
-        cls.port_component = slice_component(url_char, parsed.port)
-        cls.username_component = slice_component(url_char, parsed.username)
-        cls.password_component = slice_component(url_char, parsed.password)
-        cls.hostname_component = slice_component(url_char, parsed.host)
+        cls.port_component = slice_component(url, parsed.port)
+        cls.username_component = slice_component(url, parsed.username)
+        cls.password_component = slice_component(url, parsed.password)
+        cls.hostname_component = slice_component(url, parsed.host)
         cls.decode_component = decode
 
         # encode based on the encoding input
