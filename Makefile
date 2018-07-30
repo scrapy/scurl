@@ -37,3 +37,6 @@ develop:
 
 perf:
 	python benchmarks/performance_test.py
+
+cano:
+	python benchmarks/canonicalize_test.py

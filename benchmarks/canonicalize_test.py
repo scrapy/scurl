@@ -13,7 +13,7 @@ def main():
     time = 0
     time_canonicalize_url = 0
 
-    tar = tarfile.open("sites.tar.gz")
+    tar = tarfile.open("benchmarks/sites.tar.gz")
     urls = []
 
     for member in tar.getmembers():
