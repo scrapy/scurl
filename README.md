@@ -1,46 +1,42 @@
-# SCURL
+# Scurl
 
 [![Build Status](https://travis-ci.org/nctl144/scurl.svg?branch=master)](https://travis-ci.org/nctl144/scurl)
 [![codecov](https://codecov.io/gh/nctl144/scurl/branch/master/graph/badge.svg)](https://codecov.io/gh/nctl144/scurl)
 
 
-## About SCURL
+## About Scurl
 
-First of all, we give special thanks to urlparse4 for being the repo that this library is based on
-and gurl-cython for being the inspiration library for this project!
+Scurl is a library that is meant to replace some functions in `urllib`, such as `urlparse`,
+`urlsplit` and `urljoin`. It is built using the Chromium url parse source, which is called GURL.
 
-Scurl is a library that is meant to replace some functions in urllib, such as urlparse,
-urlsplit and urljoin. It is built using the Chromium urlparse source, called GURL and
-Cython wrapper.
-
-In addition, this library is built to support the Scrapy project (hence the name SCURL).
-Therefore, an additional function is built, which is canonicalize_url. It uses the
-canonicalize function from GURL to canonicalize the path, fragment and query of the urls.
+In addition, this library is built to support the Scrapy project (hence the name Scurl).
+Therefore, an additional function is built, which is `canonicalize_url`, the bottleneck
+function in Scrapy spiders. It uses the canonicalize function from GURL to canonicalize
+the path, fragment and query of the urls.
 
 Since the library is built based on Chromium source, the performance is greatly
-increased. The performance of urlparse, urlsplit and urljoin is 2-3 times faster than
-the urllib. It was faster at the beginning but we need to handle edge cases so the
-library can conform to the urllib requirements (because we want it to resemble urllib as
-much as we can so we don't change the nature of the Scrapy project).
+increased. The performance of `urlparse`, `urlsplit` and `urljoin` is 2-3 times faster than
+the urllib.
 
-At the moment, we have the tests from urllib and w3lib for all of those functions that
-are supported in SCURL. Nearly all the tests from urllib have passed (we are still
-working on passing all the tests), and all the tests from w3lib have passed.
+At the moment, we run the tests from `urllib` and `w3lib`. Nearly all the tests
+from urllib have passed (we are still working on passing all the tests :) ).
 
-Any feedback will be highly appreciated! :)
+
+## Credits
+
+We want to give special thanks to [`urlparse4`](https://github.com/commonsearch/urlparse4)
+since this project is built based on it.
 
 
 ## Supported functions
 
-Since scurl meant to replace those functions in urllib, these are supported by SCURL
-+ urlparse
-+ urljoin
-+ urlsplit
+Since scurl meant to replace those functions in urllib, these are supported by Scurl:
+`urlparse`, `urljoin`, `urlsplit` and `canonicalize_url`.
 
 
 ## Installation
 
-SCURL has not been deployed to pypi yet. Currently the only way to install SCURL is
+Scurl has not been deployed to pypi yet. Currently the only way to install Scurl is
 cloning this repository
 
 ```
@@ -53,24 +49,91 @@ make install
 ```
 
 
-## Notes
+## Available `Make` commands
 
-Some test cases from w3lib have been modified to conform to the way Chromium GURL parses
-urls. In detail, url paths are usually lowercased since GURL is the urlparser of a browser.
+Make commands create a shorter way to type commands while developing :)
+
+`make clean`
+
+This will clean the build dir and the files that are generated when running `build_ext` command
+
+`make test`
+
+This will run all the tests found in the `/tests` folder
+
+`make build_ext`
+
+This will run the command `python setup.py build_ext --inplace`, which builds Cython code
+for this project.
+
+`make sdist`
+
+This will run `python setup.py sdist` command on this project.
+
+`make install`
+
+This will run `python setup.py install` command on this project.
+
+`make develop`
+
+This will run `python setup.py develop` command on this project.
+
+`perf`
+
+Run the performance tests on `urlparse`, `urlsplit` and `urljoin`.
+
+cano:
+
+Run the performance tests on `canonicalize_url`.
 
 
 ## Profiling
 
-Scurl repository has the built-in profiling tool, which you can turn on by adding this lines to the
-top of the `*.pyx` files in `scurl/scurl`:
+Scurl repository has the built-in profiling tool, which you can turn on by adding this
+lines to the top of the `*.pyx` files in `scurl/scurl`:
+
 ```
 # cython: profile=True
 ```
-Then you can run `python benchmarks/cython_profile.py --func [function-name]` to get the
-cprofiling result. Currently, SCURL supports profiling `urlparse`, `urlsplit` and `canonicalize`.
 
+Then you can run `python benchmarks/cython_profile.py --func [function-name]` to get the
+cprofiling result. Currently, Scurl supports profiling `urlparse`, `urlsplit` and `canonicalize`.
+
+This is not the most convenient way to profile Scurl with cprofiler, but we will come
+up with a way of improving this soon!
+
+
+## Profiling result report
+
+### urlparse, urlsplit and urljoin
+This shows the performance difference between `urlparse`, `urlsplit` and `urljoin` from
+`urllib.parse` and those of `Scurl` (this is measured by running these functions with the
+urls from the file `chromiumUrls.txt`, which can also be found in this project):
+
+The `chromiumUrls.txt` file contains ~83k urls. This measure the time it takes to run the
+`performance_test.py` test.
+
+|               | urlparse      | urlsplit    | urljoin  |
+| ------------- |:-------------:|:-----------:|:--------:|
+| urllib.parse  | 0.52 sec      | 0.39 sec    | 1.33 sec |
+| Scurl         | 0.19 sec      | 0.10 sec    | 0.17 sec |
+
+
+### Canonicalize urls
+The speed of `canonicalize_url` from [scrapy/w3lib](https://github.com/scrapy/w3lib)
+compared to the speed of `canonicalize_url` from Scurl (this is measured by running
+the test with all the urls can be extracted from `site.tar.gz`, which can also be found
+in this project dir):
+
+This measures the speed of both functions. The test can be found in `canonicalize_test.py`
+file.
+
+|               |canonicalize_url |
+| ------------- |:---------------:|
+| scrapy/w3lib  | 22,757 items/sec|
+| Scurl         | 46,199 items/sec|
 
 ## Feedback
 
-Again, any feedback is highly appreciated :) Please feel free to submit any
+Any feedback is highly appreciated :) Please feel free to submit any
 error/feedback in the repository issue tab!
