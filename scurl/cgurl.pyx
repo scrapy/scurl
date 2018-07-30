@@ -168,7 +168,7 @@ cdef class _NetlocResultMixinBase(object):
             try:
                 port = int(port, 10)
             except ValueError:
-                message = f'Port could not be cast to integer value as {port!r}'
+                message = 'Port could not be cast to integer value as {}'.format(port)
                 raise ValueError(message) from None
             if not ( 0 <= port <= 65535):
                 raise ValueError("Port out of range 0-65535")
@@ -181,9 +181,13 @@ cdef class _NetlocResultMixinStr(_NetlocResultMixinBase):
     @property
     def _userinfo(self):
         netloc = self[1]
-        userinfo, have_info, hostinfo = netloc.rpartition('@')
+        char_at, char_colon = '@', ':'
+        if isinstance(netloc, bytes):
+            char_at, char_colon = b'@', b':'
+
+        userinfo, have_info, hostinfo = netloc.rpartition(char_at)
         if have_info:
-            username, have_password, password = userinfo.partition(':')
+            username, have_password, password = userinfo.partition(char_colon)
             if not have_password:
                 password = None
         else:
@@ -193,13 +197,17 @@ cdef class _NetlocResultMixinStr(_NetlocResultMixinBase):
     @property
     def _hostinfo(self):
         netloc = self[1]
-        _, _, hostinfo = netloc.rpartition('@')
-        _, have_open_br, bracketed = hostinfo.partition('[')
+        char_at, char_leftsquare, char_rightsquare, char_colon = '@', '[', ']', ':'
+        if isinstance(netloc, bytes):
+            char_at, char_leftsquare, char_rightsquare, char_colon = b'@', b'[', b']', b':'
+
+        _, _, hostinfo = netloc.rpartition(char_at)
+        _, have_open_br, bracketed = hostinfo.partition(char_leftsquare)
         if have_open_br:
-            hostname, _, port = bracketed.partition(']')
-            _, _, port = port.partition(':')
+            hostname, _, port = bracketed.partition(char_rightsquare)
+            _, _, port = port.partition(char_colon)
         else:
-            hostname, _, port = hostinfo.partition(':')
+            hostname, _, port = hostinfo.partition(char_colon)
         if not port:
             port = None
         return hostname, port
