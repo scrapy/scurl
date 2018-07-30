@@ -5,6 +5,8 @@ import six
 from six.moves.urllib.parse import (urlunsplit, urldefrag, urlencode,
                                     quote, parse_qsl, unquote)
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
+from scurl.scurl_canonicalize_helper cimport canonicalize_component
+from scurl.mozilla_url_parse cimport Component
 
 
 # https://github.com/scrapy/w3lib/blob/master/w3lib/url.py
@@ -62,7 +64,7 @@ if not six.PY2:
                 r.append((name, value))
         return r
 
-def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
+def _safe_ParseResult(parts, encoding='utf8'):
     """
     NOTE: This function is from w3lib. However, it has been modified
     to use functions from scurl instead!
@@ -75,12 +77,12 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
         netloc = parts.netloc
 
     return (
-        to_native_str(parts.scheme),
+        parts.scheme,
         to_native_str(netloc),
 
         # default encoding for path component SHOULD be UTF-8
-        to_native_str(parts.path, path_encoding),
-        to_native_str(parts.params, path_encoding),
+        parts.path,
+        parts.params,
 
         # encoding of query and fragment follows page encoding
         # or form-charset (if known and passed)
@@ -88,7 +90,7 @@ def _safe_ParseResult(parts, encoding='utf8', path_encoding='utf8'):
         to_native_str(parts.fragment, encoding)
     )
 
-def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
+cpdef canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
                      encoding=None):
     r"""Canonicalize the given url by applying the following procedures:
 
@@ -164,17 +166,18 @@ def canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
     # 2. decode percent-encoded sequences in path as UTF-8 (or keep raw bytes)
     #    and percent-encode path again (this normalizes to upper-case %XX)
     uqp = _unquotepath(path)
-    path = quote(uqp, _safe_chars) or '/'
+    cdef Component path_component = Component(0, len(uqp))
+    path = to_native_str(canonicalize_component(uqp, path_component)) or '/'
 
     fragment = '' if not keep_fragments else fragment
 
     # every part should be safe already
     return stdlib_urlunparse((scheme,
-                               netloc.lower().rstrip(':'),
-                               path,
-                               params,
-                               query,
-                               fragment))
+                              netloc.lower().rstrip(':'),
+                              path,
+                              params,
+                              query,
+                              fragment))
 
 def parse_url(url, canonicalize_encoding='utf-8', encoding=None):
     """Return urlparsed url from the given argument (which could be an already

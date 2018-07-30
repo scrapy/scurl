@@ -2,9 +2,8 @@ from scurl.mozilla_url_parse cimport *
 from scurl.chromium_gurl cimport GURL
 from scurl.chromium_url_constant cimport *
 from scurl.chromium_url_util_internal cimport CompareSchemeComponent
-from scurl.chromium_url_util cimport IsStandard, Canonicalize
-from scurl.chromium_url_canon cimport CanonicalizePath
-from scurl.chromium_url_canon_stdstring cimport StdStringCanonOutput
+from scurl.chromium_url_util cimport IsStandard
+from scurl.scurl_canonicalize_helper cimport canonicalize_component
 
 import six
 from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
@@ -14,7 +13,6 @@ from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
 import logging
 
-cimport cython
 from libcpp.string cimport string
 from libcpp cimport bool
 
@@ -118,25 +116,6 @@ cdef object _splitparams(string path):
         i = path.find(semcol)
     return path.substr(0, i), path.substr(i + 1)
 
-cdef string canonicalize_component(char * url, Component parsed_comp, comp_type):
-    """
-    This function canonicalizes the components of the urls
-    Using Chromium GURL canonicalize func
-    """
-    cdef Component output_comp
-    cdef string canonicalized_output = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&canonicalized_output)
-    # CanonicalizeQuery has different way of canonicalize encoded urls
-    # so we will use canonicalizePath for now!
-    # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
-    is_valid = CanonicalizePath(url, parsed_comp, output, &output_comp)
-    output.Complete()
-
-    if comp_type in ('ref', 'query'):
-        if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":
-            canonicalized_output = canonicalized_output.substr(1)
-
-    return canonicalized_output
 
 cdef class _NetlocResultMixinBase(object):
     """Shared methods for the parsed result objects containing a netloc element"""
@@ -276,8 +255,6 @@ class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):
 
         parse_input_url(url, url_scheme, &parsed)
 
-        # scheme needs to be lowered
-        # create a func that lowercase all the letters
         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
                                             build_netloc(url, parsed),
                                             slice_component(url, parsed.path),
@@ -351,11 +328,11 @@ class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
         cdef Component query_comp = MakeRange(0, len(query))
         cdef Component ref_comp = MakeRange(0, len(ref))
         if canonicalize:
-            path = canonicalize_component(url, parsed.path, 'path')
-            query = canonicalize_component(query, query_comp, 'query')
-            fragment = canonicalize_component(ref, ref_comp, 'ref')
+            query = canonicalize_component(query, query_comp)
+            fragment = canonicalize_component(ref, ref_comp)
 
-        if decode:
+        # if canonicalize is set to true, then we will need to convert it to unicode
+        if decode or canonicalize:
             return tuple.__new__(cls, (
                 <unicode>scheme.decode('utf-8'),
                 <unicode>netloc.decode('utf-8'),
