@@ -4,7 +4,7 @@ import tarfile
 import scrapy
 import click
 import six
-from scurl import canonicalize_url
+from w3lib.url import canonicalize_url
 from scrapy.http import HtmlResponse
 
 
@@ -13,7 +13,7 @@ def main():
     time = 0
     time_canonicalize_url = 0
 
-    tar = tarfile.open("benchmarks/sites.tar.gz")
+    tar = tarfile.open("benchmarks/urls/sites.tar.gz")
     urls = []
 
     for member in tar.getmembers():

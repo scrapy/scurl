@@ -28,7 +28,7 @@ def main():
     args = parser.parse_args()
 
     if args.func == "canonicalize":
-        tar = tarfile.open("benchmarks/sites.tar.gz")
+        tar = tarfile.open("benchmarks/urls/sites.tar.gz")
         urls = []
 
         for member in tar.getmembers():
