@@ -237,11 +237,6 @@ cdef class UrlparseResultAttribute(UrlsplitResultAttribute):
 
 
 class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):
-    """
-    There is some repetition in the class,
-    we will need to take care of that!
-    """
-
     __slots__ = ()
 
     def __new__(cls, char * url, input_scheme, decode=False):
