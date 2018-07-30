@@ -7,12 +7,11 @@ from scrapy.http import HtmlResponse
 import pyximport
 pyximport.install()
 
-import cgurl
 import scurl
 
 def run_urlparse(urls):
     for url in urls:
-        a = cgurl.urlparse(url)
+        a = scurl.urlparse(url)
 
 def run_canonicalize(urls):
     for url in urls:
@@ -20,7 +19,7 @@ def run_canonicalize(urls):
 
 def run_urlsplit(urls):
     for url in urls:
-        a = cgurl.urlsplit(url)
+        a = scurl.urlsplit(url)
 
 def main():
     parser = argparse.ArgumentParser(description='Profile cython functions')
@@ -29,7 +28,7 @@ def main():
     args = parser.parse_args()
 
     if args.func == "canonicalize":
-        tar = tarfile.open("sites.tar.gz")
+        tar = tarfile.open("benchmarks/sites.tar.gz")
         urls = []
 
         for member in tar.getmembers():
@@ -47,7 +46,7 @@ def main():
         s.strip_dirs().sort_stats("time").print_stats()
 
     elif args.func == "urlsplit":
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
 
             cProfile.runctx("run_urlsplit(f)", globals(), locals(), "urlsplit_profile.prof")
 
@@ -55,7 +54,7 @@ def main():
             s.strip_dirs().sort_stats("time").print_stats()
 
     elif args.func == "urlparse":
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
 
             cProfile.runctx("run_urlparse(f)", globals(), locals(), "urlparse_profile.prof")
 
