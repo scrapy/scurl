@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/nctl144/scurl.svg?branch=master)](https://travis-ci.org/nctl144/scurl)
 [![codecov](https://codecov.io/gh/nctl144/scurl/branch/master/graph/badge.svg)](https://codecov.io/gh/nctl144/scurl)
 
+
 ## About SCURL
 
 First of all, we give special thanks to urlparse4 for being the repo that this library is based on
@@ -28,12 +29,14 @@ working on passing all the tests), and all the tests from w3lib have passed.
 
 Any feedback will be highly appreciated! :)
 
+
 ## Supported functions
 
 Since scurl meant to replace those functions in urllib, these are supported by SCURL
 + urlparse
 + urljoin
 + urlsplit
+
 
 ## Installation
 
@@ -49,10 +52,23 @@ make build_ext
 make install
 ```
 
+
 ## Notes
 
 Some test cases from w3lib have been modified to conform to the way Chromium GURL parses
 urls. In detail, url paths are usually lowercased since GURL is the urlparser of a browser.
+
+
+## Profiling
+
+Scurl repository has the built-in profiling tool, which you can turn on by adding this lines to the
+top of the `*.pyx` files in `scurl/scurl`:
+```
+# cython: profile=True
+```
+Then you can run `python benchmarks/cython_profile.py --func [function-name]` to get the
+cprofiling result. Currently, SCURL supports profiling `urlparse`, `urlsplit` and `canonicalize`.
+
 
 ## Feedback
 
