@@ -881,8 +881,8 @@ struct __pyx_opt_args_5scurl_5cgurl_urlsplit;
 struct __pyx_opt_args_5scurl_5cgurl_urljoin;
 
 /* "scurl/cgurl.pyx":325
- * 
- * 
+ *
+ *
  * cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=False,             # <<<<<<<<<<<<<<
  *              canonicalize_encoding='utf-8'):
  *     """
@@ -897,7 +897,7 @@ struct __pyx_opt_args_5scurl_5cgurl_urlparse {
 
 /* "scurl/cgurl.pyx":337
  *                                           canonicalize, canonicalize_encoding, decode)
- * 
+ *
  * cpdef urlsplit(url, scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """
  *     This function intends to replace urljoin from urllib,
@@ -910,7 +910,7 @@ struct __pyx_opt_args_5scurl_5cgurl_urlsplit {
 
 /* "scurl/cgurl.pyx":346
  *     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
- * 
+ *
  * cpdef urljoin(base, url, bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """
  *     This function intends to replace urljoin from urllib,
@@ -921,8 +921,8 @@ struct __pyx_opt_args_5scurl_5cgurl_urljoin {
 };
 
 /* "scurl/cgurl.pyx":119
- * 
- * 
+ *
+ *
  * cdef class _NetlocResultMixinBase(object):             # <<<<<<<<<<<<<<
  *     """Shared methods for the parsed result objects containing a netloc element"""
  *     __slots__ = ()
@@ -933,11 +933,11 @@ struct __pyx_obj_5scurl_5cgurl__NetlocResultMixinBase {
 
 
 /* "scurl/cgurl.pyx":156
- * 
- * 
+ *
+ *
  * cdef class _NetlocResultMixinStr(_NetlocResultMixinBase):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
 struct __pyx_obj_5scurl_5cgurl__NetlocResultMixinStr {
   struct __pyx_obj_5scurl_5cgurl__NetlocResultMixinBase __pyx_base;
@@ -945,11 +945,11 @@ struct __pyx_obj_5scurl_5cgurl__NetlocResultMixinStr {
 
 
 /* "scurl/cgurl.pyx":194
- * 
- * 
+ *
+ *
  * cdef class UrlsplitResultAttribute(_NetlocResultMixinStr):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
 struct __pyx_obj_5scurl_5cgurl_UrlsplitResultAttribute {
   struct __pyx_obj_5scurl_5cgurl__NetlocResultMixinStr __pyx_base;
@@ -957,11 +957,11 @@ struct __pyx_obj_5scurl_5cgurl_UrlsplitResultAttribute {
 
 
 /* "scurl/cgurl.pyx":218
- * 
- * 
+ *
+ *
  * cdef class UrlparseResultAttribute(UrlsplitResultAttribute):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
 struct __pyx_obj_5scurl_5cgurl_UrlparseResultAttribute {
   struct __pyx_obj_5scurl_5cgurl_UrlsplitResultAttribute __pyx_base;
@@ -1992,7 +1992,7 @@ static PyObject *__pyx_codeobj__25;
 
 /* "scurl/cgurl.pyx":28
  *                    'mms', 'sftp', 'tel']
- * 
+ *
  * cdef bytes slice_component(char * url, Component comp):             # <<<<<<<<<<<<<<
  *     if comp.len <= 0:
  *         return b""
@@ -2008,11 +2008,11 @@ static PyObject *__pyx_f_5scurl_5cgurl_slice_component(char *__pyx_v_url, url::C
   __Pyx_TraceCall("slice_component", __pyx_f[0], 28, 0, __PYX_ERR(0, 28, __pyx_L1_error));
 
   /* "scurl/cgurl.pyx":29
- * 
+ *
  * cdef bytes slice_component(char * url, Component comp):
  *     if comp.len <= 0:             # <<<<<<<<<<<<<<
  *         return b""
- * 
+ *
  */
   __Pyx_TraceLine(29,0,__PYX_ERR(0, 29, __pyx_L1_error))
   __pyx_t_1 = ((__pyx_v_comp.len <= 0) != 0);
@@ -2022,7 +2022,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_slice_component(char *__pyx_v_url, url::C
  * cdef bytes slice_component(char * url, Component comp):
  *     if comp.len <= 0:
  *         return b""             # <<<<<<<<<<<<<<
- * 
+ *
  *     return url[comp.begin:comp.begin + comp.len]
  */
     __Pyx_TraceLine(30,0,__PYX_ERR(0, 30, __pyx_L1_error))
@@ -2032,19 +2032,19 @@ static PyObject *__pyx_f_5scurl_5cgurl_slice_component(char *__pyx_v_url, url::C
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":29
- * 
+ *
  * cdef bytes slice_component(char * url, Component comp):
  *     if comp.len <= 0:             # <<<<<<<<<<<<<<
  *         return b""
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":32
  *         return b""
- * 
+ *
  *     return url[comp.begin:comp.begin + comp.len]             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef bytes build_netloc(char * url, Parsed parsed):
  */
   __Pyx_TraceLine(32,0,__PYX_ERR(0, 32, __pyx_L1_error))
@@ -2057,7 +2057,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_slice_component(char *__pyx_v_url, url::C
 
   /* "scurl/cgurl.pyx":28
  *                    'mms', 'sftp', 'tel']
- * 
+ *
  * cdef bytes slice_component(char * url, Component comp):             # <<<<<<<<<<<<<<
  *     if comp.len <= 0:
  *         return b""
@@ -2077,7 +2077,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_slice_component(char *__pyx_v_url, url::C
 
 /* "scurl/cgurl.pyx":34
  *     return url[comp.begin:comp.begin + comp.len]
- * 
+ *
  * cdef bytes build_netloc(char * url, Parsed parsed):             # <<<<<<<<<<<<<<
  *     if parsed.host.len <= 0:
  *         return b""
@@ -2094,11 +2094,11 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
   __Pyx_TraceCall("build_netloc", __pyx_f[0], 34, 0, __PYX_ERR(0, 34, __pyx_L1_error));
 
   /* "scurl/cgurl.pyx":35
- * 
+ *
  * cdef bytes build_netloc(char * url, Parsed parsed):
  *     if parsed.host.len <= 0:             # <<<<<<<<<<<<<<
  *         return b""
- * 
+ *
  */
   __Pyx_TraceLine(35,0,__PYX_ERR(0, 35, __pyx_L1_error))
   __pyx_t_1 = ((__pyx_v_parsed.host.len <= 0) != 0);
@@ -2108,7 +2108,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  * cdef bytes build_netloc(char * url, Parsed parsed):
  *     if parsed.host.len <= 0:
  *         return b""             # <<<<<<<<<<<<<<
- * 
+ *
  *     # Nothing at all
  */
     __Pyx_TraceLine(36,0,__PYX_ERR(0, 36, __pyx_L1_error))
@@ -2118,20 +2118,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":35
- * 
+ *
  * cdef bytes build_netloc(char * url, Parsed parsed):
  *     if parsed.host.len <= 0:             # <<<<<<<<<<<<<<
  *         return b""
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":39
- * 
+ *
  *     # Nothing at all
  *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len]
- * 
+ *
  */
   __Pyx_TraceLine(39,0,__PYX_ERR(0, 39, __pyx_L1_error))
   __pyx_t_2 = ((__pyx_v_parsed.username.len <= 0) != 0);
@@ -2155,7 +2155,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  *     # Nothing at all
  *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:
  *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len]             # <<<<<<<<<<<<<<
- * 
+ *
  *     # Only port
  */
     __Pyx_TraceLine(40,0,__PYX_ERR(0, 40, __pyx_L1_error))
@@ -2167,20 +2167,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":39
- * 
+ *
  *     # Nothing at all
  *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len]
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":43
- * 
+ *
  *     # Only port
  *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]
- * 
+ *
  */
   __Pyx_TraceLine(43,0,__PYX_ERR(0, 43, __pyx_L1_error))
   __pyx_t_2 = ((__pyx_v_parsed.username.len <= 0) != 0);
@@ -2204,7 +2204,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  *     # Only port
  *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:
  *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]             # <<<<<<<<<<<<<<
- * 
+ *
  *     # Only username
  */
     __Pyx_TraceLine(44,0,__PYX_ERR(0, 44, __pyx_L1_error))
@@ -2216,20 +2216,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":43
- * 
+ *
  *     # Only port
  *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":47
- * 
+ *
  *     # Only username
  *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]
- * 
+ *
  */
   __Pyx_TraceLine(47,0,__PYX_ERR(0, 47, __pyx_L1_error))
   __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
@@ -2253,7 +2253,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  *     # Only username
  *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]             # <<<<<<<<<<<<<<
- * 
+ *
  *     # Username + password
  */
     __Pyx_TraceLine(48,0,__PYX_ERR(0, 48, __pyx_L1_error))
@@ -2265,20 +2265,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":47
- * 
+ *
  *     # Only username
  *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":51
- * 
+ *
  *     # Username + password
  *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]
- * 
+ *
  */
   __Pyx_TraceLine(51,0,__PYX_ERR(0, 51, __pyx_L1_error))
   __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
@@ -2302,7 +2302,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  *     # Username + password
  *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]             # <<<<<<<<<<<<<<
- * 
+ *
  *     # Username + port
  */
     __Pyx_TraceLine(52,0,__PYX_ERR(0, 52, __pyx_L1_error))
@@ -2314,20 +2314,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":51
- * 
+ *
  *     # Username + password
  *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":55
- * 
+ *
  *     # Username + port
  *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]
- * 
+ *
  */
   __Pyx_TraceLine(55,0,__PYX_ERR(0, 55, __pyx_L1_error))
   __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
@@ -2351,7 +2351,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  *     # Username + port
  *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]             # <<<<<<<<<<<<<<
- * 
+ *
  *     # Username + port + password
  */
     __Pyx_TraceLine(56,0,__PYX_ERR(0, 56, __pyx_L1_error))
@@ -2363,20 +2363,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":55
- * 
+ *
  *     # Username + port
  *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":59
- * 
+ *
  *     # Username + port + password
  *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]
- * 
+ *
  */
   __Pyx_TraceLine(59,0,__PYX_ERR(0, 59, __pyx_L1_error))
   __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
@@ -2400,7 +2400,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
  *     # Username + port + password
  *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]             # <<<<<<<<<<<<<<
- * 
+ *
  *     else:
  */
     __Pyx_TraceLine(60,0,__PYX_ERR(0, 60, __pyx_L1_error))
@@ -2412,20 +2412,20 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":59
- * 
+ *
  *     # Username + port + password
  *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
  *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":63
- * 
+ *
  *     else:
  *         raise ValueError             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(63,0,__PYX_ERR(0, 63, __pyx_L1_error))
   /*else*/ {
@@ -2435,7 +2435,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
 
   /* "scurl/cgurl.pyx":34
  *     return url[comp.begin:comp.begin + comp.len]
- * 
+ *
  * cdef bytes build_netloc(char * url, Parsed parsed):             # <<<<<<<<<<<<<<
  *     if parsed.host.len <= 0:
  *         return b""
@@ -2454,8 +2454,8 @@ static PyObject *__pyx_f_5scurl_5cgurl_build_netloc(char *__pyx_v_url, url::Pars
 }
 
 /* "scurl/cgurl.pyx":66
- * 
- * 
+ *
+ *
  * cdef char * unicode_handling(str):             # <<<<<<<<<<<<<<
  *     """
  *     This function handles the unicode string and converts it to bytes
@@ -2482,7 +2482,7 @@ static char *__pyx_f_5scurl_5cgurl_unicode_handling(PyObject *__pyx_v_str) {
  *     else:
  */
   __Pyx_TraceLine(72,0,__PYX_ERR(0, 72, __pyx_L1_error))
-  __pyx_t_1 = PyUnicode_Check(__pyx_v_str); 
+  __pyx_t_1 = PyUnicode_Check(__pyx_v_str);
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
@@ -2521,7 +2521,7 @@ static char *__pyx_f_5scurl_5cgurl_unicode_handling(PyObject *__pyx_v_str) {
  *     else:
  *         bytes_str = <bytes>str             # <<<<<<<<<<<<<<
  *     return bytes_str
- * 
+ *
  */
   __Pyx_TraceLine(75,0,__PYX_ERR(0, 75, __pyx_L1_error))
   /*else*/ {
@@ -2536,7 +2536,7 @@ static char *__pyx_f_5scurl_5cgurl_unicode_handling(PyObject *__pyx_v_str) {
  *     else:
  *         bytes_str = <bytes>str
  *     return bytes_str             # <<<<<<<<<<<<<<
- * 
+ *
  * cdef void parse_input_url(char * url, Component url_scheme, Parsed * parsed):
  */
   __Pyx_TraceLine(76,0,__PYX_ERR(0, 76, __pyx_L1_error))
@@ -2549,8 +2549,8 @@ static char *__pyx_f_5scurl_5cgurl_unicode_handling(PyObject *__pyx_v_str) {
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":66
- * 
- * 
+ *
+ *
  * cdef char * unicode_handling(str):             # <<<<<<<<<<<<<<
  *     """
  *     This function handles the unicode string and converts it to bytes
@@ -2571,7 +2571,7 @@ static char *__pyx_f_5scurl_5cgurl_unicode_handling(PyObject *__pyx_v_str) {
 
 /* "scurl/cgurl.pyx":78
  *     return bytes_str
- * 
+ *
  * cdef void parse_input_url(char * url, Component url_scheme, Parsed * parsed):             # <<<<<<<<<<<<<<
  *     """
  *     This function parses the input url using GURL url_parse
@@ -2604,7 +2604,7 @@ static void __pyx_f_5scurl_5cgurl_parse_input_url(char *__pyx_v_url, url::Compon
  *         ParseFileSystemURL(url, len(url), parsed)
  */
     __Pyx_TraceLine(83,0,__PYX_ERR(0, 83, __pyx_L1_error))
-    __pyx_t_2 = strlen(__pyx_v_url); 
+    __pyx_t_2 = strlen(__pyx_v_url);
     url::ParseFileURL(__pyx_v_url, __pyx_t_2, __pyx_v_parsed);
 
     /* "scurl/cgurl.pyx":82
@@ -2636,7 +2636,7 @@ static void __pyx_f_5scurl_5cgurl_parse_input_url(char *__pyx_v_url, url::Compon
  *         ParseStandardURL(url, len(url), parsed)
  */
     __Pyx_TraceLine(85,0,__PYX_ERR(0, 85, __pyx_L1_error))
-    __pyx_t_2 = strlen(__pyx_v_url); 
+    __pyx_t_2 = strlen(__pyx_v_url);
     url::ParseFileSystemURL(__pyx_v_url, __pyx_t_2, __pyx_v_parsed);
 
     /* "scurl/cgurl.pyx":84
@@ -2668,7 +2668,7 @@ static void __pyx_f_5scurl_5cgurl_parse_input_url(char *__pyx_v_url, url::Compon
  *         """
  */
     __Pyx_TraceLine(87,0,__PYX_ERR(0, 87, __pyx_L1_error))
-    __pyx_t_2 = strlen(__pyx_v_url); 
+    __pyx_t_2 = strlen(__pyx_v_url);
     url::ParseStandardURL(__pyx_v_url, __pyx_t_2, __pyx_v_parsed);
 
     /* "scurl/cgurl.pyx":86
@@ -2700,7 +2700,7 @@ static void __pyx_f_5scurl_5cgurl_parse_input_url(char *__pyx_v_url, url::Compon
  *         """
  */
     __Pyx_TraceLine(92,0,__PYX_ERR(0, 92, __pyx_L1_error))
-    __pyx_t_2 = strlen(__pyx_v_url); 
+    __pyx_t_2 = strlen(__pyx_v_url);
     url::ParseMailtoURL(__pyx_v_url, __pyx_t_2, __pyx_v_parsed);
 
     /* "scurl/cgurl.pyx":88
@@ -2727,18 +2727,18 @@ static void __pyx_f_5scurl_5cgurl_parse_input_url(char *__pyx_v_url, url::Compon
  *         trim or not to trim?
  *         """
  *         ParsePathURL(url, len(url), True, parsed)             # <<<<<<<<<<<<<<
- * 
+ *
  * # https://github.com/python/cpython/blob/master/Lib/urllib/parse.py
  */
     __Pyx_TraceLine(98,0,__PYX_ERR(0, 98, __pyx_L1_error))
-    __pyx_t_2 = strlen(__pyx_v_url); 
+    __pyx_t_2 = strlen(__pyx_v_url);
     url::ParsePathURL(__pyx_v_url, __pyx_t_2, 1, __pyx_v_parsed);
   }
   __pyx_L3:;
 
   /* "scurl/cgurl.pyx":78
  *     return bytes_str
- * 
+ *
  * cdef void parse_input_url(char * url, Component url_scheme, Parsed * parsed):             # <<<<<<<<<<<<<<
  *     """
  *     This function parses the input url using GURL url_parse
@@ -2754,7 +2754,7 @@ static void __pyx_f_5scurl_5cgurl_parse_input_url(char *__pyx_v_url, url::Compon
 }
 
 /* "scurl/cgurl.pyx":101
- * 
+ *
  * # https://github.com/python/cpython/blob/master/Lib/urllib/parse.py
  * cdef object _splitparams(string path):             # <<<<<<<<<<<<<<
  *     """
@@ -2803,7 +2803,7 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
  *     cdef string slash_string = b'/'
  *     cdef string semcol = b';'             # <<<<<<<<<<<<<<
  *     cdef int i
- * 
+ *
  */
   __Pyx_TraceLine(107,0,__PYX_ERR(0, 107, __pyx_L1_error))
   __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_kp_b__3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
@@ -2811,7 +2811,7 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
 
   /* "scurl/cgurl.pyx":110
  *     cdef int i
- * 
+ *
  *     if path.find(slash_string) != -1:             # <<<<<<<<<<<<<<
  *         i = path.find(semcol, path.rfind(slash_char))
  *         if i < 0:
@@ -2821,7 +2821,7 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
   if (__pyx_t_2) {
 
     /* "scurl/cgurl.pyx":111
- * 
+ *
  *     if path.find(slash_string) != -1:
  *         i = path.find(semcol, path.rfind(slash_char))             # <<<<<<<<<<<<<<
  *         if i < 0:
@@ -2875,7 +2875,7 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
 
     /* "scurl/cgurl.pyx":110
  *     cdef int i
- * 
+ *
  *     if path.find(slash_string) != -1:             # <<<<<<<<<<<<<<
  *         i = path.find(semcol, path.rfind(slash_char))
  *         if i < 0:
@@ -2888,7 +2888,7 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
  *     else:
  *         i = path.find(semcol)             # <<<<<<<<<<<<<<
  *     return path.substr(0, i), path.substr(i + 1)
- * 
+ *
  */
   __Pyx_TraceLine(115,0,__PYX_ERR(0, 115, __pyx_L1_error))
   /*else*/ {
@@ -2900,8 +2900,8 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
  *     else:
  *         i = path.find(semcol)
  *     return path.substr(0, i), path.substr(i + 1)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(116,0,__PYX_ERR(0, 116, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -2922,7 +2922,7 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":101
- * 
+ *
  * # https://github.com/python/cpython/blob/master/Lib/urllib/parse.py
  * cdef object _splitparams(string path):             # <<<<<<<<<<<<<<
  *     """
@@ -2944,11 +2944,11 @@ static PyObject *__pyx_f_5scurl_5cgurl__splitparams(std::string __pyx_v_path) {
 }
 
 /* "scurl/cgurl.pyx":124
- * 
+ *
  *     @property
  *     def username(self):             # <<<<<<<<<<<<<<
  *         return self._userinfo[0]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -2977,7 +2977,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8username___get
  *     @property
  *     def username(self):
  *         return self._userinfo[0]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(125,0,__PYX_ERR(0, 125, __pyx_L1_error))
@@ -2992,11 +2992,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8username___get
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":124
- * 
+ *
  *     @property
  *     def username(self):             # <<<<<<<<<<<<<<
  *         return self._userinfo[0]
- * 
+ *
  */
 
   /* function exit code */
@@ -3013,11 +3013,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8username___get
 }
 
 /* "scurl/cgurl.pyx":128
- * 
+ *
  *     @property
  *     def password(self):             # <<<<<<<<<<<<<<
  *         return self._userinfo[1]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -3046,7 +3046,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8password___get
  *     @property
  *     def password(self):
  *         return self._userinfo[1]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(129,0,__PYX_ERR(0, 129, __pyx_L1_error))
@@ -3061,11 +3061,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8password___get
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":128
- * 
+ *
  *     @property
  *     def password(self):             # <<<<<<<<<<<<<<
  *         return self._userinfo[1]
- * 
+ *
  */
 
   /* function exit code */
@@ -3082,7 +3082,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8password___get
 }
 
 /* "scurl/cgurl.pyx":132
- * 
+ *
  *     @property
  *     def hostname(self):             # <<<<<<<<<<<<<<
  *         hostname = self._hostinfo[0]
@@ -3178,7 +3178,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8hostname___get
  *         return hostname.lower() + percent + zone
  */
   __Pyx_TraceLine(138,0,__PYX_ERR(0, 138, __pyx_L1_error))
-  __pyx_t_4 = PyString_Check(__pyx_v_hostname); 
+  __pyx_t_4 = PyString_Check(__pyx_v_hostname);
   if ((__pyx_t_4 != 0)) {
     __Pyx_INCREF(__pyx_kp_s__4);
     __pyx_t_2 = __pyx_kp_s__4;
@@ -3194,7 +3194,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8hostname___get
  *         separator = '%' if isinstance(hostname, str) else b'%'
  *         hostname, percent, zone = hostname.partition(separator)             # <<<<<<<<<<<<<<
  *         return hostname.lower() + percent + zone
- * 
+ *
  */
   __Pyx_TraceLine(139,0,__PYX_ERR(0, 139, __pyx_L1_error))
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hostname, __pyx_n_s_partition); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
@@ -3252,13 +3252,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8hostname___get
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 2); 
+      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0);
+      __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1);
+      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 2);
     } else {
-      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_6 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_5 = PyList_GET_ITEM(sequence, 2); 
+      __pyx_t_1 = PyList_GET_ITEM(sequence, 0);
+      __pyx_t_6 = PyList_GET_ITEM(sequence, 1);
+      __pyx_t_5 = PyList_GET_ITEM(sequence, 2);
     }
     __Pyx_INCREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_6);
@@ -3306,7 +3306,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8hostname___get
  *         separator = '%' if isinstance(hostname, str) else b'%'
  *         hostname, percent, zone = hostname.partition(separator)
  *         return hostname.lower() + percent + zone             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(140,0,__PYX_ERR(0, 140, __pyx_L1_error))
@@ -3342,7 +3342,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8hostname___get
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":132
- * 
+ *
  *     @property
  *     def hostname(self):             # <<<<<<<<<<<<<<
  *         hostname = self._hostinfo[0]
@@ -3370,7 +3370,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_8hostname___get
 }
 
 /* "scurl/cgurl.pyx":143
- * 
+ *
  *     @property
  *     def port(self):             # <<<<<<<<<<<<<<
  *         port = self._hostinfo[1]
@@ -3622,7 +3622,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_4port___get__(s
  *             if not ( 0 <= port <= 65535):
  *                 raise ValueError("Port out of range 0-65535")             # <<<<<<<<<<<<<<
  *         return port
- * 
+ *
  */
       __Pyx_TraceLine(152,0,__PYX_ERR(0, 152, __pyx_L1_error))
       __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 152, __pyx_L1_error)
@@ -3653,8 +3653,8 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_4port___get__(s
  *             if not ( 0 <= port <= 65535):
  *                 raise ValueError("Port out of range 0-65535")
  *         return port             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(153,0,__PYX_ERR(0, 153, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -3663,7 +3663,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_4port___get__(s
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":143
- * 
+ *
  *     @property
  *     def port(self):             # <<<<<<<<<<<<<<
  *         port = self._hostinfo[1]
@@ -3988,7 +3988,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22_NetlocResultMixinBase_2__setstate_cyt
 }
 
 /* "scurl/cgurl.pyx":160
- * 
+ *
  *     @property
  *     def _userinfo(self):             # <<<<<<<<<<<<<<
  *         netloc = self[1]
@@ -4067,10 +4067,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
  *         char_at, char_colon = '@', ':'
  *         if isinstance(netloc, bytes):             # <<<<<<<<<<<<<<
  *             char_at, char_colon = b'@', b':'
- * 
+ *
  */
   __Pyx_TraceLine(163,0,__PYX_ERR(0, 163, __pyx_L1_error))
-  __pyx_t_3 = PyBytes_Check(__pyx_v_netloc); 
+  __pyx_t_3 = PyBytes_Check(__pyx_v_netloc);
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (__pyx_t_4) {
 
@@ -4078,7 +4078,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
  *         char_at, char_colon = '@', ':'
  *         if isinstance(netloc, bytes):
  *             char_at, char_colon = b'@', b':'             # <<<<<<<<<<<<<<
- * 
+ *
  *         userinfo, have_info, hostinfo = netloc.rpartition(char_at)
  */
     __Pyx_TraceLine(164,0,__PYX_ERR(0, 164, __pyx_L1_error))
@@ -4096,13 +4096,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
  *         char_at, char_colon = '@', ':'
  *         if isinstance(netloc, bytes):             # <<<<<<<<<<<<<<
  *             char_at, char_colon = b'@', b':'
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":166
  *             char_at, char_colon = b'@', b':'
- * 
+ *
  *         userinfo, have_info, hostinfo = netloc.rpartition(char_at)             # <<<<<<<<<<<<<<
  *         if have_info:
  *             username, have_password, password = userinfo.partition(char_colon)
@@ -4163,13 +4163,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 2); 
+      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0);
+      __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1);
+      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 2);
     } else {
-      __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_6 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_5 = PyList_GET_ITEM(sequence, 2); 
+      __pyx_t_2 = PyList_GET_ITEM(sequence, 0);
+      __pyx_t_6 = PyList_GET_ITEM(sequence, 1);
+      __pyx_t_5 = PyList_GET_ITEM(sequence, 2);
     }
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_6);
@@ -4214,7 +4214,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
   __pyx_t_5 = 0;
 
   /* "scurl/cgurl.pyx":167
- * 
+ *
  *         userinfo, have_info, hostinfo = netloc.rpartition(char_at)
  *         if have_info:             # <<<<<<<<<<<<<<
  *             username, have_password, password = userinfo.partition(char_colon)
@@ -4287,13 +4287,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
-        __pyx_t_6 = PyTuple_GET_ITEM(sequence, 2); 
+        __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0);
+        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1);
+        __pyx_t_6 = PyTuple_GET_ITEM(sequence, 2);
       } else {
-        __pyx_t_5 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
-        __pyx_t_6 = PyList_GET_ITEM(sequence, 2); 
+        __pyx_t_5 = PyList_GET_ITEM(sequence, 0);
+        __pyx_t_2 = PyList_GET_ITEM(sequence, 1);
+        __pyx_t_6 = PyList_GET_ITEM(sequence, 2);
       }
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_2);
@@ -4370,7 +4370,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
     }
 
     /* "scurl/cgurl.pyx":167
- * 
+ *
  *         userinfo, have_info, hostinfo = netloc.rpartition(char_at)
  *         if have_info:             # <<<<<<<<<<<<<<
  *             username, have_password, password = userinfo.partition(char_colon)
@@ -4384,7 +4384,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
  *         else:
  *             username = password = None             # <<<<<<<<<<<<<<
  *         return username, password
- * 
+ *
  */
   __Pyx_TraceLine(172,0,__PYX_ERR(0, 172, __pyx_L1_error))
   /*else*/ {
@@ -4399,7 +4399,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
  *         else:
  *             username = password = None
  *         return username, password             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(173,0,__PYX_ERR(0, 173, __pyx_L1_error))
@@ -4417,7 +4417,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":160
- * 
+ *
  *     @property
  *     def _userinfo(self):             # <<<<<<<<<<<<<<
  *         netloc = self[1]
@@ -4450,7 +4450,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_userinfo___get
 }
 
 /* "scurl/cgurl.pyx":176
- * 
+ *
  *     @property
  *     def _hostinfo(self):             # <<<<<<<<<<<<<<
  *         netloc = self[1]
@@ -4539,10 +4539,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
  *         char_at, char_leftsquare, char_rightsquare, char_colon = '@', '[', ']', ':'
  *         if isinstance(netloc, bytes):             # <<<<<<<<<<<<<<
  *             char_at, char_leftsquare, char_rightsquare, char_colon = b'@', b'[', b']', b':'
- * 
+ *
  */
   __Pyx_TraceLine(179,0,__PYX_ERR(0, 179, __pyx_L1_error))
-  __pyx_t_5 = PyBytes_Check(__pyx_v_netloc); 
+  __pyx_t_5 = PyBytes_Check(__pyx_v_netloc);
   __pyx_t_6 = (__pyx_t_5 != 0);
   if (__pyx_t_6) {
 
@@ -4550,7 +4550,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
  *         char_at, char_leftsquare, char_rightsquare, char_colon = '@', '[', ']', ':'
  *         if isinstance(netloc, bytes):
  *             char_at, char_leftsquare, char_rightsquare, char_colon = b'@', b'[', b']', b':'             # <<<<<<<<<<<<<<
- * 
+ *
  *         _, _, hostinfo = netloc.rpartition(char_at)
  */
     __Pyx_TraceLine(180,0,__PYX_ERR(0, 180, __pyx_L1_error))
@@ -4576,13 +4576,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
  *         char_at, char_leftsquare, char_rightsquare, char_colon = '@', '[', ']', ':'
  *         if isinstance(netloc, bytes):             # <<<<<<<<<<<<<<
  *             char_at, char_leftsquare, char_rightsquare, char_colon = b'@', b'[', b']', b':'
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":182
  *             char_at, char_leftsquare, char_rightsquare, char_colon = b'@', b'[', b']', b':'
- * 
+ *
  *         _, _, hostinfo = netloc.rpartition(char_at)             # <<<<<<<<<<<<<<
  *         _, have_open_br, bracketed = hostinfo.partition(char_leftsquare)
  *         if have_open_br:
@@ -4643,13 +4643,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2); 
+      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0);
+      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1);
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2);
     } else {
-      __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_4 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 2); 
+      __pyx_t_2 = PyList_GET_ITEM(sequence, 0);
+      __pyx_t_4 = PyList_GET_ITEM(sequence, 1);
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 2);
     }
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_4);
@@ -4694,7 +4694,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
   __pyx_t_3 = 0;
 
   /* "scurl/cgurl.pyx":183
- * 
+ *
  *         _, _, hostinfo = netloc.rpartition(char_at)
  *         _, have_open_br, bracketed = hostinfo.partition(char_leftsquare)             # <<<<<<<<<<<<<<
  *         if have_open_br:
@@ -4756,13 +4756,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0);
+      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1);
+      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2);
     } else {
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_4 = PyList_GET_ITEM(sequence, 2); 
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 0);
+      __pyx_t_2 = PyList_GET_ITEM(sequence, 1);
+      __pyx_t_4 = PyList_GET_ITEM(sequence, 2);
     }
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_2);
@@ -4880,13 +4880,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 2); 
+        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 0);
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1);
+        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 2);
       } else {
-        __pyx_t_4 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 2); 
+        __pyx_t_4 = PyList_GET_ITEM(sequence, 0);
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 1);
+        __pyx_t_2 = PyList_GET_ITEM(sequence, 2);
       }
       __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_t_3);
@@ -4993,13 +4993,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1); 
-        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2); 
+        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0);
+        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1);
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2);
       } else {
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_4 = PyList_GET_ITEM(sequence, 1); 
-        __pyx_t_3 = PyList_GET_ITEM(sequence, 2); 
+        __pyx_t_2 = PyList_GET_ITEM(sequence, 0);
+        __pyx_t_4 = PyList_GET_ITEM(sequence, 1);
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 2);
       }
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_4);
@@ -5117,13 +5117,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1); 
-        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2); 
+        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0);
+        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 1);
+        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 2);
       } else {
-        __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 1); 
-        __pyx_t_4 = PyList_GET_ITEM(sequence, 2); 
+        __pyx_t_3 = PyList_GET_ITEM(sequence, 0);
+        __pyx_t_2 = PyList_GET_ITEM(sequence, 1);
+        __pyx_t_4 = PyList_GET_ITEM(sequence, 2);
       }
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_2);
@@ -5186,7 +5186,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
  *         if not port:
  *             port = None             # <<<<<<<<<<<<<<
  *         return hostname, port
- * 
+ *
  */
     __Pyx_TraceLine(190,0,__PYX_ERR(0, 190, __pyx_L1_error))
     __Pyx_INCREF(Py_None);
@@ -5205,8 +5205,8 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
  *         if not port:
  *             port = None
  *         return hostname, port             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(191,0,__PYX_ERR(0, 191, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -5223,7 +5223,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_9_hostinfo___get
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":176
- * 
+ *
  *     @property
  *     def _hostinfo(self):             # <<<<<<<<<<<<<<
  *         netloc = self[1]
@@ -5555,11 +5555,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21_NetlocResultMixinStr_2__setstate_cyth
 }
 
 /* "scurl/cgurl.pyx":198
- * 
+ *
  *     @property
  *     def scheme(self):             # <<<<<<<<<<<<<<
  *         return self[0]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -5587,7 +5587,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_6scheme___get_
  *     @property
  *     def scheme(self):
  *         return self[0]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(199,0,__PYX_ERR(0, 199, __pyx_L1_error))
@@ -5599,11 +5599,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_6scheme___get_
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":198
- * 
+ *
  *     @property
  *     def scheme(self):             # <<<<<<<<<<<<<<
  *         return self[0]
- * 
+ *
  */
 
   /* function exit code */
@@ -5619,11 +5619,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_6scheme___get_
 }
 
 /* "scurl/cgurl.pyx":202
- * 
+ *
  *     @property
  *     def netloc(self):             # <<<<<<<<<<<<<<
  *         return self[1]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -5651,7 +5651,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_6netloc___get_
  *     @property
  *     def netloc(self):
  *         return self[1]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(203,0,__PYX_ERR(0, 203, __pyx_L1_error))
@@ -5663,11 +5663,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_6netloc___get_
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":202
- * 
+ *
  *     @property
  *     def netloc(self):             # <<<<<<<<<<<<<<
  *         return self[1]
- * 
+ *
  */
 
   /* function exit code */
@@ -5683,11 +5683,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_6netloc___get_
 }
 
 /* "scurl/cgurl.pyx":206
- * 
+ *
  *     @property
  *     def path(self):             # <<<<<<<<<<<<<<
  *         return self[2]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -5715,7 +5715,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_4path___get__(
  *     @property
  *     def path(self):
  *         return self[2]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(207,0,__PYX_ERR(0, 207, __pyx_L1_error))
@@ -5727,11 +5727,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_4path___get__(
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":206
- * 
+ *
  *     @property
  *     def path(self):             # <<<<<<<<<<<<<<
  *         return self[2]
- * 
+ *
  */
 
   /* function exit code */
@@ -5747,11 +5747,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_4path___get__(
 }
 
 /* "scurl/cgurl.pyx":210
- * 
+ *
  *     @property
  *     def query(self):             # <<<<<<<<<<<<<<
  *         return self[3]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -5779,7 +5779,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_5query___get__
  *     @property
  *     def query(self):
  *         return self[3]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(211,0,__PYX_ERR(0, 211, __pyx_L1_error))
@@ -5791,11 +5791,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_5query___get__
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":210
- * 
+ *
  *     @property
  *     def query(self):             # <<<<<<<<<<<<<<
  *         return self[3]
- * 
+ *
  */
 
   /* function exit code */
@@ -5811,11 +5811,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_5query___get__
 }
 
 /* "scurl/cgurl.pyx":214
- * 
+ *
  *     @property
  *     def fragment(self):             # <<<<<<<<<<<<<<
  *         return self[4]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -5843,8 +5843,8 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_8fragment___ge
  *     @property
  *     def fragment(self):
  *         return self[4]             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(215,0,__PYX_ERR(0, 215, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -5855,11 +5855,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_8fragment___ge
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":214
- * 
+ *
  *     @property
  *     def fragment(self):             # <<<<<<<<<<<<<<
  *         return self[4]
- * 
+ *
  */
 
   /* function exit code */
@@ -6172,11 +6172,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlsplitResultAttribute_2__setstate_cy
 }
 
 /* "scurl/cgurl.pyx":222
- * 
+ *
  *     @property
  *     def path(self):             # <<<<<<<<<<<<<<
  *         return self[2]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -6204,7 +6204,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_4path___get__(
  *     @property
  *     def path(self):
  *         return self[2]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(223,0,__PYX_ERR(0, 223, __pyx_L1_error))
@@ -6216,11 +6216,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_4path___get__(
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":222
- * 
+ *
  *     @property
  *     def path(self):             # <<<<<<<<<<<<<<
  *         return self[2]
- * 
+ *
  */
 
   /* function exit code */
@@ -6236,11 +6236,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_4path___get__(
 }
 
 /* "scurl/cgurl.pyx":226
- * 
+ *
  *     @property
  *     def params(self):             # <<<<<<<<<<<<<<
  *         return self[3]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -6268,7 +6268,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_6params___get_
  *     @property
  *     def params(self):
  *         return self[3]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(227,0,__PYX_ERR(0, 227, __pyx_L1_error))
@@ -6280,11 +6280,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_6params___get_
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":226
- * 
+ *
  *     @property
  *     def params(self):             # <<<<<<<<<<<<<<
  *         return self[3]
- * 
+ *
  */
 
   /* function exit code */
@@ -6300,11 +6300,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_6params___get_
 }
 
 /* "scurl/cgurl.pyx":230
- * 
+ *
  *     @property
  *     def query(self):             # <<<<<<<<<<<<<<
  *         return self[4]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -6332,7 +6332,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_5query___get__
  *     @property
  *     def query(self):
  *         return self[4]             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(231,0,__PYX_ERR(0, 231, __pyx_L1_error))
@@ -6344,11 +6344,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_5query___get__
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":230
- * 
+ *
  *     @property
  *     def query(self):             # <<<<<<<<<<<<<<
  *         return self[4]
- * 
+ *
  */
 
   /* function exit code */
@@ -6364,11 +6364,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_5query___get__
 }
 
 /* "scurl/cgurl.pyx":234
- * 
+ *
  *     @property
  *     def fragment(self):             # <<<<<<<<<<<<<<
  *         return self[5]
- * 
+ *
  */
 
 /* Python wrapper */
@@ -6396,8 +6396,8 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_8fragment___ge
  *     @property
  *     def fragment(self):
  *         return self[5]             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(235,0,__PYX_ERR(0, 235, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -6408,11 +6408,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_8fragment___ge
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":234
- * 
+ *
  *     @property
  *     def fragment(self):             # <<<<<<<<<<<<<<
  *         return self[5]
- * 
+ *
  */
 
   /* function exit code */
@@ -6726,9 +6726,9 @@ static PyObject *__pyx_pf_5scurl_5cgurl_23UrlparseResultAttribute_2__setstate_cy
 
 /* "scurl/cgurl.pyx":241
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme, decode=False):             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef Parsed parsed
  */
 
@@ -6851,22 +6851,22 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
   /* "scurl/cgurl.pyx":246
  *         cdef Component url_scheme
- * 
+ *
  *         if not ExtractScheme(url, len(url), &url_scheme):             # <<<<<<<<<<<<<<
  *             original_url = url.decode('utf-8') if decode else url
  *             return stdlib_urlsplit(original_url, input_scheme)
  */
   __Pyx_TraceLine(246,0,__PYX_ERR(0, 246, __pyx_L1_error))
-  __pyx_t_1 = strlen(__pyx_v_url); 
+  __pyx_t_1 = strlen(__pyx_v_url);
   __pyx_t_2 = ((!(url::ExtractScheme(__pyx_v_url, __pyx_t_1, (&__pyx_v_url_scheme)) != 0)) != 0);
   if (__pyx_t_2) {
 
     /* "scurl/cgurl.pyx":247
- * 
+ *
  *         if not ExtractScheme(url, len(url), &url_scheme):
  *             original_url = url.decode('utf-8') if decode else url             # <<<<<<<<<<<<<<
  *             return stdlib_urlsplit(original_url, input_scheme)
- * 
+ *
  */
     __Pyx_TraceLine(247,0,__PYX_ERR(0, 247, __pyx_L1_error))
     __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_decode); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
@@ -6888,7 +6888,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
  *         if not ExtractScheme(url, len(url), &url_scheme):
  *             original_url = url.decode('utf-8') if decode else url
  *             return stdlib_urlsplit(original_url, input_scheme)             # <<<<<<<<<<<<<<
- * 
+ *
  *         parse_input_url(url, url_scheme, &parsed)
  */
     __Pyx_TraceLine(248,0,__PYX_ERR(0, 248, __pyx_L1_error))
@@ -6946,7 +6946,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
     /* "scurl/cgurl.pyx":246
  *         cdef Component url_scheme
- * 
+ *
  *         if not ExtractScheme(url, len(url), &url_scheme):             # <<<<<<<<<<<<<<
  *             original_url = url.decode('utf-8') if decode else url
  *             return stdlib_urlsplit(original_url, input_scheme)
@@ -6955,9 +6955,9 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
   /* "scurl/cgurl.pyx":250
  *             return stdlib_urlsplit(original_url, input_scheme)
- * 
+ *
  *         parse_input_url(url, url_scheme, &parsed)             # <<<<<<<<<<<<<<
- * 
+ *
  *         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
  */
   __Pyx_TraceLine(250,0,__PYX_ERR(0, 250, __pyx_L1_error))
@@ -6965,7 +6965,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
   /* "scurl/cgurl.pyx":252
  *         parse_input_url(url, url_scheme, &parsed)
- * 
+ *
  *         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),             # <<<<<<<<<<<<<<
  *                                             build_netloc(url, parsed),
  *                                             slice_component(url, parsed.path),
@@ -6996,7 +6996,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "scurl/cgurl.pyx":253
- * 
+ *
  *         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
  *                                             build_netloc(url, parsed),             # <<<<<<<<<<<<<<
  *                                             slice_component(url, parsed.path),
@@ -7022,7 +7022,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
  *                                             slice_component(url, parsed.path),
  *                                             slice_component(url, parsed.query),             # <<<<<<<<<<<<<<
  *                                             slice_component(url, parsed.ref))
- * 
+ *
  */
   __Pyx_TraceLine(255,0,__PYX_ERR(0, 255, __pyx_L1_error))
   __pyx_t_5 = __pyx_f_5scurl_5cgurl_slice_component(__pyx_v_url, __pyx_v_parsed.query); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 255, __pyx_L1_error)
@@ -7032,7 +7032,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
  *                                             slice_component(url, parsed.path),
  *                                             slice_component(url, parsed.query),
  *                                             slice_component(url, parsed.ref))             # <<<<<<<<<<<<<<
- * 
+ *
  *         if not scheme and input_scheme:
  */
   __Pyx_TraceLine(256,0,__PYX_ERR(0, 256, __pyx_L1_error))
@@ -7051,10 +7051,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
   /* "scurl/cgurl.pyx":258
  *                                             slice_component(url, parsed.ref))
- * 
+ *
  *         if not scheme and input_scheme:             # <<<<<<<<<<<<<<
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  */
   __Pyx_TraceLine(258,0,__PYX_ERR(0, 258, __pyx_L1_error))
   __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_scheme); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 258, __pyx_L1_error)
@@ -7070,10 +7070,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
   if (__pyx_t_2) {
 
     /* "scurl/cgurl.pyx":259
- * 
+ *
  *         if not scheme and input_scheme:
  *             scheme = input_scheme.encode('utf-8')             # <<<<<<<<<<<<<<
- * 
+ *
  *         if decode:
  */
     __Pyx_TraceLine(259,0,__PYX_ERR(0, 259, __pyx_L1_error))
@@ -7087,16 +7087,16 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
     /* "scurl/cgurl.pyx":258
  *                                             slice_component(url, parsed.ref))
- * 
+ *
  *         if not scheme and input_scheme:             # <<<<<<<<<<<<<<
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":261
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  *         if decode:             # <<<<<<<<<<<<<<
  *             return tuple.__new__(cls, (
  *                 <unicode>scheme.decode('utf-8'),
@@ -7106,7 +7106,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
   if (__pyx_t_2) {
 
     /* "scurl/cgurl.pyx":262
- * 
+ *
  *         if decode:
  *             return tuple.__new__(cls, (             # <<<<<<<<<<<<<<
  *                 <unicode>scheme.decode('utf-8'),
@@ -7181,7 +7181,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
  *                 <unicode>query.decode('utf-8'),
  *                 <unicode>ref.decode('utf-8')             # <<<<<<<<<<<<<<
  *             ))
- * 
+ *
  */
     __Pyx_TraceLine(267,0,__PYX_ERR(0, 267, __pyx_L1_error))
     if (unlikely(__pyx_v_ref == Py_None)) {
@@ -7274,7 +7274,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
     /* "scurl/cgurl.pyx":261
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  *         if decode:             # <<<<<<<<<<<<<<
  *             return tuple.__new__(cls, (
  *                 <unicode>scheme.decode('utf-8'),
@@ -7283,9 +7283,9 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
   /* "scurl/cgurl.pyx":270
  *             ))
- * 
+ *
  *         return tuple.__new__(cls, (scheme, netloc, path, query, ref))             # <<<<<<<<<<<<<<
- * 
+ *
  *     def geturl(self):
  */
   __Pyx_TraceLine(270,0,__PYX_ERR(0, 270, __pyx_L1_error))
@@ -7362,9 +7362,9 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
   /* "scurl/cgurl.pyx":241
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme, decode=False):             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef Parsed parsed
  */
 
@@ -7395,10 +7395,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple___new__(CYTHON_U
 
 /* "scurl/cgurl.pyx":272
  *         return tuple.__new__(cls, (scheme, netloc, path, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunsplit(self)
- * 
+ *
  */
 
 /* Python wrapper */
@@ -7428,11 +7428,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple_2geturl(CYTHON_U
   __Pyx_TraceCall("geturl", __pyx_f[0], 272, 0, __PYX_ERR(0, 272, __pyx_L1_error));
 
   /* "scurl/cgurl.pyx":273
- * 
+ *
  *     def geturl(self):
  *         return stdlib_urlunsplit(self)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(273,0,__PYX_ERR(0, 273, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -7487,10 +7487,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple_2geturl(CYTHON_U
 
   /* "scurl/cgurl.pyx":272
  *         return tuple.__new__(cls, (scheme, netloc, path, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunsplit(self)
- * 
+ *
  */
 
   /* function exit code */
@@ -7510,10 +7510,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_21SplitResultNamedTuple_2geturl(CYTHON_U
 
 /* "scurl/cgurl.pyx":279
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,             # <<<<<<<<<<<<<<
  *                 canonicalize, canonicalize_encoding, decode=False):
- * 
+ *
  */
 
 /* Python wrapper */
@@ -7534,10 +7534,10 @@ static PyObject *__pyx_pw_5scurl_5cgurl_22ParsedResultNamedTuple_1__new__(PyObje
     PyObject* values[6] = {0,0,0,0,0,0};
 
     /* "scurl/cgurl.pyx":280
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,
  *                 canonicalize, canonicalize_encoding, decode=False):             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef Parsed parsed
  */
     values[5] = ((PyObject *)((PyObject *)Py_False));
@@ -7631,10 +7631,10 @@ static PyObject *__pyx_pw_5scurl_5cgurl_22ParsedResultNamedTuple_1__new__(PyObje
 
   /* "scurl/cgurl.pyx":279
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,             # <<<<<<<<<<<<<<
  *                 canonicalize, canonicalize_encoding, decode=False):
- * 
+ *
  */
 
   /* function exit code */
@@ -7682,22 +7682,22 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
   /* "scurl/cgurl.pyx":285
  *         cdef Component url_scheme
- * 
+ *
  *         if not ExtractScheme(url, len(url), &url_scheme):             # <<<<<<<<<<<<<<
  *             original_url = url.decode('utf-8') if decode else url
  *             return stdlib_urlparse(original_url, input_scheme)
  */
   __Pyx_TraceLine(285,0,__PYX_ERR(0, 285, __pyx_L1_error))
-  __pyx_t_1 = strlen(__pyx_v_url); 
+  __pyx_t_1 = strlen(__pyx_v_url);
   __pyx_t_2 = ((!(url::ExtractScheme(__pyx_v_url, __pyx_t_1, (&__pyx_v_url_scheme)) != 0)) != 0);
   if (__pyx_t_2) {
 
     /* "scurl/cgurl.pyx":286
- * 
+ *
  *         if not ExtractScheme(url, len(url), &url_scheme):
  *             original_url = url.decode('utf-8') if decode else url             # <<<<<<<<<<<<<<
  *             return stdlib_urlparse(original_url, input_scheme)
- * 
+ *
  */
     __Pyx_TraceLine(286,0,__PYX_ERR(0, 286, __pyx_L1_error))
     __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_decode); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 286, __pyx_L1_error)
@@ -7719,7 +7719,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
  *         if not ExtractScheme(url, len(url), &url_scheme):
  *             original_url = url.decode('utf-8') if decode else url
  *             return stdlib_urlparse(original_url, input_scheme)             # <<<<<<<<<<<<<<
- * 
+ *
  *         parse_input_url(url, url_scheme, &parsed)
  */
     __Pyx_TraceLine(287,0,__PYX_ERR(0, 287, __pyx_L1_error))
@@ -7777,7 +7777,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
     /* "scurl/cgurl.pyx":285
  *         cdef Component url_scheme
- * 
+ *
  *         if not ExtractScheme(url, len(url), &url_scheme):             # <<<<<<<<<<<<<<
  *             original_url = url.decode('utf-8') if decode else url
  *             return stdlib_urlparse(original_url, input_scheme)
@@ -7786,9 +7786,9 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
   /* "scurl/cgurl.pyx":289
  *             return stdlib_urlparse(original_url, input_scheme)
- * 
+ *
  *         parse_input_url(url, url_scheme, &parsed)             # <<<<<<<<<<<<<<
- * 
+ *
  *         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
  */
   __Pyx_TraceLine(289,0,__PYX_ERR(0, 289, __pyx_L1_error))
@@ -7796,7 +7796,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
   /* "scurl/cgurl.pyx":291
  *         parse_input_url(url, url_scheme, &parsed)
- * 
+ *
  *         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),             # <<<<<<<<<<<<<<
  *                                             build_netloc(url, parsed),
  *                                             slice_component(url, parsed.path),
@@ -7827,7 +7827,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "scurl/cgurl.pyx":292
- * 
+ *
  *         scheme, netloc, path, query, ref = (slice_component(url, parsed.scheme).lower(),
  *                                             build_netloc(url, parsed),             # <<<<<<<<<<<<<<
  *                                             slice_component(url, parsed.path),
@@ -7885,7 +7885,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
  *                                             slice_component(url, parsed.ref))
  *         if not scheme and input_scheme:             # <<<<<<<<<<<<<<
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  */
   __Pyx_TraceLine(296,0,__PYX_ERR(0, 296, __pyx_L1_error))
   __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_scheme); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 296, __pyx_L1_error)
@@ -7904,7 +7904,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
  *                                             slice_component(url, parsed.ref))
  *         if not scheme and input_scheme:
  *             scheme = input_scheme.encode('utf-8')             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef bool in_uses_params = False
  */
     __Pyx_TraceLine(297,0,__PYX_ERR(0, 297, __pyx_L1_error))
@@ -7921,13 +7921,13 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
  *                                             slice_component(url, parsed.ref))
  *         if not scheme and input_scheme:             # <<<<<<<<<<<<<<
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":299
  *             scheme = input_scheme.encode('utf-8')
- * 
+ *
  *         cdef bool in_uses_params = False             # <<<<<<<<<<<<<<
  *         for param in uses_params:
  *             if param == scheme:
@@ -7936,7 +7936,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
   __pyx_v_in_uses_params = 0;
 
   /* "scurl/cgurl.pyx":300
- * 
+ *
  *         cdef bool in_uses_params = False
  *         for param in uses_params:             # <<<<<<<<<<<<<<
  *             if param == scheme:
@@ -8023,11 +8023,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_8 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1); 
+        __pyx_t_8 = PyTuple_GET_ITEM(sequence, 0);
+        __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1);
       } else {
-        __pyx_t_8 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_4 = PyList_GET_ITEM(sequence, 1); 
+        __pyx_t_8 = PyList_GET_ITEM(sequence, 0);
+        __pyx_t_4 = PyList_GET_ITEM(sequence, 1);
       }
       __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(__pyx_t_4);
@@ -8078,7 +8078,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
  *             path, params = _splitparams(path)
  *         else:
  *             params = b''             # <<<<<<<<<<<<<<
- * 
+ *
  *         # if canonicalize is set to true, then we will need to convert it to unicode
  */
   __Pyx_TraceLine(306,0,__PYX_ERR(0, 306, __pyx_L1_error))
@@ -8089,7 +8089,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
   __pyx_L10:;
 
   /* "scurl/cgurl.pyx":309
- * 
+ *
  *         # if canonicalize is set to true, then we will need to convert it to unicode
  *         if decode or canonicalize:             # <<<<<<<<<<<<<<
  *             return tuple.__new__(cls, (
@@ -8196,7 +8196,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
  *                 <unicode>query.decode('utf-8'),
  *                 <unicode>ref.decode('utf-8')             # <<<<<<<<<<<<<<
  *             ))
- * 
+ *
  */
     __Pyx_TraceLine(316,0,__PYX_ERR(0, 316, __pyx_L1_error))
     if (unlikely(__pyx_v_ref == Py_None)) {
@@ -8292,7 +8292,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":309
- * 
+ *
  *         # if canonicalize is set to true, then we will need to convert it to unicode
  *         if decode or canonicalize:             # <<<<<<<<<<<<<<
  *             return tuple.__new__(cls, (
@@ -8302,9 +8302,9 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
   /* "scurl/cgurl.pyx":319
  *             ))
- * 
+ *
  *         return tuple.__new__(cls, (scheme, netloc, path, params, query, ref))             # <<<<<<<<<<<<<<
- * 
+ *
  *     def geturl(self):
  */
   __Pyx_TraceLine(319,0,__PYX_ERR(0, 319, __pyx_L1_error))
@@ -8384,10 +8384,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
   /* "scurl/cgurl.pyx":279
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,             # <<<<<<<<<<<<<<
  *                 canonicalize, canonicalize_encoding, decode=False):
- * 
+ *
  */
 
   /* function exit code */
@@ -8419,10 +8419,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple___new__(CYTHON_
 
 /* "scurl/cgurl.pyx":321
  *         return tuple.__new__(cls, (scheme, netloc, path, params, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunparse(self)
- * 
+ *
  */
 
 /* Python wrapper */
@@ -8452,11 +8452,11 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple_2geturl(CYTHON_
   __Pyx_TraceCall("geturl", __pyx_f[0], 321, 0, __PYX_ERR(0, 321, __pyx_L1_error));
 
   /* "scurl/cgurl.pyx":322
- * 
+ *
  *     def geturl(self):
  *         return stdlib_urlunparse(self)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(322,0,__PYX_ERR(0, 322, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -8511,10 +8511,10 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple_2geturl(CYTHON_
 
   /* "scurl/cgurl.pyx":321
  *         return tuple.__new__(cls, (scheme, netloc, path, params, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunparse(self)
- * 
+ *
  */
 
   /* function exit code */
@@ -8533,8 +8533,8 @@ static PyObject *__pyx_pf_5scurl_5cgurl_22ParsedResultNamedTuple_2geturl(CYTHON_
 }
 
 /* "scurl/cgurl.pyx":325
- * 
- * 
+ *
+ *
  * cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=False,             # <<<<<<<<<<<<<<
  *              canonicalize_encoding='utf-8'):
  *     """
@@ -8581,7 +8581,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlparse(PyObject *__pyx_v_url, CYTHON_UN
  *     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,
  */
   __Pyx_TraceLine(332,0,__PYX_ERR(0, 332, __pyx_L1_error))
-  __pyx_t_1 = PyBytes_Check(__pyx_v_url); 
+  __pyx_t_1 = PyBytes_Check(__pyx_v_url);
   __pyx_v_decode = (!(__pyx_t_1 != 0));
 
   /* "scurl/cgurl.pyx":333
@@ -8602,7 +8602,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlparse(PyObject *__pyx_v_url, CYTHON_UN
  *     url = unicode_handling(url)
  *     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,             # <<<<<<<<<<<<<<
  *                                           canonicalize, canonicalize_encoding, decode)
- * 
+ *
  */
   __Pyx_TraceLine(334,0,__PYX_ERR(0, 334, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -8618,7 +8618,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlparse(PyObject *__pyx_v_url, CYTHON_UN
  *     url = unicode_handling(url)
  *     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,
  *                                           canonicalize, canonicalize_encoding, decode)             # <<<<<<<<<<<<<<
- * 
+ *
  * cpdef urlsplit(url, scheme='', bool allow_fragments=True):
  */
   __Pyx_TraceLine(335,0,__PYX_ERR(0, 335, __pyx_L1_error))
@@ -8694,8 +8694,8 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlparse(PyObject *__pyx_v_url, CYTHON_UN
   goto __pyx_L0;
 
   /* "scurl/cgurl.pyx":325
- * 
- * 
+ *
+ *
  * cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=False,             # <<<<<<<<<<<<<<
  *              canonicalize_encoding='utf-8'):
  *     """
@@ -8865,7 +8865,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_urlparse(CYTHON_UNUSED PyObject *__pyx_s
 
 /* "scurl/cgurl.pyx":337
  *                                           canonicalize, canonicalize_encoding, decode)
- * 
+ *
  * cpdef urlsplit(url, scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """
  *     This function intends to replace urljoin from urllib,
@@ -8903,7 +8903,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlsplit(PyObject *__pyx_v_url, CYTHON_UN
  *     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
  */
   __Pyx_TraceLine(342,0,__PYX_ERR(0, 342, __pyx_L1_error))
-  __pyx_t_1 = PyBytes_Check(__pyx_v_url); 
+  __pyx_t_1 = PyBytes_Check(__pyx_v_url);
   __pyx_v_decode = (!(__pyx_t_1 != 0));
 
   /* "scurl/cgurl.pyx":343
@@ -8911,7 +8911,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlsplit(PyObject *__pyx_v_url, CYTHON_UN
  *     decode = not isinstance(url, bytes)
  *     url = unicode_handling(url)             # <<<<<<<<<<<<<<
  *     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
- * 
+ *
  */
   __Pyx_TraceLine(343,0,__PYX_ERR(0, 343, __pyx_L1_error))
   __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_f_5scurl_5cgurl_unicode_handling(__pyx_v_url)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
@@ -8923,7 +8923,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlsplit(PyObject *__pyx_v_url, CYTHON_UN
  *     decode = not isinstance(url, bytes)
  *     url = unicode_handling(url)
  *     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)             # <<<<<<<<<<<<<<
- * 
+ *
  * cpdef urljoin(base, url, bool allow_fragments=True):
  */
   __Pyx_TraceLine(344,0,__PYX_ERR(0, 344, __pyx_L1_error))
@@ -8998,7 +8998,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urlsplit(PyObject *__pyx_v_url, CYTHON_UN
 
   /* "scurl/cgurl.pyx":337
  *                                           canonicalize, canonicalize_encoding, decode)
- * 
+ *
  * cpdef urlsplit(url, scheme='', bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """
  *     This function intends to replace urljoin from urllib,
@@ -9136,7 +9136,7 @@ static PyObject *__pyx_pf_5scurl_5cgurl_2urlsplit(CYTHON_UNUSED PyObject *__pyx_
 
 /* "scurl/cgurl.pyx":346
  *     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
- * 
+ *
  * cpdef urljoin(base, url, bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """
  *     This function intends to replace urljoin from urllib,
@@ -9179,7 +9179,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *         raise TypeError("Cannot mix str and non-str arguments")
  */
   __Pyx_TraceLine(351,0,__PYX_ERR(0, 351, __pyx_L1_error))
-  __pyx_t_1 = PyString_Check(__pyx_v_base); 
+  __pyx_t_1 = PyString_Check(__pyx_v_base);
   __pyx_v_str_input = __pyx_t_1;
 
   /* "scurl/cgurl.pyx":352
@@ -9187,10 +9187,10 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     str_input = isinstance(base, str)
  *     if isinstance(url, str) != str_input:             # <<<<<<<<<<<<<<
  *         raise TypeError("Cannot mix str and non-str arguments")
- * 
+ *
  */
   __Pyx_TraceLine(352,0,__PYX_ERR(0, 352, __pyx_L1_error))
-  __pyx_t_1 = PyString_Check(__pyx_v_url); 
+  __pyx_t_1 = PyString_Check(__pyx_v_url);
   __pyx_t_2 = ((__pyx_t_1 != __pyx_v_str_input) != 0);
   if (unlikely(__pyx_t_2)) {
 
@@ -9198,7 +9198,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     str_input = isinstance(base, str)
  *     if isinstance(url, str) != str_input:
  *         raise TypeError("Cannot mix str and non-str arguments")             # <<<<<<<<<<<<<<
- * 
+ *
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  */
     __Pyx_TraceLine(353,0,__PYX_ERR(0, 353, __pyx_L1_error))
@@ -9213,33 +9213,33 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *     str_input = isinstance(base, str)
  *     if isinstance(url, str) != str_input:             # <<<<<<<<<<<<<<
  *         raise TypeError("Cannot mix str and non-str arguments")
- * 
+ *
  */
   }
 
   /* "scurl/cgurl.pyx":355
  *         raise TypeError("Cannot mix str and non-str arguments")
- * 
+ *
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))             # <<<<<<<<<<<<<<
  *     if allow_fragments and base:
  *         base, url = unicode_handling(base), unicode_handling(url)
  */
   __Pyx_TraceLine(355,0,__PYX_ERR(0, 355, __pyx_L1_error))
-  __pyx_t_1 = PyBytes_Check(__pyx_v_base); 
+  __pyx_t_1 = PyBytes_Check(__pyx_v_base);
   __pyx_t_4 = (__pyx_t_1 != 0);
   if (__pyx_t_4) {
   } else {
     __pyx_t_2 = __pyx_t_4;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = PyBytes_Check(__pyx_v_url); 
+  __pyx_t_4 = PyBytes_Check(__pyx_v_url);
   __pyx_t_1 = (__pyx_t_4 != 0);
   __pyx_t_2 = __pyx_t_1;
   __pyx_L4_bool_binop_done:;
   __pyx_v_decode = (!__pyx_t_2);
 
   /* "scurl/cgurl.pyx":356
- * 
+ *
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  *     if allow_fragments and base:             # <<<<<<<<<<<<<<
  *         base, url = unicode_handling(base), unicode_handling(url)
@@ -9344,7 +9344,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *             if decode:
  *                 return fallback.decode('utf-8')             # <<<<<<<<<<<<<<
  *             return fallback
- * 
+ *
  */
         __Pyx_TraceLine(363,0,__PYX_ERR(0, 363, __pyx_L1_error))
         __Pyx_XDECREF(__pyx_r);
@@ -9370,7 +9370,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *             if decode:
  *                 return fallback.decode('utf-8')
  *             return fallback             # <<<<<<<<<<<<<<
- * 
+ *
  *         joined_url = GURL_container.Resolve(url).spec()
  */
       __Pyx_TraceLine(364,0,__PYX_ERR(0, 364, __pyx_L1_error))
@@ -9390,9 +9390,9 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
 
     /* "scurl/cgurl.pyx":366
  *             return fallback
- * 
+ *
  *         joined_url = GURL_container.Resolve(url).spec()             # <<<<<<<<<<<<<<
- * 
+ *
  *         if decode:
  */
     __Pyx_TraceLine(366,0,__PYX_ERR(0, 366, __pyx_L1_error))
@@ -9401,7 +9401,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
 
     /* "scurl/cgurl.pyx":368
  *         joined_url = GURL_container.Resolve(url).spec()
- * 
+ *
  *         if decode:             # <<<<<<<<<<<<<<
  *             return joined_url.decode('utf-8')
  *         return joined_url
@@ -9411,11 +9411,11 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
     if (__pyx_t_2) {
 
       /* "scurl/cgurl.pyx":369
- * 
+ *
  *         if decode:
  *             return joined_url.decode('utf-8')             # <<<<<<<<<<<<<<
  *         return joined_url
- * 
+ *
  */
       __Pyx_TraceLine(369,0,__PYX_ERR(0, 369, __pyx_L1_error))
       __Pyx_XDECREF(__pyx_r);
@@ -9427,7 +9427,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
 
       /* "scurl/cgurl.pyx":368
  *         joined_url = GURL_container.Resolve(url).spec()
- * 
+ *
  *         if decode:             # <<<<<<<<<<<<<<
  *             return joined_url.decode('utf-8')
  *         return joined_url
@@ -9438,7 +9438,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  *         if decode:
  *             return joined_url.decode('utf-8')
  *         return joined_url             # <<<<<<<<<<<<<<
- * 
+ *
  *     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
  */
     __Pyx_TraceLine(370,0,__PYX_ERR(0, 370, __pyx_L1_error))
@@ -9450,7 +9450,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
     goto __pyx_L0;
 
     /* "scurl/cgurl.pyx":356
- * 
+ *
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  *     if allow_fragments and base:             # <<<<<<<<<<<<<<
  *         base, url = unicode_handling(base), unicode_handling(url)
@@ -9460,7 +9460,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
 
   /* "scurl/cgurl.pyx":372
  *         return joined_url
- * 
+ *
  *     return stdlib_urljoin(base, url, allow_fragments=allow_fragments)             # <<<<<<<<<<<<<<
  */
   __Pyx_TraceLine(372,0,__PYX_ERR(0, 372, __pyx_L1_error))
@@ -9492,7 +9492,7 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
 
   /* "scurl/cgurl.pyx":346
  *     return SplitResultNamedTuple.__new__(SplitResultNamedTuple, url, scheme, decode)
- * 
+ *
  * cpdef urljoin(base, url, bool allow_fragments=True):             # <<<<<<<<<<<<<<
  *     """
  *     This function intends to replace urljoin from urllib,
@@ -11526,8 +11526,8 @@ static PyObject *__pyx_f_5scurl_5cgurl___pyx_unpickle_UrlparseResultAttribute__s
 }
 
 /* "scurl/scurl_canonicalize_helper.pxd":8
- * 
- * 
+ *
+ *
  * cdef inline string canonicalize_component(char * url, Component parsed_comp):             # <<<<<<<<<<<<<<
  *     """
  *     This function canonicalizes the components of the urls
@@ -11578,7 +11578,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  *     # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
  *     is_valid = CanonicalizePath(url, parsed_comp, output, &output_comp)             # <<<<<<<<<<<<<<
  *     output.Complete()
- * 
+ *
  */
   __Pyx_TraceLine(19,0,__PYX_ERR(2, 19, __pyx_L1_error))
   __pyx_v_is_valid = url::CanonicalizePath(__pyx_v_url, __pyx_v_parsed_comp, __pyx_v_output, (&__pyx_v_output_comp));
@@ -11587,18 +11587,18 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  *     # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
  *     is_valid = CanonicalizePath(url, parsed_comp, output, &output_comp)
  *     output.Complete()             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(20,0,__PYX_ERR(2, 20, __pyx_L1_error))
   __pyx_v_output->Complete();
 
   /* "scurl/scurl_canonicalize_helper.pxd":23
- * 
- * 
+ *
+ *
  *     if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":             # <<<<<<<<<<<<<<
  *         canonicalized_output = canonicalized_output.substr(1)
- * 
+ *
  */
   __Pyx_TraceLine(23,0,__PYX_ERR(2, 23, __pyx_L1_error))
   __pyx_t_3 = ((__pyx_v_canonicalized_output.length() > 0) != 0);
@@ -11613,27 +11613,27 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
   if (__pyx_t_2) {
 
     /* "scurl/scurl_canonicalize_helper.pxd":24
- * 
+ *
  *     if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":
  *         canonicalized_output = canonicalized_output.substr(1)             # <<<<<<<<<<<<<<
- * 
+ *
  *     return canonicalized_output
  */
     __Pyx_TraceLine(24,0,__PYX_ERR(2, 24, __pyx_L1_error))
     __pyx_v_canonicalized_output = __pyx_v_canonicalized_output.substr(1);
 
     /* "scurl/scurl_canonicalize_helper.pxd":23
- * 
- * 
+ *
+ *
  *     if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":             # <<<<<<<<<<<<<<
  *         canonicalized_output = canonicalized_output.substr(1)
- * 
+ *
  */
   }
 
   /* "scurl/scurl_canonicalize_helper.pxd":26
  *         canonicalized_output = canonicalized_output.substr(1)
- * 
+ *
  *     return canonicalized_output             # <<<<<<<<<<<<<<
  */
   __Pyx_TraceLine(26,0,__PYX_ERR(2, 26, __pyx_L1_error))
@@ -11641,8 +11641,8 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
   goto __pyx_L0;
 
   /* "scurl/scurl_canonicalize_helper.pxd":8
- * 
- * 
+ *
+ *
  * cdef inline string canonicalize_component(char * url, Component parsed_comp):             # <<<<<<<<<<<<<<
  *     """
  *     This function canonicalizes the components of the urls
@@ -11659,7 +11659,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
 }
 
 /* "string.from_py":13
- * 
+ *
  * @cname("__pyx_convert_string_from_py_std__in_string")
  * cdef string __pyx_convert_string_from_py_std__in_string(object o) except *:             # <<<<<<<<<<<<<<
  *     cdef Py_ssize_t length
@@ -11681,7 +11681,7 @@ static std::string __pyx_convert_string_from_py_std__in_string(PyObject *__pyx_v
  *     cdef Py_ssize_t length
  *     cdef const char* data = __Pyx_PyObject_AsStringAndSize(o, &length)             # <<<<<<<<<<<<<<
  *     return string(data, length)
- * 
+ *
  */
   __Pyx_TraceLine(15,0,__PYX_ERR(1, 15, __pyx_L1_error))
   __pyx_t_1 = __Pyx_PyObject_AsStringAndSize(__pyx_v_o, (&__pyx_v_length)); if (unlikely(__pyx_t_1 == ((char const *)NULL))) __PYX_ERR(1, 15, __pyx_L1_error)
@@ -11691,15 +11691,15 @@ static std::string __pyx_convert_string_from_py_std__in_string(PyObject *__pyx_v
  *     cdef Py_ssize_t length
  *     cdef const char* data = __Pyx_PyObject_AsStringAndSize(o, &length)
  *     return string(data, length)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
  */
   __Pyx_TraceLine(16,0,__PYX_ERR(1, 16, __pyx_L1_error))
   __pyx_r = std::string(__pyx_v_data, __pyx_v_length);
   goto __pyx_L0;
 
   /* "string.from_py":13
- * 
+ *
  * @cname("__pyx_convert_string_from_py_std__in_string")
  * cdef string __pyx_convert_string_from_py_std__in_string(object o) except *:             # <<<<<<<<<<<<<<
  *     cdef Py_ssize_t length
@@ -11717,7 +11717,7 @@ static std::string __pyx_convert_string_from_py_std__in_string(PyObject *__pyx_v
 }
 
 /* "string.to_py":31
- * 
+ *
  * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())
@@ -11748,7 +11748,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_strin
   goto __pyx_L0;
 
   /* "string.to_py":31
- * 
+ *
  * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())
@@ -11768,7 +11768,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_strin
 }
 
 /* "string.to_py":37
- * 
+ *
  * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())
@@ -11799,7 +11799,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_stri
   goto __pyx_L0;
 
   /* "string.to_py":37
- * 
+ *
  * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())
@@ -11819,7 +11819,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_stri
 }
 
 /* "string.to_py":43
- * 
+ *
  * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())
@@ -11850,7 +11850,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(s
   goto __pyx_L0;
 
   /* "string.to_py":43
- * 
+ *
  * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())
@@ -11870,7 +11870,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(s
 }
 
 /* "string.to_py":49
- * 
+ *
  * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())
@@ -11901,7 +11901,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string
   goto __pyx_L0;
 
   /* "string.to_py":49
- * 
+ *
  * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())
@@ -11921,11 +11921,11 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string
 }
 
 /* "string.to_py":55
- * 
+ *
  * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
- * 
+ *
  */
 
 static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &__pyx_v_s) {
@@ -11940,7 +11940,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_st
  * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):
  *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
- * 
+ *
  */
   __Pyx_TraceLine(56,0,__PYX_ERR(1, 56, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
@@ -11951,11 +11951,11 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_st
   goto __pyx_L0;
 
   /* "string.to_py":55
- * 
+ *
  * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
- * 
+ *
  */
 
   /* function exit code */
@@ -12515,17 +12515,17 @@ static int __Pyx_InitCachedConstants(void) {
  *             if not ( 0 <= port <= 65535):
  *                 raise ValueError("Port out of range 0-65535")             # <<<<<<<<<<<<<<
  *         return port
- * 
+ *
  */
   __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_Port_out_of_range_0_65535); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
   /* "scurl/cgurl.pyx":259
- * 
+ *
  *         if not scheme and input_scheme:
  *             scheme = input_scheme.encode('utf-8')             # <<<<<<<<<<<<<<
- * 
+ *
  *         if decode:
  */
   __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 259, __pyx_L1_error)
@@ -12547,7 +12547,7 @@ static int __Pyx_InitCachedConstants(void) {
  *                                             slice_component(url, parsed.ref))
  *         if not scheme and input_scheme:
  *             scheme = input_scheme.encode('utf-8')             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef bool in_uses_params = False
  */
   __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 297, __pyx_L1_error)
@@ -12591,7 +12591,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     str_input = isinstance(base, str)
  *     if isinstance(url, str) != str_input:
  *         raise TypeError("Cannot mix str and non-str arguments")             # <<<<<<<<<<<<<<
- * 
+ *
  *     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
  */
   __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_Cannot_mix_str_and_non_str_argum); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 353, __pyx_L1_error)
@@ -12603,7 +12603,7 @@ static int __Pyx_InitCachedConstants(void) {
  *             if decode:
  *                 return fallback.decode('utf-8')             # <<<<<<<<<<<<<<
  *             return fallback
- * 
+ *
  */
   __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 363, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
@@ -12611,9 +12611,9 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "scurl/cgurl.pyx":241
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme, decode=False):             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef Parsed parsed
  */
   __pyx_tuple__26 = PyTuple_Pack(12, __pyx_n_s_cls, __pyx_n_s_url, __pyx_n_s_input_scheme, __pyx_n_s_decode, __pyx_n_s_parsed, __pyx_n_s_url_scheme, __pyx_n_s_original_url, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_path, __pyx_n_s_query, __pyx_n_s_ref); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 241, __pyx_L1_error)
@@ -12626,10 +12626,10 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "scurl/cgurl.pyx":272
  *         return tuple.__new__(cls, (scheme, netloc, path, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunsplit(self)
- * 
+ *
  */
   __pyx_tuple__28 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
@@ -12638,10 +12638,10 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "scurl/cgurl.pyx":279
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,             # <<<<<<<<<<<<<<
  *                 canonicalize, canonicalize_encoding, decode=False):
- * 
+ *
  */
   __pyx_tuple__29 = PyTuple_Pack(17, __pyx_n_s_cls, __pyx_n_s_url, __pyx_n_s_input_scheme, __pyx_n_s_canonicalize, __pyx_n_s_canonicalize_encoding, __pyx_n_s_decode, __pyx_n_s_parsed, __pyx_n_s_url_scheme, __pyx_n_s_original_url, __pyx_n_s_scheme, __pyx_n_s_netloc, __pyx_n_s_path, __pyx_n_s_query, __pyx_n_s_ref, __pyx_n_s_in_uses_params, __pyx_n_s_param, __pyx_n_s_params); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
@@ -12653,10 +12653,10 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "scurl/cgurl.pyx":321
  *         return tuple.__new__(cls, (scheme, netloc, path, params, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunparse(self)
- * 
+ *
  */
   __pyx_tuple__31 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
@@ -12985,7 +12985,7 @@ if (!__Pyx_RefNanny) {
 
   /* "scurl/cgurl.pyx":10
  * from scurl.scurl_canonicalize_helper cimport canonicalize_component
- * 
+ *
  * import six             # <<<<<<<<<<<<<<
  * from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
  * from six.moves.urllib.parse import urljoin as stdlib_urljoin
@@ -12997,7 +12997,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "scurl/cgurl.pyx":11
- * 
+ *
  * import six
  * from six.moves.urllib.parse import urlsplit as stdlib_urlsplit             # <<<<<<<<<<<<<<
  * from six.moves.urllib.parse import urljoin as stdlib_urljoin
@@ -13067,7 +13067,7 @@ if (!__Pyx_RefNanny) {
  * from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
  * from six.moves.urllib.parse import urlparse as stdlib_urlparse             # <<<<<<<<<<<<<<
  * from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
- * 
+ *
  */
   __Pyx_TraceLine(14,0,__PYX_ERR(0, 14, __pyx_L1_error))
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
@@ -13088,7 +13088,7 @@ if (!__Pyx_RefNanny) {
  * from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
  * from six.moves.urllib.parse import urlparse as stdlib_urlparse
  * from six.moves.urllib.parse import urlunparse as stdlib_urlunparse             # <<<<<<<<<<<<<<
- * 
+ *
  * from libcpp.string cimport string
  */
   __Pyx_TraceLine(15,0,__PYX_ERR(0, 15, __pyx_L1_error))
@@ -13107,7 +13107,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "scurl/cgurl.pyx":22
- * 
+ *
  * cdef char * uses_params[15]
  * uses_params[:] = ['', 'ftp', 'hdl',             # <<<<<<<<<<<<<<
  *                    'prospero', 'http', 'imap',
@@ -13135,7 +13135,7 @@ if (!__Pyx_RefNanny) {
  * cdef class _NetlocResultMixinBase(object):
  *     """Shared methods for the parsed result objects containing a netloc element"""
  *     __slots__ = ()             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(121,0,__PYX_ERR(0, 121, __pyx_L1_error))
@@ -13143,10 +13143,10 @@ if (!__Pyx_RefNanny) {
   PyType_Modified(__pyx_ptype_5scurl_5cgurl__NetlocResultMixinBase);
 
   /* "scurl/cgurl.pyx":157
- * 
+ *
  * cdef class _NetlocResultMixinStr(_NetlocResultMixinBase):
  *     __slots__ = ()             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(157,0,__PYX_ERR(0, 157, __pyx_L1_error))
@@ -13154,10 +13154,10 @@ if (!__Pyx_RefNanny) {
   PyType_Modified(__pyx_ptype_5scurl_5cgurl__NetlocResultMixinStr);
 
   /* "scurl/cgurl.pyx":195
- * 
+ *
  * cdef class UrlsplitResultAttribute(_NetlocResultMixinStr):
  *     __slots__ = ()             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(195,0,__PYX_ERR(0, 195, __pyx_L1_error))
@@ -13165,10 +13165,10 @@ if (!__Pyx_RefNanny) {
   PyType_Modified(__pyx_ptype_5scurl_5cgurl_UrlsplitResultAttribute);
 
   /* "scurl/cgurl.pyx":219
- * 
+ *
  * cdef class UrlparseResultAttribute(UrlsplitResultAttribute):
  *     __slots__ = ()             # <<<<<<<<<<<<<<
- * 
+ *
  *     @property
  */
   __Pyx_TraceLine(219,0,__PYX_ERR(0, 219, __pyx_L1_error))
@@ -13176,11 +13176,11 @@ if (!__Pyx_RefNanny) {
   PyType_Modified(__pyx_ptype_5scurl_5cgurl_UrlparseResultAttribute);
 
   /* "scurl/cgurl.pyx":238
- * 
- * 
+ *
+ *
  * class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
   __Pyx_TraceLine(238,0,__PYX_ERR(0, 238, __pyx_L1_error))
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
@@ -13197,10 +13197,10 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_4);
 
   /* "scurl/cgurl.pyx":239
- * 
+ *
  * class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):
  *     __slots__ = ()             # <<<<<<<<<<<<<<
- * 
+ *
  *     def __new__(cls, char * url, input_scheme, decode=False):
  */
   __Pyx_TraceLine(239,0,__PYX_ERR(0, 239, __pyx_L1_error))
@@ -13208,9 +13208,9 @@ if (!__Pyx_RefNanny) {
 
   /* "scurl/cgurl.pyx":241
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme, decode=False):             # <<<<<<<<<<<<<<
- * 
+ *
  *         cdef Parsed parsed
  */
   __Pyx_TraceLine(241,0,__PYX_ERR(0, 241, __pyx_L1_error))
@@ -13222,10 +13222,10 @@ if (!__Pyx_RefNanny) {
 
   /* "scurl/cgurl.pyx":272
  *         return tuple.__new__(cls, (scheme, netloc, path, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunsplit(self)
- * 
+ *
  */
   __Pyx_TraceLine(272,0,__PYX_ERR(0, 272, __pyx_L1_error))
   __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5scurl_5cgurl_21SplitResultNamedTuple_3geturl, 0, __pyx_n_s_SplitResultNamedTuple_geturl, NULL, __pyx_n_s_scurl_cgurl, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 272, __pyx_L1_error)
@@ -13234,11 +13234,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "scurl/cgurl.pyx":238
- * 
- * 
+ *
+ *
  * class SplitResultNamedTuple(tuple, UrlsplitResultAttribute):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
   __Pyx_TraceLine(238,0,__PYX_ERR(0, 238, __pyx_L1_error))
   __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_SplitResultNamedTuple, __pyx_t_2, __pyx_t_4, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 238, __pyx_L1_error)
@@ -13250,11 +13250,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "scurl/cgurl.pyx":276
- * 
- * 
+ *
+ *
  * class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
   __Pyx_TraceLine(276,0,__PYX_ERR(0, 276, __pyx_L1_error))
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
@@ -13271,10 +13271,10 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_4);
 
   /* "scurl/cgurl.pyx":277
- * 
+ *
  * class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
  *     __slots__ = ()             # <<<<<<<<<<<<<<
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,
  */
   __Pyx_TraceLine(277,0,__PYX_ERR(0, 277, __pyx_L1_error))
@@ -13282,10 +13282,10 @@ if (!__Pyx_RefNanny) {
 
   /* "scurl/cgurl.pyx":279
  *     __slots__ = ()
- * 
+ *
  *     def __new__(cls, char * url, input_scheme,             # <<<<<<<<<<<<<<
  *                 canonicalize, canonicalize_encoding, decode=False):
- * 
+ *
  */
   __Pyx_TraceLine(279,0,__PYX_ERR(0, 279, __pyx_L1_error))
   __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5scurl_5cgurl_22ParsedResultNamedTuple_1__new__, __Pyx_CYFUNCTION_STATICMETHOD, __pyx_n_s_ParsedResultNamedTuple___new, NULL, __pyx_n_s_scurl_cgurl, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 279, __pyx_L1_error)
@@ -13296,10 +13296,10 @@ if (!__Pyx_RefNanny) {
 
   /* "scurl/cgurl.pyx":321
  *         return tuple.__new__(cls, (scheme, netloc, path, params, query, ref))
- * 
+ *
  *     def geturl(self):             # <<<<<<<<<<<<<<
  *         return stdlib_urlunparse(self)
- * 
+ *
  */
   __Pyx_TraceLine(321,0,__PYX_ERR(0, 321, __pyx_L1_error))
   __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5scurl_5cgurl_22ParsedResultNamedTuple_3geturl, 0, __pyx_n_s_ParsedResultNamedTuple_geturl, NULL, __pyx_n_s_scurl_cgurl, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 321, __pyx_L1_error)
@@ -13308,11 +13308,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "scurl/cgurl.pyx":276
- * 
- * 
+ *
+ *
  * class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):             # <<<<<<<<<<<<<<
  *     __slots__ = ()
- * 
+ *
  */
   __Pyx_TraceLine(276,0,__PYX_ERR(0, 276, __pyx_L1_error))
   __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_ParsedResultNamedTuple, __pyx_t_2, __pyx_t_4, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
@@ -13383,11 +13383,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "string.to_py":55
- * 
+ *
  * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
  * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
  *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
- * 
+ *
  */
   __Pyx_TraceReturn(Py_None, 0);
 
