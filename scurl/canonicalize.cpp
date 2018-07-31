@@ -27,7 +27,21 @@
         "language": "c++",
         "name": "scurl.canonicalize",
         "sources": [
-            "scurl/canonicalize.pyx"
+            "scurl/canonicalize.pyx",
+            "third_party/chromium/base/callback_internal.cc",
+            "third_party/chromium/base/at_exit.cc",
+            "third_party/chromium/base/lazy_instance_helpers.cc",
+            "third_party/chromium/base/strings/utf_string_conversion_utils.cc",
+            "third_party/chromium/base/strings/string_piece.cc",
+            "third_party/chromium/base/strings/string16.cc",
+            "third_party/chromium/base/strings/string_util.cc",
+            "third_party/chromium/base/strings/utf_string_conversions.cc",
+            "third_party/chromium/base/strings/string_util_constants.cc",
+            "third_party/chromium/base/third_party/icu/icu_utf.cc",
+            "third_party/chromium/url/url_canon.cc",
+            "third_party/chromium/url/url_canon_path.cc",
+            "third_party/chromium/url/url_canon_internal.cc",
+            "third_party/chromium/url/url_canon_stdstring.cc"
         ]
     },
     "module_name": "scurl.canonicalize"
