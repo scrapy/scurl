@@ -122,8 +122,8 @@ The `chromiumUrls.txt` file contains ~83k urls. This measure the time it takes t
 ### Canonicalize urls
 The speed of `canonicalize_url` from [scrapy/w3lib](https://github.com/scrapy/w3lib)
 compared to the speed of `canonicalize_url` from Scurl (this is measured by running
-the test with all the urls can be extracted from `site.tar.gz`, which can also be found
-in this project dir):
+`canonicalize_url` with the urls from the file `chromiumUrls.txt`, which can also be
+found in this project):
 
 This measures the speed of both functions. The test can be found in `canonicalize_test.py`
 file.
