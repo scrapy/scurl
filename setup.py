@@ -43,7 +43,7 @@ canonicalize_ext_sources = [
     'third_party/chromium/url/url_canon_stdstring.cc',
 ]
 
-cgurl_ext_sources = canonicalize_ext_sources + [
+cgurl_ext_sources = canonicalize_ext_sources[1:] + [
     'scurl/cgurl.pyx',
     'third_party/chromium/url/gurl.cc',
     'third_party/chromium/url/url_canon_etc.cc',
