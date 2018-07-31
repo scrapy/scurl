@@ -1,6 +1,8 @@
-from scurl.mozilla_url_parse cimport *
+from scurl.mozilla_url_parse cimport (ParseStandardURL, ParseFileURL, ParseMailtoURL,
+                                      ParseFileSystemURL, ParsePathURL, ExtractScheme,
+                                      Parsed, Component)
 from scurl.chromium_gurl cimport GURL
-from scurl.chromium_url_constant cimport *
+from scurl.chromium_url_constant cimport kFileScheme, kFileSystemScheme, kMailToScheme
 from scurl.chromium_url_util_internal cimport CompareSchemeComponent
 from scurl.chromium_url_util cimport IsStandard
 from scurl.scurl_canonicalize_helper cimport canonicalize_component
@@ -11,13 +13,10 @@ from six.moves.urllib.parse import urljoin as stdlib_urljoin
 from six.moves.urllib.parse import urlunsplit as stdlib_urlunsplit
 from six.moves.urllib.parse import urlparse as stdlib_urlparse
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
-import logging
 
 from libcpp.string cimport string
 from libcpp cimport bool
 
-
-logger = logging.getLogger('scurl')
 
 cdef char * uses_params[15]
 uses_params[:] = ['', 'ftp', 'hdl',
@@ -305,26 +304,6 @@ class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
             path, params = _splitparams(path)
         else:
             params = b''
-
-        # encode based on the encoding input
-        if canonicalize and canonicalize_encoding != 'utf-8':
-            if query:
-                try:
-                    query = query.decode('utf-8').encode(canonicalize_encoding)
-                except UnicodeEncodeError as e:
-                    logger.debug('Failed to encode query to the selected encoding!')
-            if ref:
-                try:
-                    ref = ref.decode('utf-8').encode(canonicalize_encoding)
-                except UnicodeEncodeError as e:
-                    logger.debug('Failed to encode query to the selected encoding!')
-
-        # cdef var cannot be wrapped inside if statement
-        cdef Component query_comp = MakeRange(0, len(query))
-        cdef Component ref_comp = MakeRange(0, len(ref))
-        if canonicalize:
-            query = canonicalize_component(query, query_comp)
-            fragment = canonicalize_component(ref, ref_comp)
 
         # if canonicalize is set to true, then we will need to convert it to unicode
         if decode or canonicalize:

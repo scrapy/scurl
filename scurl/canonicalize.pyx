@@ -2,12 +2,15 @@ from scurl import urlparse
 
 import string
 import six
+import logging
 from six.moves.urllib.parse import (urlunsplit, urldefrag, urlencode,
                                     quote, parse_qsl, unquote)
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
 from scurl.scurl_canonicalize_helper cimport canonicalize_component
-from scurl.mozilla_url_parse cimport Component
+from scurl.mozilla_url_parse cimport Component, MakeRange
 
+
+logger = logging.getLogger('scurl')
 
 # https://github.com/scrapy/w3lib/blob/master/w3lib/url.py
 RFC3986_GEN_DELIMS = b':/?#[]@'
@@ -69,6 +72,9 @@ def _safe_ParseResult(parts, encoding='utf8'):
     NOTE: This function is from w3lib. However, it has been modified
     to use functions from scurl instead!
     """
+    if encoding is None:
+        encoding = 'utf-8'
+
     # IDNA encoding can fail for too long labels (>63 characters)
     # or missing labels (e.g. http://.example.com)
     try:
@@ -76,18 +82,33 @@ def _safe_ParseResult(parts, encoding='utf8'):
     except UnicodeError:
         netloc = parts.netloc
 
+    # all the components from parts are string on py3 and unicode on py2
+    query, fragment = parts.query, parts.fragment
+
+    try:
+        query, fragment = query.encode(encoding), fragment.encode(encoding)
+    except UnicodeEncodeError as e:
+        query, fragment = query.encode('utf-8'), fragment.encode('utf-8')
+        logger.debug('Failed to encode query to the selected encoding!')
+
+    cdef Component query_comp = MakeRange(0, len(query))
+    cdef Component fragment_comp = MakeRange(0, len(fragment))
+
+    query = canonicalize_component(query, query_comp)
+    fragment = canonicalize_component(fragment, fragment_comp)
+
     return (
-        parts.scheme,
+        to_native_str(parts.scheme),
         to_native_str(netloc),
 
         # default encoding for path component SHOULD be UTF-8
-        parts.path,
-        parts.params,
+        to_native_str(parts.path),
+        to_native_str(parts.params),
 
         # encoding of query and fragment follows page encoding
         # or form-charset (if known and passed)
-        to_native_str(parts.query, encoding),
-        to_native_str(parts.fragment, encoding)
+        to_native_str(query, encoding),
+        to_native_str(fragment, encoding)
     )
 
 cpdef canonicalize_url(url, keep_blank_values=True, keep_fragments=False,
