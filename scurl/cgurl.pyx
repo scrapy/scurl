@@ -277,7 +277,7 @@ class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
     __slots__ = ()
 
     def __new__(cls, char * url, input_scheme,
-                canonicalize, canonicalize_encoding, decode=False):
+                canonicalize, decode=False):
 
         cdef Parsed parsed
         cdef Component url_scheme
@@ -322,8 +322,7 @@ class ParsedResultNamedTuple(tuple, UrlparseResultAttribute):
         return stdlib_urlunparse(self)
 
 
-cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=False,
-             canonicalize_encoding='utf-8'):
+cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=False):
     """
     This function intends to replace urlparse from urllib
     using urlsplit function from scurl itself.
@@ -332,7 +331,7 @@ cpdef urlparse(url, scheme='', bool allow_fragments=True, bool canonicalize=Fals
     decode = not isinstance(url, bytes)
     url = unicode_handling(url)
     return ParsedResultNamedTuple.__new__(ParsedResultNamedTuple, url, scheme,
-                                          canonicalize, canonicalize_encoding, decode)
+                                          canonicalize, decode)
 
 cpdef urlsplit(url, scheme='', bool allow_fragments=True):
     """
