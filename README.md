@@ -78,11 +78,11 @@ This will run `python setup.py install` command on this project.
 
 This will run `python setup.py develop` command on this project.
 
-`perf`
+`make perf`
 
 Run the performance tests on `urlparse`, `urlsplit` and `urljoin`.
 
-cano:
+`make cano`:
 
 Run the performance tests on `canonicalize_url`.
 
@@ -103,7 +103,7 @@ This is not the most convenient way to profile Scurl with cprofiler, but we will
 up with a way of improving this soon!
 
 
-## Profiling result report
+## Benchmarking result report
 
 ### urlparse, urlsplit and urljoin
 This shows the performance difference between `urlparse`, `urlsplit` and `urljoin` from
