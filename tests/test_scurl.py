@@ -10,7 +10,7 @@ else:
 
 
 class UrljoinTestCase(unittest.TestCase):
-    def check_invalid_urls(self):
+    def test_check_invalid_urls(self):
         invalid_urls = [
             'foo//example.com/',
             'bar//example.com/',
