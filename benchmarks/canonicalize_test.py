@@ -13,16 +13,11 @@ def main():
     time = 0
     time_canonicalize_url = 0
 
-    tar = tarfile.open("benchmarks/urls/sites.tar.gz")
     urls = []
 
-    for member in tar.getmembers():
-        f = tar.extractfile(member)
-        html = f.read()
-        response = HtmlResponse(url="local", body=html, encoding='utf8')
-
-        links = response.css('a::attr(href)').extract()
-        urls.extend(links)
+    with open('benchmarks/urls/chromiumUrls.txt') as f:
+        for url in f:
+            urls.append(url)
 
     for url in urls:
         start_canonicalize_url = timer()

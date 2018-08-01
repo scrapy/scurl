@@ -28,22 +28,12 @@ def main():
     args = parser.parse_args()
 
     if args.func == "canonicalize":
-        tar = tarfile.open("benchmarks/urls/sites.tar.gz")
-        urls = []
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
 
-        for member in tar.getmembers():
-            f = tar.extractfile(member)
-            html = f.read()
-            response = HtmlResponse(url="local", body=html, encoding='utf8')
+            cProfile.runctx("run_canonicalize(f)", globals(), locals(), "canonicalize_profile.prof")
 
-            links = response.css('a::attr(href)').extract()
-            urls.extend(links)
-
-
-        cProfile.runctx("run_canonicalize(urls)", globals(), locals(), "canonicalize_profile.prof")
-
-        s = pstats.Stats("canonicalize_profile.prof")
-        s.strip_dirs().sort_stats("time").print_stats()
+            s = pstats.Stats("canonicalize_profile.prof")
+            s.strip_dirs().sort_stats("time").print_stats()
 
     elif args.func == "urlsplit":
         with open('benchmarks/urls/chromiumUrls.txt') as f:
