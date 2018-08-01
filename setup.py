@@ -142,6 +142,9 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries"
     ],
+    install_requires=[
+        'six>=1.5.2',
+    ],
     long_description=long_description,
     ext_modules=ext_modules,
     include_package_data=True,
