@@ -1,6 +1,7 @@
-from scurl.mozilla_url_parse cimport Component
+from scurl.mozilla_url_parse cimport Component, Parsed
 from scurl.chromium_url_canon_stdstring cimport StdStringCanonOutput
-from scurl.chromium_url_canon cimport CanonicalizePath
+from scurl.chromium_url_canon cimport CanonicalizePath, CharsetConverter
+from scurl.chromium_url_util cimport ResolveRelative
 
 from libcpp.string cimport string
 
@@ -24,3 +25,19 @@ cdef inline string canonicalize_component(char * url, Component parsed_comp):
         canonicalized_output = canonicalized_output.substr(1)
 
     return canonicalized_output
+
+
+cdef inline string resolve_relative(char* base_spec,
+                                  int base_spec_len,
+                                  Parsed& base_parsed,
+                                  char* relative,
+                                  int relative_length):
+    cdef Parsed joined_output_parsed
+    cdef string joined_ouput = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)
+    is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
+                               relative_length, NULL, output, &joined_output_parsed)
+
+    output.Complete()
+
+    return joined_ouput
