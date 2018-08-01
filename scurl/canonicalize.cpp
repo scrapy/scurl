@@ -4597,7 +4597,7 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_6parse_url(CYTHON_UNUSED PyObjec
  * 
  *     if canonicalize_encoding is None:             # <<<<<<<<<<<<<<
  *         canonicalize_encoding = 'utf-8'
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  */
   __pyx_t_2 = (__pyx_v_canonicalize_encoding == Py_None);
   __pyx_t_1 = (__pyx_t_2 != 0);
@@ -4607,7 +4607,7 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_6parse_url(CYTHON_UNUSED PyObjec
  * 
  *     if canonicalize_encoding is None:
  *         canonicalize_encoding = 'utf-8'             # <<<<<<<<<<<<<<
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  * 
  */
     __Pyx_INCREF(__pyx_kp_s_utf_8);
@@ -4618,14 +4618,14 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_6parse_url(CYTHON_UNUSED PyObjec
  * 
  *     if canonicalize_encoding is None:             # <<<<<<<<<<<<<<
  *         canonicalize_encoding = 'utf-8'
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  */
   }
 
   /* "scurl/canonicalize.pyx":215
  *     if canonicalize_encoding is None:
  *         canonicalize_encoding = 'utf-8'
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)             # <<<<<<<<<<<<<<
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)             # <<<<<<<<<<<<<<
  * 
  * def _unquotepath(path):
  */
@@ -4684,10 +4684,9 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_6parse_url(CYTHON_UNUSED PyObjec
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_canonicalize, Py_True) < 0) __PYX_ERR(0, 215, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_canonicalize_encoding, __pyx_v_canonicalize_encoding) < 0) __PYX_ERR(0, 215, __pyx_L1_error)
   __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4722,7 +4721,7 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_6parse_url(CYTHON_UNUSED PyObjec
 }
 
 /* "scurl/canonicalize.pyx":217
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  * 
  * def _unquotepath(path):             # <<<<<<<<<<<<<<
  *     for reserved in ('2f', '2F', '3f', '3F'):
@@ -5017,7 +5016,7 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_8_unquotepath(CYTHON_UNUSED PyOb
   }
 
   /* "scurl/canonicalize.pyx":217
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  * 
  * def _unquotepath(path):             # <<<<<<<<<<<<<<
  *     for reserved in ('2f', '2F', '3f', '3F'):
@@ -6615,7 +6614,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_scurl_canonicalize_pyx, __pyx_n_s_parse_url, 203, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 203, __pyx_L1_error)
 
   /* "scurl/canonicalize.pyx":217
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  * 
  * def _unquotepath(path):             # <<<<<<<<<<<<<<
  *     for reserved in ('2f', '2F', '3f', '3F'):
@@ -7263,7 +7262,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "scurl/canonicalize.pyx":217
- *     return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+ *     return urlparse(to_unicode(url, encoding), canonicalize=True)
  * 
  * def _unquotepath(path):             # <<<<<<<<<<<<<<
  *     for reserved in ('2f', '2F', '3f', '3F'):
