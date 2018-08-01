@@ -13,3 +13,11 @@ cdef extern from "../third_party/chromium/url/url_util.h" namespace "url":
                            CharsetConverter* charset_converter,
                            StdStringCanonOutput* output,
                            Parsed* output_parsed)
+    bool ResolveRelative(const char* base_spec,
+                         int base_spec_len,
+                         const Parsed& base_parsed,
+                         const char* relative,
+                         int relative_length,
+                         CharsetConverter* charset_converter,
+                         StdStringCanonOutput* output,
+                         Parsed* output_parsed);
