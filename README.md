@@ -1,7 +1,7 @@
 # Scurl
 
-[![Build Status](https://travis-ci.org/nctl144/scurl.svg?branch=master)](https://travis-ci.org/nctl144/scurl)
-[![codecov](https://codecov.io/gh/nctl144/scurl/branch/master/graph/badge.svg)](https://codecov.io/gh/nctl144/scurl)
+[![Build Status](https://travis-ci.org/scrapy/scurl.svg?branch=master)](https://travis-ci.org/scrapy/scurl)
+[![codecov](https://codecov.io/gh/scrapy/scurl/branch/master/graph/badge.svg)](https://codecov.io/gh/scrapy/scurl)
 
 
 ## About Scurl
@@ -40,7 +40,7 @@ Scurl has not been deployed to pypi yet. Currently the only way to install Scurl
 cloning this repository
 
 ```
-git clone https://github.com/nctl144/scurl
+git clone https://github.com/scrapy/scurl
 cd scurl
 pip install -r requirements.txt
 make clean
