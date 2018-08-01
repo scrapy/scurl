@@ -15,7 +15,7 @@ def main():
     urlparse_time = 0
 
     for i in range(5):
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
             for url in f:
                 if encode:
                     url = url.encode()
@@ -31,7 +31,7 @@ def main():
     urlsplit_time = 0
 
     for i in range(5):
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
             for url in f:
                 if encode:
                     url = url.encode()
@@ -48,7 +48,7 @@ def main():
     urljoin_time = 0
 
     for i in range(5):
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
             for url in f:
                 partial_url = "/asd"
 

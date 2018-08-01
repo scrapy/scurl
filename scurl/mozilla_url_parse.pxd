@@ -2,11 +2,13 @@ from libcpp cimport bool
 
 
 cdef extern from "../third_party/chromium/url/third_party/mozilla/url_parse.h" namespace "url":
-    cdef struct Component:
+    cdef cppclass Component:
+        Component()
+        Component(int b, int l)
         int begin
         int len
 
-    cdef struct Parsed:
+    cdef cppclass Parsed:
         int Length()
         Component scheme
         Component username

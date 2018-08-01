@@ -10,7 +10,7 @@ else:
 
 
 class UrljoinTestCase(unittest.TestCase):
-    def check_invalid_urls(self):
+    def test_check_invalid_urls(self):
         invalid_urls = [
             'foo//example.com/',
             'bar//example.com/',
@@ -28,3 +28,7 @@ class UrljoinTestCase(unittest.TestCase):
             for invalid_url_2 in invalid_urls_2:
                 self.assertEqual(scurl.urljoin(invalid_url, invalid_url_2),
                                  stdlib.urljoin(invalid_url, invalid_url_2))
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -25,7 +25,7 @@ if os.environ.get('CYTHON_TRACE'):
         logger.warning('Warning: Enabling line tracing in Cython extension.\
                         This will make the performance of the library less effective!')
 
-ext_sources = [
+cgurl_ext_sources = [
     'scurl/cgurl.pyx',
     'third_party/chromium/base/callback_internal.cc',
     'third_party/chromium/base/at_exit.cc',
@@ -59,10 +59,28 @@ ext_sources = [
     'third_party/chromium/url/third_party/mozilla/url_parse.cc',
 ]
 
+canonicalize_ext_sources = [
+    'scurl/canonicalize.pyx',
+    'third_party/chromium/base/callback_internal.cc',
+    'third_party/chromium/base/at_exit.cc',
+    'third_party/chromium/base/lazy_instance_helpers.cc',
+    'third_party/chromium/base/strings/utf_string_conversion_utils.cc',
+    'third_party/chromium/base/strings/string_piece.cc',
+    'third_party/chromium/base/strings/string16.cc',
+    'third_party/chromium/base/strings/string_util.cc',
+    'third_party/chromium/base/strings/utf_string_conversions.cc',
+    'third_party/chromium/base/strings/string_util_constants.cc',
+    'third_party/chromium/base/third_party/icu/icu_utf.cc',
+    'third_party/chromium/url/url_canon.cc',
+    'third_party/chromium/url/url_canon_path.cc',
+    'third_party/chromium/url/url_canon_internal.cc',
+    'third_party/chromium/url/url_canon_stdstring.cc',
+]
+
 extension = [
     Extension(
         name="scurl.cgurl",
-        sources=ext_sources,
+        sources=cgurl_ext_sources,
         language="c++",
         extra_compile_args=["-std=gnu++14", "-I./third_party/chromium/",
                             "-fPIC", "-Ofast", "-pthread", "-w", '-DU_COMMON_IMPLEMENTATION'],
@@ -72,7 +90,7 @@ extension = [
     ),
     Extension(
         name="scurl.canonicalize",
-        sources=["scurl/canonicalize.pyx"],
+        sources=canonicalize_ext_sources,
         language="c++",
         extra_compile_args=["-std=gnu++14", "-I./third_party/chromium/",
                             "-fPIC", "-Ofast", "-pthread", "-w"],

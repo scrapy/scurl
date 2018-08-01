@@ -7,12 +7,11 @@ from scrapy.http import HtmlResponse
 import pyximport
 pyximport.install()
 
-import cgurl
 import scurl
 
 def run_urlparse(urls):
     for url in urls:
-        a = cgurl.urlparse(url)
+        a = scurl.urlparse(url)
 
 def run_canonicalize(urls):
     for url in urls:
@@ -20,7 +19,7 @@ def run_canonicalize(urls):
 
 def run_urlsplit(urls):
     for url in urls:
-        a = cgurl.urlsplit(url)
+        a = scurl.urlsplit(url)
 
 def main():
     parser = argparse.ArgumentParser(description='Profile cython functions')
@@ -29,25 +28,15 @@ def main():
     args = parser.parse_args()
 
     if args.func == "canonicalize":
-        tar = tarfile.open("sites.tar.gz")
-        urls = []
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
 
-        for member in tar.getmembers():
-            f = tar.extractfile(member)
-            html = f.read()
-            response = HtmlResponse(url="local", body=html, encoding='utf8')
+            cProfile.runctx("run_canonicalize(f)", globals(), locals(), "canonicalize_profile.prof")
 
-            links = response.css('a::attr(href)').extract()
-            urls.extend(links)
-
-
-        cProfile.runctx("run_canonicalize(urls)", globals(), locals(), "canonicalize_profile.prof")
-
-        s = pstats.Stats("canonicalize_profile.prof")
-        s.strip_dirs().sort_stats("time").print_stats()
+            s = pstats.Stats("canonicalize_profile.prof")
+            s.strip_dirs().sort_stats("time").print_stats()
 
     elif args.func == "urlsplit":
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
 
             cProfile.runctx("run_urlsplit(f)", globals(), locals(), "urlsplit_profile.prof")
 
@@ -55,7 +44,7 @@ def main():
             s.strip_dirs().sort_stats("time").print_stats()
 
     elif args.func == "urlparse":
-        with open('urls/chromiumUrls.txt') as f:
+        with open('benchmarks/urls/chromiumUrls.txt') as f:
 
             cProfile.runctx("run_urlparse(f)", globals(), locals(), "urlparse_profile.prof")
 
