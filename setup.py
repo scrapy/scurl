@@ -125,7 +125,7 @@ setup(
     version=VERSION,
     description="",
     license="Apache License, Version 2.0",
-    url="https://github.com/nctl144/scurl",
+    url="https://github.com/scrapy/scurl",
     keywords=["urlparse", "urlsplit", "urljoin", "url", "parser", "urlparser", "parsing", "gurl", "cython", "faster", "speed", "performance"],
     platforms='any',
     classifiers=[

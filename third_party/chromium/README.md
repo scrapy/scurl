@@ -5,8 +5,8 @@ implemented in the chromium source code that we might miss if we don't update it
 
 Here are the forked repository of the base component and the url component:
 
-+ [base-chromium](https://github.com/nctl144/base-chromium)
-+ [url-chromium](https://github.com/nctl144/url-chromium)
++ [base-chromium](https://github.com/scrapy/base-chromium)
++ [url-chromium](https://github.com/scrapy/url-chromium)
 
 Since base component is really large and we might not even need all of the components defined in it, there are a
 few functions/files that we need to skip:
