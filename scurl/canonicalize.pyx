@@ -212,7 +212,7 @@ def parse_url(url, canonicalize_encoding='utf-8', encoding=None):
 
     if canonicalize_encoding is None:
         canonicalize_encoding = 'utf-8'
-    return urlparse(to_unicode(url, encoding), canonicalize=True, canonicalize_encoding=canonicalize_encoding)
+    return urlparse(to_unicode(url, encoding), canonicalize=True)
 
 def _unquotepath(path):
     for reserved in ('2f', '2F', '3f', '3F'):
