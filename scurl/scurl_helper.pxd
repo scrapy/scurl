@@ -35,6 +35,9 @@ cdef inline string resolve_relative(char* base_spec,
     cdef Parsed joined_output_parsed
     cdef string joined_output = string()
     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
+    """
+    check if base_spec is treated the same as Resolve() in GURL
+    """
     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
                                relative_length, NULL, output, &joined_output_parsed)
 

@@ -11804,8 +11804,8 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_canonicalize_comp
  * 
  * 
  * cdef inline string resolve_relative(char* base_spec,             # <<<<<<<<<<<<<<
- *                                   int base_spec_len,
- *                                   Parsed& base_parsed,
+ *                                     int base_spec_len,
+ *                                     Parsed& base_parsed,
  */
 
 static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(char *__pyx_v_base_spec, int __pyx_v_base_spec_len, url::Parsed &__pyx_v_base_parsed, char *__pyx_v_relative, int __pyx_v_relative_length) {
@@ -11821,7 +11821,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
   __Pyx_TraceCall("resolve_relative", __pyx_f[2], 30, 0, __PYX_ERR(2, 30, __pyx_L1_error));
 
   /* "scurl/scurl_helper.pxd":36
- *                                   int relative_length):
+ *                                     int relative_length):
  *     cdef Parsed joined_output_parsed
  *     cdef string joined_output = string()             # <<<<<<<<<<<<<<
  *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
@@ -11878,8 +11878,8 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
  * 
  * 
  * cdef inline string resolve_relative(char* base_spec,             # <<<<<<<<<<<<<<
- *                                   int base_spec_len,
- *                                   Parsed& base_parsed,
+ *                                     int base_spec_len,
+ *                                     Parsed& base_parsed,
  */
 
   /* function exit code */
