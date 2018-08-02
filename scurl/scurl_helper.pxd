@@ -33,11 +33,10 @@ cdef inline string resolve_relative(char* base_spec,
                                   char* relative,
                                   int relative_length):
     cdef Parsed joined_output_parsed
-    cdef string joined_ouput = string()
-    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)
+    cdef string joined_output = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
                                relative_length, NULL, output, &joined_output_parsed)
 
     output.Complete()
-
-    return joined_ouput
+    return joined_output
