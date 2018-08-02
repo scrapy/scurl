@@ -1,6 +1,7 @@
-from scurl.mozilla_url_parse cimport Component
+from scurl.mozilla_url_parse cimport Component, Parsed
 from scurl.chromium_url_canon_stdstring cimport StdStringCanonOutput
-from scurl.chromium_url_canon cimport CanonicalizePath
+from scurl.chromium_url_canon cimport CanonicalizePath, CharsetConverter
+from scurl.chromium_url_util cimport ResolveRelative
 
 from libcpp.string cimport string
 
