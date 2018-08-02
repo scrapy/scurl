@@ -372,6 +372,13 @@ cpdef urljoin(base, url, bool allow_fragments=True):
 
     parse_input_url(base, base_scheme, &base_parsed)
 
+    # if the base's path is empty and url is not
+    # we need to add '/' to base's path since it's the GURL's requirement
+    # see url_canon_relative.cc#464
+    if base_parsed.path.len <= 0:
+        base += b'/'
+        parse_input_url(base, base_scheme, &base_parsed)
+
     # if GURL considers base as invalid, also revert back to the stdlib func
     # NOTE: this is still under development. We only do fallback if the url is Standard
     # if the url is non-standard and GURL still marks it as invalid -> need to fallback to stdlib

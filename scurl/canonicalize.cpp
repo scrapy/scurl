@@ -6415,7 +6415,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_canonicalize_comp
 
 static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(char *__pyx_v_base_spec, int __pyx_v_base_spec_len, url::Parsed &__pyx_v_base_parsed, char *__pyx_v_relative, int __pyx_v_relative_length) {
   url::Parsed __pyx_v_joined_output_parsed;
-  std::string __pyx_v_joined_ouput;
+  std::string __pyx_v_joined_output;
   url::StdStringCanonOutput *__pyx_v_output;
   CYTHON_UNUSED bool __pyx_v_is_valid;
   std::string __pyx_r;
@@ -6428,8 +6428,8 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
   /* "scurl/scurl_helper.pxd":36
  *                                   int relative_length):
  *     cdef Parsed joined_output_parsed
- *     cdef string joined_ouput = string()             # <<<<<<<<<<<<<<
- *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)
+ *     cdef string joined_output = string()             # <<<<<<<<<<<<<<
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
  *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
  */
   __Pyx_TraceLine(36,0,__PYX_ERR(1, 36, __pyx_L1_error))
@@ -6439,21 +6439,21 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
     __Pyx_CppExn2PyErr();
     __PYX_ERR(1, 36, __pyx_L1_error)
   }
-  __pyx_v_joined_ouput = __pyx_t_1;
+  __pyx_v_joined_output = __pyx_t_1;
 
   /* "scurl/scurl_helper.pxd":37
  *     cdef Parsed joined_output_parsed
- *     cdef string joined_ouput = string()
- *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)             # <<<<<<<<<<<<<<
+ *     cdef string joined_output = string()
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)             # <<<<<<<<<<<<<<
  *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
  *                                relative_length, NULL, output, &joined_output_parsed)
  */
   __Pyx_TraceLine(37,0,__PYX_ERR(1, 37, __pyx_L1_error))
-  __pyx_v_output = new url::StdStringCanonOutput((&__pyx_v_joined_ouput));
+  __pyx_v_output = new url::StdStringCanonOutput((&__pyx_v_joined_output));
 
   /* "scurl/scurl_helper.pxd":38
- *     cdef string joined_ouput = string()
- *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)
+ *     cdef string joined_output = string()
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
  *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,             # <<<<<<<<<<<<<<
  *                                relative_length, NULL, output, &joined_output_parsed)
  * 
@@ -6465,19 +6465,18 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
  *                                relative_length, NULL, output, &joined_output_parsed)
  * 
  *     output.Complete()             # <<<<<<<<<<<<<<
- * 
- *     return joined_ouput
+ *     return joined_output
  */
   __Pyx_TraceLine(41,0,__PYX_ERR(1, 41, __pyx_L1_error))
   __pyx_v_output->Complete();
 
-  /* "scurl/scurl_helper.pxd":43
- *     output.Complete()
+  /* "scurl/scurl_helper.pxd":42
  * 
- *     return joined_ouput             # <<<<<<<<<<<<<<
+ *     output.Complete()
+ *     return joined_output             # <<<<<<<<<<<<<<
  */
-  __Pyx_TraceLine(43,0,__PYX_ERR(1, 43, __pyx_L1_error))
-  __pyx_r = __pyx_v_joined_ouput;
+  __Pyx_TraceLine(42,0,__PYX_ERR(1, 42, __pyx_L1_error))
+  __pyx_r = __pyx_v_joined_output;
   goto __pyx_L0;
 
   /* "scurl/scurl_helper.pxd":30

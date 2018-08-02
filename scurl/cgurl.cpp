@@ -9478,46 +9478,90 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  * 
  *     parse_input_url(base, base_scheme, &base_parsed)             # <<<<<<<<<<<<<<
  * 
- *     # if GURL considers base as invalid, also revert back to the stdlib func
+ *     # if the base's path is empty and url is not
  */
   __Pyx_TraceLine(373,0,__PYX_ERR(0, 373, __pyx_L1_error))
   __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 373, __pyx_L1_error)
   __pyx_f_5scurl_5cgurl_parse_input_url(__pyx_t_11, __pyx_v_base_scheme, (&__pyx_v_base_parsed));
 
   /* "scurl/cgurl.pyx":378
+ *     # we need to add '/' to base's path since it's the GURL's requirement
+ *     # see url_canon_relative.cc#464
+ *     if base_parsed.path.len <= 0:             # <<<<<<<<<<<<<<
+ *         base += b'/'
+ *         parse_input_url(base, base_scheme, &base_parsed)
+ */
+  __Pyx_TraceLine(378,0,__PYX_ERR(0, 378, __pyx_L1_error))
+  __pyx_t_1 = ((__pyx_v_base_parsed.path.len <= 0) != 0);
+  if (__pyx_t_1) {
+
+    /* "scurl/cgurl.pyx":379
+ *     # see url_canon_relative.cc#464
+ *     if base_parsed.path.len <= 0:
+ *         base += b'/'             # <<<<<<<<<<<<<<
+ *         parse_input_url(base, base_scheme, &base_parsed)
+ * 
+ */
+    __Pyx_TraceLine(379,0,__PYX_ERR(0, 379, __pyx_L1_error))
+    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_v_base, __pyx_kp_b__3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF_SET(__pyx_v_base, __pyx_t_5);
+    __pyx_t_5 = 0;
+
+    /* "scurl/cgurl.pyx":380
+ *     if base_parsed.path.len <= 0:
+ *         base += b'/'
+ *         parse_input_url(base, base_scheme, &base_parsed)             # <<<<<<<<<<<<<<
+ * 
+ *     # if GURL considers base as invalid, also revert back to the stdlib func
+ */
+    __Pyx_TraceLine(380,0,__PYX_ERR(0, 380, __pyx_L1_error))
+    __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 380, __pyx_L1_error)
+    __pyx_f_5scurl_5cgurl_parse_input_url(__pyx_t_11, __pyx_v_base_scheme, (&__pyx_v_base_parsed));
+
+    /* "scurl/cgurl.pyx":378
+ *     # we need to add '/' to base's path since it's the GURL's requirement
+ *     # see url_canon_relative.cc#464
+ *     if base_parsed.path.len <= 0:             # <<<<<<<<<<<<<<
+ *         base += b'/'
+ *         parse_input_url(base, base_scheme, &base_parsed)
+ */
+  }
+
+  /* "scurl/cgurl.pyx":385
  *     # NOTE: this is still under development. We only do fallback if the url is Standard
  *     # if the url is non-standard and GURL still marks it as invalid -> need to fallback to stdlib
  *     if not build_netloc(base, base_parsed):             # <<<<<<<<<<<<<<
  *         return urljoin_fallback(base, url, allow_fragments, decode)
  * 
  */
-  __Pyx_TraceLine(378,0,__PYX_ERR(0, 378, __pyx_L1_error))
-  __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 378, __pyx_L1_error)
-  __pyx_t_5 = __pyx_f_5scurl_5cgurl_build_netloc(__pyx_t_11, __pyx_v_base_parsed); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 378, __pyx_L1_error)
+  __Pyx_TraceLine(385,0,__PYX_ERR(0, 385, __pyx_L1_error))
+  __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 385, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5scurl_5cgurl_build_netloc(__pyx_t_11, __pyx_v_base_parsed); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 385, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_1 = (__pyx_t_5 != Py_None)&&(PyBytes_GET_SIZE(__pyx_t_5) != 0);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "scurl/cgurl.pyx":379
+    /* "scurl/cgurl.pyx":386
  *     # if the url is non-standard and GURL still marks it as invalid -> need to fallback to stdlib
  *     if not build_netloc(base, base_parsed):
  *         return urljoin_fallback(base, url, allow_fragments, decode)             # <<<<<<<<<<<<<<
  * 
  *     joined_output = resolve_relative(base, len(base), base_parsed, url, len(url))
  */
-    __Pyx_TraceLine(379,0,__PYX_ERR(0, 379, __pyx_L1_error))
+    __Pyx_TraceLine(386,0,__PYX_ERR(0, 386, __pyx_L1_error))
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_AsWritableString(__pyx_v_url); if (unlikely((!__pyx_t_10) && PyErr_Occurred())) __PYX_ERR(0, 379, __pyx_L1_error)
-    __pyx_t_5 = __pyx_f_5scurl_5cgurl_urljoin_fallback(__pyx_t_11, __pyx_t_10, __pyx_v_allow_fragments, __pyx_v_decode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_AsWritableString(__pyx_v_url); if (unlikely((!__pyx_t_10) && PyErr_Occurred())) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_5 = __pyx_f_5scurl_5cgurl_urljoin_fallback(__pyx_t_11, __pyx_t_10, __pyx_v_allow_fragments, __pyx_v_decode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_r = __pyx_t_5;
     __pyx_t_5 = 0;
     goto __pyx_L0;
 
-    /* "scurl/cgurl.pyx":378
+    /* "scurl/cgurl.pyx":385
  *     # NOTE: this is still under development. We only do fallback if the url is Standard
  *     # if the url is non-standard and GURL still marks it as invalid -> need to fallback to stdlib
  *     if not build_netloc(base, base_parsed):             # <<<<<<<<<<<<<<
@@ -9526,46 +9570,46 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  */
   }
 
-  /* "scurl/cgurl.pyx":381
+  /* "scurl/cgurl.pyx":388
  *         return urljoin_fallback(base, url, allow_fragments, decode)
  * 
  *     joined_output = resolve_relative(base, len(base), base_parsed, url, len(url))             # <<<<<<<<<<<<<<
  * 
  *     if decode:
  */
-  __Pyx_TraceLine(381,0,__PYX_ERR(0, 381, __pyx_L1_error))
-  __pyx_t_10 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_10) && PyErr_Occurred())) __PYX_ERR(0, 381, __pyx_L1_error)
-  __pyx_t_9 = PyObject_Length(__pyx_v_base); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 381, __pyx_L1_error)
-  __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_url); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 381, __pyx_L1_error)
-  __pyx_t_12 = PyObject_Length(__pyx_v_url); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 381, __pyx_L1_error)
+  __Pyx_TraceLine(388,0,__PYX_ERR(0, 388, __pyx_L1_error))
+  __pyx_t_10 = __Pyx_PyObject_AsWritableString(__pyx_v_base); if (unlikely((!__pyx_t_10) && PyErr_Occurred())) __PYX_ERR(0, 388, __pyx_L1_error)
+  __pyx_t_9 = PyObject_Length(__pyx_v_base); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 388, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_AsWritableString(__pyx_v_url); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 388, __pyx_L1_error)
+  __pyx_t_12 = PyObject_Length(__pyx_v_url); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 388, __pyx_L1_error)
   __pyx_v_joined_output = __pyx_f_5scurl_12scurl_helper_resolve_relative(__pyx_t_10, __pyx_t_9, __pyx_v_base_parsed, __pyx_t_11, __pyx_t_12);
 
-  /* "scurl/cgurl.pyx":383
+  /* "scurl/cgurl.pyx":390
  *     joined_output = resolve_relative(base, len(base), base_parsed, url, len(url))
  * 
  *     if decode:             # <<<<<<<<<<<<<<
  *         return joined_output.decode('utf-8')
  *     return joined_output
  */
-  __Pyx_TraceLine(383,0,__PYX_ERR(0, 383, __pyx_L1_error))
+  __Pyx_TraceLine(390,0,__PYX_ERR(0, 390, __pyx_L1_error))
   __pyx_t_2 = (__pyx_v_decode != 0);
   if (__pyx_t_2) {
 
-    /* "scurl/cgurl.pyx":384
+    /* "scurl/cgurl.pyx":391
  * 
  *     if decode:
  *         return joined_output.decode('utf-8')             # <<<<<<<<<<<<<<
  *     return joined_output
  */
-    __Pyx_TraceLine(384,0,__PYX_ERR(0, 384, __pyx_L1_error))
+    __Pyx_TraceLine(391,0,__PYX_ERR(0, 391, __pyx_L1_error))
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = __Pyx_decode_cpp_string(__pyx_v_joined_output, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 384, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_decode_cpp_string(__pyx_v_joined_output, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 391, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_r = __pyx_t_5;
     __pyx_t_5 = 0;
     goto __pyx_L0;
 
-    /* "scurl/cgurl.pyx":383
+    /* "scurl/cgurl.pyx":390
  *     joined_output = resolve_relative(base, len(base), base_parsed, url, len(url))
  * 
  *     if decode:             # <<<<<<<<<<<<<<
@@ -9574,14 +9618,14 @@ static PyObject *__pyx_f_5scurl_5cgurl_urljoin(PyObject *__pyx_v_base, PyObject 
  */
   }
 
-  /* "scurl/cgurl.pyx":385
+  /* "scurl/cgurl.pyx":392
  *     if decode:
  *         return joined_output.decode('utf-8')
  *     return joined_output             # <<<<<<<<<<<<<<
  */
-  __Pyx_TraceLine(385,0,__PYX_ERR(0, 385, __pyx_L1_error))
+  __Pyx_TraceLine(392,0,__PYX_ERR(0, 392, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_joined_output); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 385, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_joined_output); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 392, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
@@ -11766,7 +11810,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_canonicalize_comp
 
 static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(char *__pyx_v_base_spec, int __pyx_v_base_spec_len, url::Parsed &__pyx_v_base_parsed, char *__pyx_v_relative, int __pyx_v_relative_length) {
   url::Parsed __pyx_v_joined_output_parsed;
-  std::string __pyx_v_joined_ouput;
+  std::string __pyx_v_joined_output;
   url::StdStringCanonOutput *__pyx_v_output;
   CYTHON_UNUSED bool __pyx_v_is_valid;
   std::string __pyx_r;
@@ -11779,8 +11823,8 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
   /* "scurl/scurl_helper.pxd":36
  *                                   int relative_length):
  *     cdef Parsed joined_output_parsed
- *     cdef string joined_ouput = string()             # <<<<<<<<<<<<<<
- *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)
+ *     cdef string joined_output = string()             # <<<<<<<<<<<<<<
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
  *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
  */
   __Pyx_TraceLine(36,0,__PYX_ERR(2, 36, __pyx_L1_error))
@@ -11790,21 +11834,21 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
     __Pyx_CppExn2PyErr();
     __PYX_ERR(2, 36, __pyx_L1_error)
   }
-  __pyx_v_joined_ouput = __pyx_t_1;
+  __pyx_v_joined_output = __pyx_t_1;
 
   /* "scurl/scurl_helper.pxd":37
  *     cdef Parsed joined_output_parsed
- *     cdef string joined_ouput = string()
- *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)             # <<<<<<<<<<<<<<
+ *     cdef string joined_output = string()
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)             # <<<<<<<<<<<<<<
  *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
  *                                relative_length, NULL, output, &joined_output_parsed)
  */
   __Pyx_TraceLine(37,0,__PYX_ERR(2, 37, __pyx_L1_error))
-  __pyx_v_output = new url::StdStringCanonOutput((&__pyx_v_joined_ouput));
+  __pyx_v_output = new url::StdStringCanonOutput((&__pyx_v_joined_output));
 
   /* "scurl/scurl_helper.pxd":38
- *     cdef string joined_ouput = string()
- *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_ouput)
+ *     cdef string joined_output = string()
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
  *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,             # <<<<<<<<<<<<<<
  *                                relative_length, NULL, output, &joined_output_parsed)
  * 
@@ -11816,19 +11860,18 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_resolve_relative(
  *                                relative_length, NULL, output, &joined_output_parsed)
  * 
  *     output.Complete()             # <<<<<<<<<<<<<<
- * 
- *     return joined_ouput
+ *     return joined_output
  */
   __Pyx_TraceLine(41,0,__PYX_ERR(2, 41, __pyx_L1_error))
   __pyx_v_output->Complete();
 
-  /* "scurl/scurl_helper.pxd":43
- *     output.Complete()
+  /* "scurl/scurl_helper.pxd":42
  * 
- *     return joined_ouput             # <<<<<<<<<<<<<<
+ *     output.Complete()
+ *     return joined_output             # <<<<<<<<<<<<<<
  */
-  __Pyx_TraceLine(43,0,__PYX_ERR(2, 43, __pyx_L1_error))
-  __pyx_r = __pyx_v_joined_ouput;
+  __Pyx_TraceLine(42,0,__PYX_ERR(2, 42, __pyx_L1_error))
+  __pyx_r = __pyx_v_joined_output;
   goto __pyx_L0;
 
   /* "scurl/scurl_helper.pxd":30
