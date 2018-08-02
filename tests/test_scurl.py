@@ -30,5 +30,10 @@ class UrljoinTestCase(unittest.TestCase):
                                  stdlib.urljoin(invalid_url, invalid_url_2))
 
 
+    def test_urljoin_no_path(self):
+        self.assertEqual(scurl.urljoin('http://example.com', 'foo.html'),
+                         stdlib.urljoin('http://example.com', 'foo.html'))
+
+
 if __name__ == "__main__":
     unittest.main()

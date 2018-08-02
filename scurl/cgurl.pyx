@@ -5,7 +5,7 @@ from scurl.chromium_gurl cimport GURL
 from scurl.chromium_url_constant cimport kFileScheme, kFileSystemScheme, kMailToScheme
 from scurl.chromium_url_util_internal cimport CompareSchemeComponent
 from scurl.chromium_url_util cimport IsStandard
-from scurl.scurl_canonicalize_helper cimport canonicalize_component
+from scurl.scurl_helper cimport canonicalize_component, resolve_relative
 
 import six
 from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
@@ -62,6 +62,10 @@ cdef bytes build_netloc(char * url, Parsed parsed):
     else:
         raise ValueError
 
+cdef urljoin_fallback(char * base, char * url, bool allow_fragments, bool decode):
+    if decode:
+        return stdlib_urljoin(base, url, allow_fragments=allow_fragments).decode('utf-8')
+    return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
 
 cdef char * unicode_handling(str):
     """
@@ -347,25 +351,42 @@ cpdef urljoin(base, url, bool allow_fragments=True):
     This function intends to replace urljoin from urllib,
     which uses Resolve function from class GURL of GURL chromium
     """
+    # fallback to the stdlib if allow_fragments and base are not presented
+    if not (allow_fragments and base):
+        return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+
+    # raise TypeError when base and url are not the same type
     str_input = isinstance(base, str)
     if isinstance(url, str) != str_input:
         raise TypeError("Cannot mix str and non-str arguments")
 
     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
-    if allow_fragments and base:
-        base, url = unicode_handling(base), unicode_handling(url)
-        GURL_container = new GURL(base)
-        # GURL will mark urls such as #, http:/// as invalid
-        if not GURL_container.is_valid():
-            fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
-            if decode:
-                return fallback.decode('utf-8')
-            return fallback
 
-        joined_url = GURL_container.Resolve(url).spec()
+    # do the url joining
+    base, url = unicode_handling(base), unicode_handling(url)
+    cdef Parsed base_parsed
+    cdef Component base_scheme
 
-        if decode:
-            return joined_url.decode('utf-8')
-        return joined_url
+    if not ExtractScheme(base, len(base), &base_scheme):
+        return urljoin_fallback(base, url, allow_fragments, decode)
 
-    return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+    parse_input_url(base, base_scheme, &base_parsed)
+
+    # if the base's path is empty and url is not
+    # we need to add '/' to base's path since it's the GURL's requirement
+    # see url_canon_relative.cc#464
+    if base_parsed.path.len <= 0:
+        base += b'/'
+        parse_input_url(base, base_scheme, &base_parsed)
+
+    # if GURL considers base as invalid, also revert back to the stdlib func
+    # NOTE: this is still under development. We only do fallback if the url is Standard
+    # if the url is non-standard and GURL still marks it as invalid -> need to fallback to stdlib
+    if not build_netloc(base, base_parsed):
+        return urljoin_fallback(base, url, allow_fragments, decode)
+
+    joined_output = resolve_relative(base, len(base), base_parsed, url, len(url))
+
+    if decode:
+        return joined_output.decode('utf-8')
+    return joined_output
