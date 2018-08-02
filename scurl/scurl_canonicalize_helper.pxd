@@ -24,3 +24,18 @@ cdef inline string canonicalize_component(char * url, Component parsed_comp):
         canonicalized_output = canonicalized_output.substr(1)
 
     return canonicalized_output
+
+
+cdef inline string resolve_relative(char* base_spec,
+                                    int base_spec_len,
+                                    Parsed& base_parsed,
+                                    char* relative,
+                                    int relative_length):
+    cdef Parsed joined_output_parsed
+    cdef string joined_output = string()
+    cdef StdStringCanonOutput * output = new StdStringCanonOutput(&joined_output)
+    is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
+                               relative_length, NULL, output, &joined_output_parsed)
+
+    output.Complete()
+    return joined_output
