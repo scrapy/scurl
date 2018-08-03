@@ -375,7 +375,7 @@ cpdef urljoin(base, url, bool allow_fragments=True):
     # if the base's path is empty and url is not
     # we need to add '/' to base's path since it's the GURL's requirement
     # see url_canon_relative.cc#464
-    if base_parsed.path.len <= 0:
+    if base_parsed.path.len <= 0 and url:
         base += b'/'
         parse_input_url(base, base_scheme, &base_parsed)
 
