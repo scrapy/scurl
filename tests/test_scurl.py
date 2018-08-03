@@ -30,9 +30,32 @@ class UrljoinTestCase(unittest.TestCase):
                                  stdlib.urljoin(invalid_url, invalid_url_2))
 
 
-    def test_urljoin_no_path(self):
-        self.assertEqual(scurl.urljoin('http://example.com', 'foo.html'),
-                         stdlib.urljoin('http://example.com', 'foo.html'))
+    def test_urljoin_no_canonicalize(self):
+        bases = [
+            'http://example.com',
+            'http://example.com/',
+            'http://example.com/white space',
+            'http://example.com/white space/foo bar/',
+            'file://example.com/white space',
+            'file://example.com/'
+        ]
+        urls = [
+            '',
+            'foo/bar',
+            'white space',
+            'white space/foo bar',
+            'http://example2.com/',
+            'http://example2.com',
+            'http://example2.com/white space',
+            'file://a/b/c/d'
+        ]
+
+        for base in bases:
+            for url in urls:
+                self.assertEqual(scurl.urljoin(base, url),
+                                 stdlib.urljoin(base, url))
+                self.assertEqual(scurl.urljoin(url, base),
+                                 stdlib.urljoin(url, base))
 
 
 if __name__ == "__main__":
