@@ -57,6 +57,19 @@ class UrljoinTestCase(unittest.TestCase):
                 self.assertEqual(scurl.urljoin(url, base),
                                  stdlib.urljoin(url, base))
 
+    def test_urljoin_invalid_host(self):
+        bases = [
+            'http://example].com',
+            'http://[example.com'
+        ]
+        urls = [
+            'http://[example.com/foo/bar',
+            'http://example.com]/foo/bar'
+        ]
+
+        for base in bases:
+            for url in urls:
+                self.assertRaises(ValueError)
 
 if __name__ == "__main__":
     unittest.main()
