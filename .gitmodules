@@ -1,6 +1,6 @@
 [submodule "third_party/chromium/url"]
 	path = third_party/chromium/url
-	url = https://github.com/nctl144/url-chromium
+	url = https://github.com/scrapy/url-chromium
 [submodule "third_party/chromium/base"]
 	path = third_party/chromium/base
 	url = https://github.com/scrapy/base-chromium
