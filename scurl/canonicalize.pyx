@@ -6,7 +6,7 @@ import logging
 from six.moves.urllib.parse import (urlunsplit, urldefrag, urlencode,
                                     quote, parse_qsl, unquote)
 from six.moves.urllib.parse import urlunparse as stdlib_urlunparse
-from scurl.scurl_canonicalize_helper cimport canonicalize_component
+from scurl.scurl_helper cimport canonicalize_component
 from scurl.mozilla_url_parse cimport Component, MakeRange
 
 

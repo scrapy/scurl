@@ -6,7 +6,8 @@
         "depends": [
             "third_party/chromium/url/third_party/mozilla/url_parse.h",
             "third_party/chromium/url/url_canon.h",
-            "third_party/chromium/url/url_canon_stdstring.h"
+            "third_party/chromium/url/url_canon_stdstring.h",
+            "third_party/chromium/url/url_util.h"
         ],
         "extra_compile_args": [
             "-std=gnu++14",
@@ -633,6 +634,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include <string>
 #include "../third_party/chromium/url/url_canon_stdstring.h"
 #include "../third_party/chromium/url/url_canon.h"
+#include "../third_party/chromium/url/url_util.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -837,7 +839,7 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "scurl/canonicalize.pyx",
-  "scurl/scurl_canonicalize_helper.pxd",
+  "scurl/scurl_helper.pxd",
   "stringsource",
 };
 
@@ -1248,8 +1250,11 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'scurl.chromium_url_canon' */
 
-/* Module declarations from 'scurl.scurl_canonicalize_helper' */
-static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_canonicalize_component(char *, url::Component); /*proto*/
+/* Module declarations from 'scurl.chromium_url_util' */
+
+/* Module declarations from 'scurl.scurl_helper' */
+static CYTHON_INLINE PyObject *__pyx_f_5scurl_12scurl_helper_build_netloc(char *, url::Parsed); /*proto*/
+static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_canonicalize_component(char *, url::Component); /*proto*/
 
 /* Module declarations from 'scurl.canonicalize' */
 static PyObject *__pyx_f_5scurl_12canonicalize_canonicalize_url(PyObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_5scurl_12canonicalize_canonicalize_url *__pyx_optional_args); /*proto*/
@@ -1266,6 +1271,7 @@ int __pyx_module_is_main_scurl__canonicalize = 0;
 static PyObject *__pyx_builtin_UnicodeError;
 static PyObject *__pyx_builtin_UnicodeEncodeError;
 static PyObject *__pyx_builtin_TypeError;
+static PyObject *__pyx_builtin_ValueError;
 static const char __pyx_k_[] = "&";
 static const char __pyx_k_e[] = "e";
 static const char __pyx_k_r[] = "r";
@@ -1342,6 +1348,7 @@ static const char __pyx_k_parse_url[] = "parse_url";
 static const char __pyx_k_text_type[] = "text_type";
 static const char __pyx_k_urldefrag[] = "urldefrag";
 static const char __pyx_k_urlencode[] = "urlencode";
+static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_name_value[] = "name_value";
 static const char __pyx_k_query_comp[] = "query_comp";
 static const char __pyx_k_safe_chars[] = "_safe_chars";
@@ -1397,6 +1404,7 @@ static PyObject *__pyx_n_s_RFC3986_UNRESERVED;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_UnicodeEncodeError;
 static PyObject *__pyx_n_s_UnicodeError;
+static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_s__16;
 static PyObject *__pyx_kp_s__17;
 static PyObject *__pyx_kp_b__20;
@@ -1407,6 +1415,7 @@ static PyObject *__pyx_kp_s__24;
 static PyObject *__pyx_kp_b__26;
 static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_kp_s__5;
+static PyObject *__pyx_kp_b__7;
 static PyObject *__pyx_kp_s__7;
 static PyObject *__pyx_kp_s__8;
 static PyObject *__pyx_kp_s__9;
@@ -2847,7 +2856,7 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED
  * 
  */
   __pyx_t_14 = __Pyx_PyObject_AsWritableString(__pyx_v_query); if (unlikely((!__pyx_t_14) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_10 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_f_5scurl_25scurl_canonicalize_helper_canonicalize_component(__pyx_t_14, __pyx_v_query_comp)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_10 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_f_5scurl_12scurl_helper_canonicalize_component(__pyx_t_14, __pyx_v_query_comp)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF_SET(__pyx_v_query, __pyx_t_10);
   __pyx_t_10 = 0;
@@ -2860,7 +2869,7 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_2_safe_ParseResult(CYTHON_UNUSED
  *     return (
  */
   __pyx_t_14 = __Pyx_PyObject_AsWritableString(__pyx_v_fragment); if (unlikely((!__pyx_t_14) && PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
-  __pyx_t_10 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_f_5scurl_25scurl_canonicalize_helper_canonicalize_component(__pyx_t_14, __pyx_v_fragment_comp)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_10 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_f_5scurl_12scurl_helper_canonicalize_component(__pyx_t_14, __pyx_v_fragment_comp)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF_SET(__pyx_v_fragment, __pyx_t_10);
   __pyx_t_10 = 0;
@@ -4081,7 +4090,7 @@ static PyObject *__pyx_f_5scurl_12canonicalize_canonicalize_url(PyObject *__pyx_
   __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_to_native_str); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_19 = __Pyx_PyObject_AsWritableString(__pyx_v_uqp); if (unlikely((!__pyx_t_19) && PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
-  __pyx_t_12 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_f_5scurl_25scurl_canonicalize_helper_canonicalize_component(__pyx_t_19, __pyx_v_path_component)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_12 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_f_5scurl_12scurl_helper_canonicalize_component(__pyx_t_19, __pyx_v_path_component)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_15 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -5925,15 +5934,454 @@ static PyObject *__pyx_pf_5scurl_12canonicalize_14to_native_str(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "scurl/scurl_canonicalize_helper.pxd":8
+/* "scurl/scurl_helper.pxd":10
  * 
+ * 
+ * cdef inline bytes slice_component(char * url, Component comp):             # <<<<<<<<<<<<<<
+ *     if comp.len <= 0:
+ *         return b""
+ */
+
+static CYTHON_INLINE PyObject *__pyx_f_5scurl_12scurl_helper_slice_component(char *__pyx_v_url, url::Component __pyx_v_comp) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("slice_component", 0);
+
+  /* "scurl/scurl_helper.pxd":11
+ * 
+ * cdef inline bytes slice_component(char * url, Component comp):
+ *     if comp.len <= 0:             # <<<<<<<<<<<<<<
+ *         return b""
+ * 
+ */
+  __pyx_t_1 = ((__pyx_v_comp.len <= 0) != 0);
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":12
+ * cdef inline bytes slice_component(char * url, Component comp):
+ *     if comp.len <= 0:
+ *         return b""             # <<<<<<<<<<<<<<
+ * 
+ *     return url[comp.begin:comp.begin + comp.len]
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(__pyx_kp_b__7);
+    __pyx_r = __pyx_kp_b__7;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":11
+ * 
+ * cdef inline bytes slice_component(char * url, Component comp):
+ *     if comp.len <= 0:             # <<<<<<<<<<<<<<
+ *         return b""
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":14
+ *         return b""
+ * 
+ *     return url[comp.begin:comp.begin + comp.len]             # <<<<<<<<<<<<<<
+ * 
+ * cdef inline bytes build_netloc(char * url, Parsed parsed):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_comp.begin, (__pyx_v_comp.begin + __pyx_v_comp.len) - __pyx_v_comp.begin); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_r = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "scurl/scurl_helper.pxd":10
+ * 
+ * 
+ * cdef inline bytes slice_component(char * url, Component comp):             # <<<<<<<<<<<<<<
+ *     if comp.len <= 0:
+ *         return b""
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("scurl.scurl_helper.slice_component", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "scurl/scurl_helper.pxd":16
+ *     return url[comp.begin:comp.begin + comp.len]
+ * 
+ * cdef inline bytes build_netloc(char * url, Parsed parsed):             # <<<<<<<<<<<<<<
+ *     if parsed.host.len <= 0:
+ *         return b""
+ */
+
+static CYTHON_INLINE PyObject *__pyx_f_5scurl_12scurl_helper_build_netloc(char *__pyx_v_url, url::Parsed __pyx_v_parsed) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  __Pyx_RefNannySetupContext("build_netloc", 0);
+
+  /* "scurl/scurl_helper.pxd":17
+ * 
+ * cdef inline bytes build_netloc(char * url, Parsed parsed):
+ *     if parsed.host.len <= 0:             # <<<<<<<<<<<<<<
+ *         return b""
+ * 
+ */
+  __pyx_t_1 = ((__pyx_v_parsed.host.len <= 0) != 0);
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":18
+ * cdef inline bytes build_netloc(char * url, Parsed parsed):
+ *     if parsed.host.len <= 0:
+ *         return b""             # <<<<<<<<<<<<<<
+ * 
+ *     # Nothing at all
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(__pyx_kp_b__7);
+    __pyx_r = __pyx_kp_b__7;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":17
+ * 
+ * cdef inline bytes build_netloc(char * url, Parsed parsed):
+ *     if parsed.host.len <= 0:             # <<<<<<<<<<<<<<
+ *         return b""
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":21
+ * 
+ *     # Nothing at all
+ *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len]
+ * 
+ */
+  __pyx_t_2 = ((__pyx_v_parsed.username.len <= 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.password.len <= 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.port.len <= 0) != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":22
+ *     # Nothing at all
+ *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:
+ *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len]             # <<<<<<<<<<<<<<
+ * 
+ *     # Only port
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_3 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_parsed.host.begin, (__pyx_v_parsed.host.begin + __pyx_v_parsed.host.len) - __pyx_v_parsed.host.begin); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 22, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_r = ((PyObject*)__pyx_t_3);
+    __pyx_t_3 = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":21
+ * 
+ *     # Nothing at all
+ *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len]
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":25
+ * 
+ *     # Only port
+ *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]
+ * 
+ */
+  __pyx_t_2 = ((__pyx_v_parsed.username.len <= 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L7_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.password.len <= 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L7_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.port.len > 0) != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L7_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":26
+ *     # Only port
+ *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:
+ *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]             # <<<<<<<<<<<<<<
+ * 
+ *     # Only username
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_3 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_parsed.host.begin, (((__pyx_v_parsed.host.begin + __pyx_v_parsed.host.len) + 1) + __pyx_v_parsed.port.len) - __pyx_v_parsed.host.begin); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_r = ((PyObject*)__pyx_t_3);
+    __pyx_t_3 = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":25
+ * 
+ *     # Only port
+ *     elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":29
+ * 
+ *     # Only username
+ *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]
+ * 
+ */
+  __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L10_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.password.len <= 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L10_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.port.len <= 0) != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L10_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":30
+ *     # Only username
+ *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]             # <<<<<<<<<<<<<<
+ * 
+ *     # Username + password
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_3 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_parsed.username.begin, (((__pyx_v_parsed.username.begin + __pyx_v_parsed.host.len) + 1) + __pyx_v_parsed.username.len) - __pyx_v_parsed.username.begin); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 30, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_r = ((PyObject*)__pyx_t_3);
+    __pyx_t_3 = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":29
+ * 
+ *     # Only username
+ *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":33
+ * 
+ *     # Username + password
+ *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]
+ * 
+ */
+  __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L13_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.password.len > 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L13_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.port.len <= 0) != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L13_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":34
+ *     # Username + password
+ *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]             # <<<<<<<<<<<<<<
+ * 
+ *     # Username + port
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_3 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_parsed.username.begin, ((((__pyx_v_parsed.username.begin + __pyx_v_parsed.host.len) + 2) + __pyx_v_parsed.username.len) + __pyx_v_parsed.password.len) - __pyx_v_parsed.username.begin); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 34, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_r = ((PyObject*)__pyx_t_3);
+    __pyx_t_3 = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":33
+ * 
+ *     # Username + password
+ *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":37
+ * 
+ *     # Username + port
+ *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]
+ * 
+ */
+  __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L16_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.password.len <= 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L16_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.port.len > 0) != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L16_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "scurl/scurl_helper.pxd":38
+ *     # Username + port
+ *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]             # <<<<<<<<<<<<<<
+ * 
+ *     # Username + port + password
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_3 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_parsed.username.begin, ((((__pyx_v_parsed.username.begin + __pyx_v_parsed.host.len) + 2) + __pyx_v_parsed.username.len) + __pyx_v_parsed.port.len) - __pyx_v_parsed.username.begin); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 38, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_r = ((PyObject*)__pyx_t_3);
+    __pyx_t_3 = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":37
+ * 
+ *     # Username + port
+ *     elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":41
+ * 
+ *     # Username + port + password
+ *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]
+ * 
+ */
+  __pyx_t_2 = ((__pyx_v_parsed.username.len > 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L19_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.password.len > 0) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L19_bool_binop_done;
+  }
+  __pyx_t_2 = ((__pyx_v_parsed.port.len > 0) != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L19_bool_binop_done:;
+  if (likely(__pyx_t_1)) {
+
+    /* "scurl/scurl_helper.pxd":42
+ *     # Username + port + password
+ *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]             # <<<<<<<<<<<<<<
+ * 
+ *     else:
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __pyx_t_3 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_url + __pyx_v_parsed.username.begin, (((((__pyx_v_parsed.username.begin + __pyx_v_parsed.host.len) + 3) + __pyx_v_parsed.port.len) + __pyx_v_parsed.username.len) + __pyx_v_parsed.password.len) - __pyx_v_parsed.username.begin); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 42, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_r = ((PyObject*)__pyx_t_3);
+    __pyx_t_3 = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":41
+ * 
+ *     # Username + port + password
+ *     elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:             # <<<<<<<<<<<<<<
+ *         return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":45
+ * 
+ *     else:
+ *         raise ValueError             # <<<<<<<<<<<<<<
+ * 
+ * cdef inline string canonicalize_component(char * url, Component parsed_comp):
+ */
+  /*else*/ {
+    __Pyx_Raise(__pyx_builtin_ValueError, 0, 0, 0);
+    __PYX_ERR(1, 45, __pyx_L1_error)
+  }
+
+  /* "scurl/scurl_helper.pxd":16
+ *     return url[comp.begin:comp.begin + comp.len]
+ * 
+ * cdef inline bytes build_netloc(char * url, Parsed parsed):             # <<<<<<<<<<<<<<
+ *     if parsed.host.len <= 0:
+ *         return b""
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("scurl.scurl_helper.build_netloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "scurl/scurl_helper.pxd":47
+ *         raise ValueError
  * 
  * cdef inline string canonicalize_component(char * url, Component parsed_comp):             # <<<<<<<<<<<<<<
  *     """
  *     This function canonicalizes the components of the urls
  */
 
-static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_canonicalize_component(char *__pyx_v_url, url::Component __pyx_v_parsed_comp) {
+static CYTHON_INLINE std::string __pyx_f_5scurl_12scurl_helper_canonicalize_component(char *__pyx_v_url, url::Component __pyx_v_parsed_comp) {
   url::Component __pyx_v_output_comp;
   std::string __pyx_v_canonicalized_output;
   url::StdStringCanonOutput *__pyx_v_output;
@@ -5945,7 +6393,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("canonicalize_component", 0);
 
-  /* "scurl/scurl_canonicalize_helper.pxd":14
+  /* "scurl/scurl_helper.pxd":53
  *     """
  *     cdef Component output_comp
  *     cdef string canonicalized_output = string()             # <<<<<<<<<<<<<<
@@ -5956,11 +6404,11 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
     __pyx_t_1 = std::string();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 14, __pyx_L1_error)
+    __PYX_ERR(1, 53, __pyx_L1_error)
   }
   __pyx_v_canonicalized_output = __pyx_t_1;
 
-  /* "scurl/scurl_canonicalize_helper.pxd":15
+  /* "scurl/scurl_helper.pxd":54
  *     cdef Component output_comp
  *     cdef string canonicalized_output = string()
  *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(&canonicalized_output)             # <<<<<<<<<<<<<<
@@ -5969,7 +6417,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  */
   __pyx_v_output = new url::StdStringCanonOutput((&__pyx_v_canonicalized_output));
 
-  /* "scurl/scurl_canonicalize_helper.pxd":19
+  /* "scurl/scurl_helper.pxd":58
  *     # so we will use canonicalizePath for now!
  *     # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
  *     is_valid = CanonicalizePath(url, parsed_comp, output, &output_comp)             # <<<<<<<<<<<<<<
@@ -5978,7 +6426,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  */
   __pyx_v_is_valid = url::CanonicalizePath(__pyx_v_url, __pyx_v_parsed_comp, __pyx_v_output, (&__pyx_v_output_comp));
 
-  /* "scurl/scurl_canonicalize_helper.pxd":20
+  /* "scurl/scurl_helper.pxd":59
  *     # CanonicalizeQuery(query, query_comp, NULL, output, &out_query)
  *     is_valid = CanonicalizePath(url, parsed_comp, output, &output_comp)
  *     output.Complete()             # <<<<<<<<<<<<<<
@@ -5987,7 +6435,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  */
   __pyx_v_output->Complete();
 
-  /* "scurl/scurl_canonicalize_helper.pxd":23
+  /* "scurl/scurl_helper.pxd":62
  * 
  * 
  *     if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":             # <<<<<<<<<<<<<<
@@ -6005,7 +6453,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "scurl/scurl_canonicalize_helper.pxd":24
+    /* "scurl/scurl_helper.pxd":63
  * 
  *     if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":
  *         canonicalized_output = canonicalized_output.substr(1)             # <<<<<<<<<<<<<<
@@ -6014,7 +6462,7 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  */
     __pyx_v_canonicalized_output = __pyx_v_canonicalized_output.substr(1);
 
-    /* "scurl/scurl_canonicalize_helper.pxd":23
+    /* "scurl/scurl_helper.pxd":62
  * 
  * 
  *     if canonicalized_output.length() > 0 and canonicalized_output[0] == "/":             # <<<<<<<<<<<<<<
@@ -6023,16 +6471,18 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
  */
   }
 
-  /* "scurl/scurl_canonicalize_helper.pxd":26
+  /* "scurl/scurl_helper.pxd":65
  *         canonicalized_output = canonicalized_output.substr(1)
  * 
  *     return canonicalized_output             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
   __pyx_r = __pyx_v_canonicalized_output;
   goto __pyx_L0;
 
-  /* "scurl/scurl_canonicalize_helper.pxd":8
- * 
+  /* "scurl/scurl_helper.pxd":47
+ *         raise ValueError
  * 
  * cdef inline string canonicalize_component(char * url, Component parsed_comp):             # <<<<<<<<<<<<<<
  *     """
@@ -6041,9 +6491,192 @@ static CYTHON_INLINE std::string __pyx_f_5scurl_25scurl_canonicalize_helper_cano
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("scurl.scurl_canonicalize_helper.canonicalize_component", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("scurl.scurl_helper.canonicalize_component", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __Pyx_pretend_to_initialize(&__pyx_r);
   __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "scurl/scurl_helper.pxd":68
+ * 
+ * 
+ * cdef inline bool resolve_relative(char* base_spec,             # <<<<<<<<<<<<<<
+ *                                     int base_spec_len,
+ *                                     Parsed& base_parsed,
+ */
+
+static CYTHON_INLINE bool __pyx_f_5scurl_12scurl_helper_resolve_relative(char *__pyx_v_base_spec, int __pyx_v_base_spec_len, url::Parsed &__pyx_v_base_parsed, char *__pyx_v_relative, int __pyx_v_relative_length, std::string *__pyx_v_joined_output) {
+  PyObject *__pyx_v_netloc = 0;
+  url::Component __pyx_v_netloc_comp_original;
+  url::Component __pyx_v_netloc_comp;
+  std::string __pyx_v_canonicalized_netloc;
+  url::StdStringCanonOutput *__pyx_v_output_netloc;
+  bool __pyx_v_is_netloc_valid;
+  url::Parsed __pyx_v_joined_output_parsed;
+  url::StdStringCanonOutput *__pyx_v_output;
+  bool __pyx_v_is_valid;
+  bool __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  std::string __pyx_t_3;
+  char const *__pyx_t_4;
+  int __pyx_t_5;
+  __Pyx_RefNannySetupContext("resolve_relative", 0);
+
+  /* "scurl/scurl_helper.pxd":74
+ *                                     int relative_length,
+ *                                     string* joined_output):
+ *     cdef bytes netloc = build_netloc(base_spec, base_parsed)             # <<<<<<<<<<<<<<
+ *     cdef Component netloc_comp_original = MakeRange(0, len(netloc))
+ *     cdef Component netloc_comp
+ */
+  __pyx_t_1 = __pyx_f_5scurl_12scurl_helper_build_netloc(__pyx_v_base_spec, __pyx_v_base_parsed); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_netloc = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "scurl/scurl_helper.pxd":75
+ *                                     string* joined_output):
+ *     cdef bytes netloc = build_netloc(base_spec, base_parsed)
+ *     cdef Component netloc_comp_original = MakeRange(0, len(netloc))             # <<<<<<<<<<<<<<
+ *     cdef Component netloc_comp
+ *     cdef string canonicalized_netloc = string()
+ */
+  if (unlikely(__pyx_v_netloc == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(1, 75, __pyx_L1_error)
+  }
+  __pyx_t_2 = PyBytes_GET_SIZE(__pyx_v_netloc); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(1, 75, __pyx_L1_error)
+  __pyx_v_netloc_comp_original = url::MakeRange(0, __pyx_t_2);
+
+  /* "scurl/scurl_helper.pxd":77
+ *     cdef Component netloc_comp_original = MakeRange(0, len(netloc))
+ *     cdef Component netloc_comp
+ *     cdef string canonicalized_netloc = string()             # <<<<<<<<<<<<<<
+ *     cdef StdStringCanonOutput * output_netloc = new StdStringCanonOutput(&canonicalized_netloc)
+ *     is_netloc_valid = CanonicalizeHost(netloc, netloc_comp_original, output_netloc, &netloc_comp)
+ */
+  try {
+    __pyx_t_3 = std::string();
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(1, 77, __pyx_L1_error)
+  }
+  __pyx_v_canonicalized_netloc = __pyx_t_3;
+
+  /* "scurl/scurl_helper.pxd":78
+ *     cdef Component netloc_comp
+ *     cdef string canonicalized_netloc = string()
+ *     cdef StdStringCanonOutput * output_netloc = new StdStringCanonOutput(&canonicalized_netloc)             # <<<<<<<<<<<<<<
+ *     is_netloc_valid = CanonicalizeHost(netloc, netloc_comp_original, output_netloc, &netloc_comp)
+ *     output_netloc.Complete()
+ */
+  __pyx_v_output_netloc = new url::StdStringCanonOutput((&__pyx_v_canonicalized_netloc));
+
+  /* "scurl/scurl_helper.pxd":79
+ *     cdef string canonicalized_netloc = string()
+ *     cdef StdStringCanonOutput * output_netloc = new StdStringCanonOutput(&canonicalized_netloc)
+ *     is_netloc_valid = CanonicalizeHost(netloc, netloc_comp_original, output_netloc, &netloc_comp)             # <<<<<<<<<<<<<<
+ *     output_netloc.Complete()
+ * 
+ */
+  if (unlikely(__pyx_v_netloc == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "expected bytes, NoneType found");
+    __PYX_ERR(1, 79, __pyx_L1_error)
+  }
+  __pyx_t_4 = __Pyx_PyBytes_AsString(__pyx_v_netloc); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) __PYX_ERR(1, 79, __pyx_L1_error)
+  __pyx_v_is_netloc_valid = url::CanonicalizeHost(__pyx_t_4, __pyx_v_netloc_comp_original, __pyx_v_output_netloc, (&__pyx_v_netloc_comp));
+
+  /* "scurl/scurl_helper.pxd":80
+ *     cdef StdStringCanonOutput * output_netloc = new StdStringCanonOutput(&canonicalized_netloc)
+ *     is_netloc_valid = CanonicalizeHost(netloc, netloc_comp_original, output_netloc, &netloc_comp)
+ *     output_netloc.Complete()             # <<<<<<<<<<<<<<
+ * 
+ *     if not is_netloc_valid:
+ */
+  __pyx_v_output_netloc->Complete();
+
+  /* "scurl/scurl_helper.pxd":82
+ *     output_netloc.Complete()
+ * 
+ *     if not is_netloc_valid:             # <<<<<<<<<<<<<<
+ *         return False
+ * 
+ */
+  __pyx_t_5 = ((!(__pyx_v_is_netloc_valid != 0)) != 0);
+  if (__pyx_t_5) {
+
+    /* "scurl/scurl_helper.pxd":83
+ * 
+ *     if not is_netloc_valid:
+ *         return False             # <<<<<<<<<<<<<<
+ * 
+ *     cdef Parsed joined_output_parsed
+ */
+    __pyx_r = 0;
+    goto __pyx_L0;
+
+    /* "scurl/scurl_helper.pxd":82
+ *     output_netloc.Complete()
+ * 
+ *     if not is_netloc_valid:             # <<<<<<<<<<<<<<
+ *         return False
+ * 
+ */
+  }
+
+  /* "scurl/scurl_helper.pxd":86
+ * 
+ *     cdef Parsed joined_output_parsed
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(joined_output)             # <<<<<<<<<<<<<<
+ * 
+ *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,
+ */
+  __pyx_v_output = new url::StdStringCanonOutput(__pyx_v_joined_output);
+
+  /* "scurl/scurl_helper.pxd":88
+ *     cdef StdStringCanonOutput * output = new StdStringCanonOutput(joined_output)
+ * 
+ *     is_valid = ResolveRelative(base_spec, base_spec_len, base_parsed, relative,             # <<<<<<<<<<<<<<
+ *                                relative_length, NULL, output, &joined_output_parsed)
+ * 
+ */
+  __pyx_v_is_valid = url::ResolveRelative(__pyx_v_base_spec, __pyx_v_base_spec_len, __pyx_v_base_parsed, __pyx_v_relative, __pyx_v_relative_length, NULL, __pyx_v_output, (&__pyx_v_joined_output_parsed));
+
+  /* "scurl/scurl_helper.pxd":91
+ *                                relative_length, NULL, output, &joined_output_parsed)
+ * 
+ *     output.Complete()             # <<<<<<<<<<<<<<
+ * 
+ *     return is_valid
+ */
+  __pyx_v_output->Complete();
+
+  /* "scurl/scurl_helper.pxd":93
+ *     output.Complete()
+ * 
+ *     return is_valid             # <<<<<<<<<<<<<<
+ */
+  __pyx_r = __pyx_v_is_valid;
+  goto __pyx_L0;
+
+  /* "scurl/scurl_helper.pxd":68
+ * 
+ * 
+ * cdef inline bool resolve_relative(char* base_spec,             # <<<<<<<<<<<<<<
+ *                                     int base_spec_len,
+ *                                     Parsed& base_parsed,
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_WriteUnraisable("scurl.scurl_helper.resolve_relative", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_netloc);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -6337,6 +6970,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_UnicodeEncodeError, __pyx_k_UnicodeEncodeError, sizeof(__pyx_k_UnicodeEncodeError), 0, 0, 1, 1},
   {&__pyx_n_s_UnicodeError, __pyx_k_UnicodeError, sizeof(__pyx_k_UnicodeError), 0, 0, 1, 1},
+  {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_s__16, __pyx_k__16, sizeof(__pyx_k__16), 0, 0, 1, 0},
   {&__pyx_kp_s__17, __pyx_k__17, sizeof(__pyx_k__17), 0, 0, 1, 0},
   {&__pyx_kp_b__20, __pyx_k__20, sizeof(__pyx_k__20), 0, 0, 0, 0},
@@ -6347,6 +6981,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_b__26, __pyx_k__26, sizeof(__pyx_k__26), 0, 0, 0, 0},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_kp_s__5, __pyx_k__5, sizeof(__pyx_k__5), 0, 0, 1, 0},
+  {&__pyx_kp_b__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 0, 0, 0},
   {&__pyx_kp_s__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 0, 1, 0},
   {&__pyx_kp_s__8, __pyx_k__8, sizeof(__pyx_k__8), 0, 0, 1, 0},
   {&__pyx_kp_s__9, __pyx_k__9, sizeof(__pyx_k__9), 0, 0, 1, 0},
@@ -6441,6 +7076,7 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_UnicodeError = __Pyx_GetBuiltinName(__pyx_n_s_UnicodeError); if (!__pyx_builtin_UnicodeError) __PYX_ERR(0, 82, __pyx_L1_error)
   __pyx_builtin_UnicodeEncodeError = __Pyx_GetBuiltinName(__pyx_n_s_UnicodeEncodeError); if (!__pyx_builtin_UnicodeEncodeError) __PYX_ERR(0, 90, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 243, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 45, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -7031,7 +7667,7 @@ if (!__Pyx_RefNanny) {
  * from six.moves.urllib.parse import (urlunsplit, urldefrag, urlencode,
  *                                     quote, parse_qsl, unquote)
  * from six.moves.urllib.parse import urlunparse as stdlib_urlunparse             # <<<<<<<<<<<<<<
- * from scurl.scurl_canonicalize_helper cimport canonicalize_component
+ * from scurl.scurl_helper cimport canonicalize_component
  * from scurl.mozilla_url_parse cimport Component, MakeRange
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)

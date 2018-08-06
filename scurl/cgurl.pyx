@@ -5,7 +5,8 @@ from scurl.chromium_gurl cimport GURL
 from scurl.chromium_url_constant cimport kFileScheme, kFileSystemScheme, kMailToScheme
 from scurl.chromium_url_util_internal cimport CompareSchemeComponent
 from scurl.chromium_url_util cimport IsStandard
-from scurl.scurl_canonicalize_helper cimport canonicalize_component
+from scurl.scurl_helper cimport (canonicalize_component, resolve_relative, build_netloc,
+                                 slice_component)
 
 import six
 from six.moves.urllib.parse import urlsplit as stdlib_urlsplit
@@ -24,44 +25,6 @@ uses_params[:] = ['', 'ftp', 'hdl',
                    'https', 'shttp', 'rtsp',
                    'rtspu', 'sip', 'sips',
                    'mms', 'sftp', 'tel']
-
-cdef bytes slice_component(char * url, Component comp):
-    if comp.len <= 0:
-        return b""
-
-    return url[comp.begin:comp.begin + comp.len]
-
-cdef bytes build_netloc(char * url, Parsed parsed):
-    if parsed.host.len <= 0:
-        return b""
-
-    # Nothing at all
-    elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len <= 0:
-        return url[parsed.host.begin: parsed.host.begin + parsed.host.len]
-
-    # Only port
-    elif parsed.username.len <= 0 and parsed.password.len <= 0 and parsed.port.len > 0:
-        return url[parsed.host.begin: parsed.host.begin + parsed.host.len + 1 + parsed.port.len]
-
-    # Only username
-    elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len <= 0:
-        return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 1 + parsed.username.len]
-
-    # Username + password
-    elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len <= 0:
-        return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.password.len]
-
-    # Username + port
-    elif parsed.username.len > 0 and parsed.password.len <= 0 and parsed.port.len > 0:
-        return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 2 + parsed.username.len + parsed.port.len]
-
-    # Username + port + password
-    elif parsed.username.len > 0 and parsed.password.len > 0 and parsed.port.len > 0:
-        return url[parsed.username.begin: parsed.username.begin + parsed.host.len + 3 + parsed.port.len  + parsed.username.len  + parsed.password.len]
-
-    else:
-        raise ValueError
-
 
 cdef char * unicode_handling(str):
     """
@@ -347,25 +310,45 @@ cpdef urljoin(base, url, bool allow_fragments=True):
     This function intends to replace urljoin from urllib,
     which uses Resolve function from class GURL of GURL chromium
     """
+    # fallback to the stdlib if allow_fragments and base are not presented
+    if not (allow_fragments and base):
+        return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+
+    # raise TypeError when base and url are not the same type
     str_input = isinstance(base, str)
     if isinstance(url, str) != str_input:
         raise TypeError("Cannot mix str and non-str arguments")
 
     decode = not (isinstance(base, bytes) and isinstance(url, bytes))
-    if allow_fragments and base:
-        base, url = unicode_handling(base), unicode_handling(url)
-        GURL_container = new GURL(base)
-        # GURL will mark urls such as #, http:/// as invalid
-        if not GURL_container.is_valid():
-            fallback = stdlib_urljoin(base, url, allow_fragments=allow_fragments)
-            if decode:
-                return fallback.decode('utf-8')
-            return fallback
 
-        joined_url = GURL_container.Resolve(url).spec()
+    # do the url joining
+    # base handling
+    base, url = unicode_handling(base), unicode_handling(url)
+    cdef Parsed base_parsed
+    cdef Component base_scheme
 
+    if not ExtractScheme(base, len(base), &base_scheme):
         if decode:
-            return joined_url.decode('utf-8')
-        return joined_url
+            return stdlib_urljoin(base, url, allow_fragments=allow_fragments).decode('utf-8')
+        return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
 
-    return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+    parse_input_url(base, base_scheme, &base_parsed)
+
+    # if the base's path is empty and url is not
+    # we need to add '/' to base's path since it's the GURL's requirement
+    # see url_canon_relative.cc#464
+    if base_parsed.path.len <= 0 and url:
+        base += b'/'
+        parse_input_url(base, base_scheme, &base_parsed)
+    cdef string joined_output = string()
+
+    is_valid = resolve_relative(base, len(base), base_parsed, url, len(url), &joined_output)
+
+    if not is_valid:
+        if decode:
+            return stdlib_urljoin(base, url, allow_fragments=allow_fragments).decode('utf-8')
+        return stdlib_urljoin(base, url, allow_fragments=allow_fragments)
+
+    if decode:
+        return joined_output.decode('utf-8')
+    return joined_output

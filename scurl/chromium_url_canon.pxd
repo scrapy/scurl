@@ -12,6 +12,10 @@ cdef extern from "../third_party/chromium/url/url_canon.h" namespace "url":
 
     ctypedef CanonOutputT CanonOutput
 
+    cdef bool CanonicalizeHost(const char* spec,
+                               const Component& host,
+                               StdStringCanonOutput* output,
+                               Component* out_host);
     cdef bool CanonicalizePath(const char* spec,
                                 const Component& path,
                                 StdStringCanonOutput* output,
