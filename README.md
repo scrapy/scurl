@@ -27,6 +27,14 @@ from urllib have passed (we are still working on passing all the tests :) ).
 We want to give special thanks to [`urlparse4`](https://github.com/commonsearch/urlparse4)
 since this project is built based on it.
 
+## GSoC 2018
+
+This project is built under the funding of the Google Summer of Code program 2018.
+More detail about the program can be found [here](https://summerofcode.withgoogle.com/).
+
+The final report, which contains more detail on how this project was made can be found
+[here](https://gist.github.com/nctl144/48c924e039a612f009b7827768feb184).
+
 
 ## Supported functions
 
