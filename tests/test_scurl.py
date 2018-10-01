@@ -69,7 +69,7 @@ class UrljoinTestCase(unittest.TestCase):
 
         for base in bases:
             for url in urls:
-                self.assertRaises(ValueError)
+                self.assertRaises(ValueError, scurl.urljoin, base, url)
 
 if __name__ == "__main__":
     unittest.main()
