@@ -2,12 +2,7 @@
 
 from test import test_support
 import unittest
-import scurl
-import six
-import pytest
-
-if six.PY3:
-    pytest.skip("Env is python3, skipping python2 tests", allow_module_level=True)
+import scurl as urlparse
 
 RFC1808_BASE = "http://a/b/c/d;p?q#f"
 RFC2396_BASE = "http://a/b/c/d;p?q"
@@ -77,19 +72,19 @@ parse_qs_test_cases = [
 class UrlParseTestCase(unittest.TestCase):
 
     def checkRoundtrips(self, url, parsed, split):
-        result = scurl.urlparse(url)
+        result = urlparse.urlparse(url)
         self.assertEqual(result, parsed)
         t = (result.scheme, result.netloc, result.path,
              result.params, result.query, result.fragment)
         self.assertEqual(t, parsed)
         # put it back together and it should be the same
-        result2 = scurl.urlunparse(result)
+        result2 = urlparse.urlunparse(result)
         self.assertEqual(result2, url)
         self.assertEqual(result2, result.geturl())
 
         # the result of geturl() is a fixpoint; we can always parse it
         # again to get the same result:
-        result3 = scurl.urlparse(result.geturl())
+        result3 = urlparse.urlparse(result.geturl())
         self.assertEqual(result3.geturl(), result.geturl())
         self.assertEqual(result3,          result)
         self.assertEqual(result3.scheme,   result.scheme)
@@ -104,17 +99,17 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(result3.port,     result.port)
 
         # check the roundtrip using urlsplit() as well
-        result = scurl.urlsplit(url)
+        result = urlparse.urlsplit(url)
         self.assertEqual(result, split)
         t = (result.scheme, result.netloc, result.path,
              result.query, result.fragment)
         self.assertEqual(t, split)
-        result2 = scurl.urlunsplit(result)
+        result2 = urlparse.urlunsplit(result)
         self.assertEqual(result2, url)
         self.assertEqual(result2, result.geturl())
 
         # check the fixpoint property of re-parsing the result of geturl()
-        result3 = scurl.urlsplit(result.geturl())
+        result3 = urlparse.urlsplit(result.geturl())
         self.assertEqual(result3.geturl(), result.geturl())
         self.assertEqual(result3,          result)
         self.assertEqual(result3.scheme,   result.scheme)
@@ -129,24 +124,23 @@ class UrlParseTestCase(unittest.TestCase):
 
     def test_qsl(self):
         for orig, expect in parse_qsl_test_cases:
-            result = scurl.parse_qsl(orig, keep_blank_values=True)
+            result = urlparse.parse_qsl(orig, keep_blank_values=True)
             self.assertEqual(result, expect, "Error parsing %r" % orig)
             expect_without_blanks = [v for v in expect if len(v[1])]
-            result = scurl.parse_qsl(orig, keep_blank_values=False)
+            result = urlparse.parse_qsl(orig, keep_blank_values=False)
             self.assertEqual(result, expect_without_blanks,
                     "Error parsing %r" % orig)
 
     def test_qs(self):
         for orig, expect in parse_qs_test_cases:
-            result = scurl.parse_qs(orig, keep_blank_values=True)
+            result = urlparse.parse_qs(orig, keep_blank_values=True)
             self.assertEqual(result, expect, "Error parsing %r" % orig)
             expect_without_blanks = dict(
                     [(v, expect[v]) for v in expect if len(expect[v][0])])
-            result = scurl.parse_qs(orig, keep_blank_values=False)
+            result = urlparse.parse_qs(orig, keep_blank_values=False)
             self.assertEqual(result, expect_without_blanks,
                     "Error parsing %r" % orig)
 
-    @pytest.mark.xfail(reason="GURL failed to parse these schemes for now")
     def test_roundtrips(self):
         testcases = [
             ('file:///tmp/junk.txt',
@@ -178,7 +172,7 @@ class UrlParseTestCase(unittest.TestCase):
             self.checkRoundtrips(url, parsed, split)
 
     def test_http_roundtrips(self):
-        # scurl.urlsplit treats 'http:' as an optimized special case,
+        # urlparse.urlsplit treats 'http:' as an optimized special case,
         # so we test both 'http:' and 'https:' in all the following.
         # Three cheers for white box knowledge!
         testcases = [
@@ -206,15 +200,14 @@ class UrlParseTestCase(unittest.TestCase):
                 self.checkRoundtrips(url, parsed, split)
 
     def checkJoin(self, base, relurl, expected):
-        self.assertEqual(scurl.urljoin(base, relurl), expected,
+        self.assertEqual(urlparse.urljoin(base, relurl), expected,
                          (base, relurl, expected))
 
     def test_unparse_parse(self):
         for u in ['Python', './Python','x-newscheme://foo.com/stuff','x://y','x:/y','x:/','/',]:
-            self.assertEqual(scurl.urlunsplit(scurl.urlsplit(u)), u)
-            self.assertEqual(scurl.urlunparse(scurl.urlparse(u)), u)
+            self.assertEqual(urlparse.urlunsplit(urlparse.urlsplit(u)), u)
+            self.assertEqual(urlparse.urlunparse(urlparse.urlparse(u)), u)
 
-    @pytest.mark.xfail(reason='GURL failed to join http://a/b/c/d;p?q#f and " "')
     def test_RFC1808(self):
         # "normal" cases from RFC 1808:
         self.checkJoin(RFC1808_BASE, 'g:h', 'g:h')
@@ -222,7 +215,7 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(RFC1808_BASE, './g', 'http://a/b/c/g')
         self.checkJoin(RFC1808_BASE, 'g/', 'http://a/b/c/g/')
         self.checkJoin(RFC1808_BASE, '/g', 'http://a/g')
-        self.checkJoin(RFC1808_BASE, '//g', 'http://g/')
+        self.checkJoin(RFC1808_BASE, '//g', 'http://g')
         self.checkJoin(RFC1808_BASE, 'g?y', 'http://a/b/c/g?y')
         self.checkJoin(RFC1808_BASE, 'g?y/./x', 'http://a/b/c/g?y/./x')
         self.checkJoin(RFC1808_BASE, '#s', 'http://a/b/c/d;p?q#s')
@@ -262,19 +255,17 @@ class UrlParseTestCase(unittest.TestCase):
 
     def test_RFC2368(self):
         # Issue 11467: path that starts with a number is not parsed correctly
-        self.assertEqual(scurl.urlparse('mailto:1337@example.org'),
+        self.assertEqual(urlparse.urlparse('mailto:1337@example.org'),
                 ('mailto', '', '1337@example.org', '', '', ''))
 
     def test_RFC2396(self):
         # cases from RFC 2396
-        # NOTE: all the relative urls such as ../../g when joined must be /g
-        # those test cases have been modified in SCURL
         self.checkJoin(RFC2396_BASE, 'g:h', 'g:h')
         self.checkJoin(RFC2396_BASE, 'g', 'http://a/b/c/g')
         self.checkJoin(RFC2396_BASE, './g', 'http://a/b/c/g')
         self.checkJoin(RFC2396_BASE, 'g/', 'http://a/b/c/g/')
         self.checkJoin(RFC2396_BASE, '/g', 'http://a/g')
-        self.checkJoin(RFC2396_BASE, '//g', 'http://g/')
+        self.checkJoin(RFC2396_BASE, '//g', 'http://g')
         self.checkJoin(RFC2396_BASE, 'g?y', 'http://a/b/c/g?y')
         self.checkJoin(RFC2396_BASE, '#s', 'http://a/b/c/d;p?q#s')
         self.checkJoin(RFC2396_BASE, 'g#s', 'http://a/b/c/g#s')
@@ -290,10 +281,10 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(RFC2396_BASE, '../../', 'http://a/')
         self.checkJoin(RFC2396_BASE, '../../g', 'http://a/g')
         self.checkJoin(RFC2396_BASE, '', RFC2396_BASE)
-        self.checkJoin(RFC2396_BASE, '../../../g', 'http://a/g')
-        self.checkJoin(RFC2396_BASE, '../../../../g', 'http://a/g')
-        self.checkJoin(RFC2396_BASE, '/./g', 'http://a/g')
-        self.checkJoin(RFC2396_BASE, '/../g', 'http://a/g')
+        self.checkJoin(RFC2396_BASE, '../../../g', 'http://a/../g')
+        self.checkJoin(RFC2396_BASE, '../../../../g', 'http://a/../../g')
+        self.checkJoin(RFC2396_BASE, '/./g', 'http://a/./g')
+        self.checkJoin(RFC2396_BASE, '/../g', 'http://a/../g')
         self.checkJoin(RFC2396_BASE, 'g.', 'http://a/b/c/g.')
         self.checkJoin(RFC2396_BASE, '.g', 'http://a/b/c/.g')
         self.checkJoin(RFC2396_BASE, 'g..', 'http://a/b/c/g..')
@@ -318,7 +309,7 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(RFC3986_BASE, './g','http://a/b/c/g')
         self.checkJoin(RFC3986_BASE, 'g/','http://a/b/c/g/')
         self.checkJoin(RFC3986_BASE, '/g','http://a/g')
-        self.checkJoin(RFC3986_BASE, '//g','http://g/')
+        self.checkJoin(RFC3986_BASE, '//g','http://g')
         self.checkJoin(RFC3986_BASE, '?y','http://a/b/c/d;p?y')
         self.checkJoin(RFC3986_BASE, 'g?y','http://a/b/c/g?y')
         self.checkJoin(RFC3986_BASE, '#s','http://a/b/c/d;p?q#s')
@@ -368,8 +359,6 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin('http://a/b/c/de', ';x','http://a/b/c/;x')
 
     def test_urljoins(self):
-        # NOTE: all the relative urls such as ../../g or ./g when joined must be /g
-        # those test cases have been modified in SCURL
         self.checkJoin(SIMPLE_BASE, 'g:h','g:h')
         self.checkJoin(SIMPLE_BASE, 'http:g','http://a/b/c/g')
         self.checkJoin(SIMPLE_BASE, 'http:','http://a/b/c/d')
@@ -377,7 +366,7 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(SIMPLE_BASE, './g','http://a/b/c/g')
         self.checkJoin(SIMPLE_BASE, 'g/','http://a/b/c/g/')
         self.checkJoin(SIMPLE_BASE, '/g','http://a/g')
-        self.checkJoin(SIMPLE_BASE, '//g','http://g/')
+        self.checkJoin(SIMPLE_BASE, '//g','http://g')
         self.checkJoin(SIMPLE_BASE, '?y','http://a/b/c/d?y')
         self.checkJoin(SIMPLE_BASE, 'g?y','http://a/b/c/g?y')
         self.checkJoin(SIMPLE_BASE, 'g?y/./x','http://a/b/c/g?y/./x')
@@ -388,10 +377,10 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin(SIMPLE_BASE, '../g','http://a/b/g')
         self.checkJoin(SIMPLE_BASE, '../..','http://a/')
         self.checkJoin(SIMPLE_BASE, '../../g','http://a/g')
-        self.checkJoin(SIMPLE_BASE, '../../../g','http://a/g')
+        self.checkJoin(SIMPLE_BASE, '../../../g','http://a/../g')
         self.checkJoin(SIMPLE_BASE, './../g','http://a/b/g')
         self.checkJoin(SIMPLE_BASE, './g/.','http://a/b/c/g/')
-        self.checkJoin(SIMPLE_BASE, '/./g','http://a/g')
+        self.checkJoin(SIMPLE_BASE, '/./g','http://a/./g')
         self.checkJoin(SIMPLE_BASE, 'g/./h','http://a/b/c/g/h')
         self.checkJoin(SIMPLE_BASE, 'g/../h','http://a/b/c/h')
         self.checkJoin(SIMPLE_BASE, 'http:g','http://a/b/c/g')
@@ -405,7 +394,6 @@ class UrlParseTestCase(unittest.TestCase):
         self.checkJoin('svn://pathtorepo/dir1','dir2','svn://pathtorepo/dir2')
         self.checkJoin('svn+ssh://pathtorepo/dir1','dir2','svn+ssh://pathtorepo/dir2')
 
-    @pytest.mark.xfail(reason='marked as failed for now, it does not raise exception for invalid urls')
     def test_RFC2732(self):
         for url, hostname, port in [
             ('http://Test.python.org:5432/foo/', 'test.python.org', 5432),
@@ -439,7 +427,7 @@ class UrlParseTestCase(unittest.TestCase):
             ('http://[::ffff:12.34.56.78]:/foo/',
              '::ffff:12.34.56.78', None),
             ]:
-            urlparsed = scurl.urlparse(url)
+            urlparsed = urlparse.urlparse(url)
             self.assertEqual((urlparsed.hostname, urlparsed.port) , (hostname, port))
 
         for invalid_url in [
@@ -448,7 +436,7 @@ class UrlParseTestCase(unittest.TestCase):
                 'ftp://[::1/foo/bad]/bad',
                 'http://[::1/foo/bad]/bad',
                 'http://[::ffff:12.34.56.78']:
-            self.assertRaises(ValueError, scurl.urlparse, invalid_url)
+            self.assertRaises(ValueError, urlparse.urlparse, invalid_url)
 
     def test_urldefrag(self):
         for url, defrag, frag in [
@@ -463,11 +451,11 @@ class UrlParseTestCase(unittest.TestCase):
             (RFC1808_BASE, 'http://a/b/c/d;p?q', 'f'),
             (RFC2396_BASE, 'http://a/b/c/d;p?q', ''),
             ]:
-            self.assertEqual(scurl.urldefrag(url), (defrag, frag))
+            self.assertEqual(urlparse.urldefrag(url), (defrag, frag))
 
     def test_urlsplit_attributes(self):
         url = "HTTP://WWW.PYTHON.ORG/doc/#frag"
-        p = scurl.urlsplit(url)
+        p = urlparse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
         self.assertEqual(p.netloc, "WWW.PYTHON.ORG")
         self.assertEqual(p.path, "/doc/")
@@ -482,7 +470,7 @@ class UrlParseTestCase(unittest.TestCase):
         #self.assertEqual(p.geturl(), url)
 
         url = "http://User:Pass@www.python.org:080/doc/?query=yes#frag"
-        p = scurl.urlsplit(url)
+        p = urlparse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
         self.assertEqual(p.netloc, "User:Pass@www.python.org:080")
         self.assertEqual(p.path, "/doc/")
@@ -499,7 +487,7 @@ class UrlParseTestCase(unittest.TestCase):
         # and request email addresses as usernames.
 
         url = "http://User@example.com:Pass@www.python.org:080/doc/?query=yes#frag"
-        p = scurl.urlsplit(url)
+        p = urlparse.urlsplit(url)
         self.assertEqual(p.scheme, "http")
         self.assertEqual(p.netloc, "User@example.com:Pass@www.python.org:080")
         self.assertEqual(p.path, "/doc/")
@@ -512,49 +500,46 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(p.geturl(), url)
 
         # Verify an illegal port of value greater than 65535 is set as None
-        # NOTE: this should raise the Value error since port is out of range (just like in py3)
-        # SCURL has changed this test case
         url = "http://www.python.org:65536"
-        p = scurl.urlsplit(url)
-        with self.assertRaises(ValueError):
-            p.port
+        p = urlparse.urlsplit(url)
+        self.assertEqual(p.port, None)
 
     def test_issue14072(self):
-        p1 = scurl.urlsplit('tel:+31-641044153')
+        p1 = urlparse.urlsplit('tel:+31-641044153')
         self.assertEqual(p1.scheme, 'tel')
         self.assertEqual(p1.path, '+31-641044153')
 
-        p2 = scurl.urlsplit('tel:+31641044153')
+        p2 = urlparse.urlsplit('tel:+31641044153')
         self.assertEqual(p2.scheme, 'tel')
         self.assertEqual(p2.path, '+31641044153')
 
         # Assert for urlparse
-        p1 = scurl.urlparse('tel:+31-641044153')
+        p1 = urlparse.urlparse('tel:+31-641044153')
         self.assertEqual(p1.scheme, 'tel')
         self.assertEqual(p1.path, '+31-641044153')
 
-        p2 = scurl.urlparse('tel:+31641044153')
+        p2 = urlparse.urlparse('tel:+31641044153')
         self.assertEqual(p2.scheme, 'tel')
         self.assertEqual(p2.path, '+31641044153')
 
 
     def test_telurl_params(self):
-        p1 = scurl.urlparse('tel:123-4;phone-context=+1-650-516')
+        p1 = urlparse.urlparse('tel:123-4;phone-context=+1-650-516')
         self.assertEqual(p1.scheme, 'tel')
         self.assertEqual(p1.path, '123-4')
         self.assertEqual(p1.params, 'phone-context=+1-650-516')
 
-        p1 = scurl.urlparse('tel:+1-201-555-0123')
+        p1 = urlparse.urlparse('tel:+1-201-555-0123')
         self.assertEqual(p1.scheme, 'tel')
         self.assertEqual(p1.path, '+1-201-555-0123')
         self.assertEqual(p1.params, '')
 
-        p1 = scurl.urlparse('tel:7042;phone-context=example.com')
+        p1 = urlparse.urlparse('tel:7042;phone-context=example.com')
         self.assertEqual(p1.scheme, 'tel')
         self.assertEqual(p1.path, '7042')
         self.assertEqual(p1.params, 'phone-context=example.com')
 
-        p1 = scurl.urlparse('tel:863-1234;phone-context=+1-914-555')
+        p1 = urlparse.urlparse('tel:863-1234;phone-context=+1-914-555')
         self.assertEqual(p1.scheme, 'tel')
         self.assertEqual(p1.path, '863-1234')
         self.assertEqual(p1.params, 'phone-context=+1-914-555')
@@ -562,11 +547,11 @@ class UrlParseTestCase(unittest.TestCase):
 
     def test_attributes_bad_port(self):
         """Check handling of non-integer ports."""
-        p = scurl.urlsplit("http://www.example.net:foo")
+        p = urlparse.urlsplit("http://www.example.net:foo")
         self.assertEqual(p.netloc, "www.example.net:foo")
         self.assertRaises(ValueError, lambda: p.port)
 
-        p = scurl.urlparse("http://www.example.net:foo")
+        p = urlparse.urlparse("http://www.example.net:foo")
         self.assertEqual(p.netloc, "www.example.net:foo")
         self.assertRaises(ValueError, lambda: p.port)
 
@@ -577,7 +562,7 @@ class UrlParseTestCase(unittest.TestCase):
         # scheme://netloc syntax, the netloc and related attributes
         # should be left empty.
         uri = "sip:alice@atlanta.com;maddr=239.255.255.1;ttl=15"
-        p = scurl.urlsplit(uri)
+        p = urlparse.urlsplit(uri)
         self.assertEqual(p.netloc, "")
         self.assertEqual(p.username, None)
         self.assertEqual(p.password, None)
@@ -585,7 +570,7 @@ class UrlParseTestCase(unittest.TestCase):
         self.assertEqual(p.port, None)
         self.assertEqual(p.geturl(), uri)
 
-        p = scurl.urlparse(uri)
+        p = urlparse.urlparse(uri)
         self.assertEqual(p.netloc, "")
         self.assertEqual(p.username, None)
         self.assertEqual(p.password, None)
@@ -598,52 +583,51 @@ class UrlParseTestCase(unittest.TestCase):
         uri = "http://example.com/doc/"
         unicode_uri = unicode(uri)
 
-        scurl.urlparse(unicode_uri)
-        p = scurl.urlparse(uri)
+        urlparse.urlparse(unicode_uri)
+        p = urlparse.urlparse(uri)
         self.assertEqual(type(p.scheme), type(uri))
         self.assertEqual(type(p.hostname), type(uri))
         self.assertEqual(type(p.path), type(uri))
 
     def test_noslash(self):
         # Issue 1637: http://foo.com?query is legal
-        self.assertEqual(scurl.urlparse("http://example.com?blahblah=/foo"),
+        self.assertEqual(urlparse.urlparse("http://example.com?blahblah=/foo"),
                          ('http', 'example.com', '', '', 'blahblah=/foo', ''))
 
-    @pytest.mark.xfail(reason='GURL cannot handle schemes such as "s3"')
     def test_anyscheme(self):
         # Issue 7904: s3://foo.com/stuff has netloc "foo.com".
-        self.assertEqual(scurl.urlparse("s3://foo.com/stuff"),
+        self.assertEqual(urlparse.urlparse("s3://foo.com/stuff"),
                          ('s3','foo.com','/stuff','','',''))
-        self.assertEqual(scurl.urlparse("x-newscheme://foo.com/stuff"),
+        self.assertEqual(urlparse.urlparse("x-newscheme://foo.com/stuff"),
                          ('x-newscheme','foo.com','/stuff','','',''))
-        self.assertEqual(scurl.urlparse("x-newscheme://foo.com/stuff?query#fragment"),
+        self.assertEqual(urlparse.urlparse("x-newscheme://foo.com/stuff?query#fragment"),
                          ('x-newscheme','foo.com','/stuff','','query','fragment'))
-        self.assertEqual(scurl.urlparse("x-newscheme://foo.com/stuff?query"),
+        self.assertEqual(urlparse.urlparse("x-newscheme://foo.com/stuff?query"),
                          ('x-newscheme','foo.com','/stuff','','query',''))
 
-    @pytest.mark.xfail(reason='//www.python.org is placed in scheme')
     def test_withoutscheme(self):
         # Test urlparse without scheme
         # Issue 754016: urlparse goes wrong with IP:port without scheme
         # RFC 1808 specifies that netloc should start with //, urlparse expects
         # the same, otherwise it classifies the portion of url as path.
-        self.assertEqual(scurl.urlparse("path"),
+        self.assertEqual(urlparse.urlparse("path"),
                 ('','','path','','',''))
-        self.assertEqual(scurl.urlparse("//www.python.org:80"),
+        self.assertEqual(urlparse.urlparse("//www.python.org:80"),
                 ('','www.python.org:80','','','',''))
-        self.assertEqual(scurl.urlparse("http://www.python.org:80"),
+        self.assertEqual(urlparse.urlparse("http://www.python.org:80"),
                 ('http','www.python.org:80','','','',''))
 
-    @pytest.mark.xfail(reason='path:80 gives path as scheme and 80 as path')
     def test_portseparator(self):
         # Issue 754016 makes changes for port separator ':' from scheme separator
-        self.assertEqual(scurl.urlparse("path:80"),
+        self.assertEqual(urlparse.urlparse("path:80"),
                 ('','','path:80','','',''))
-        self.assertEqual(scurl.urlparse("http:"),('http','','','','',''))
-        self.assertEqual(scurl.urlparse("https:"),('https','','','','',''))
-        self.assertEqual(scurl.urlparse("http://www.python.org:80"),
+        self.assertEqual(urlparse.urlparse("http:"),('http','','','','',''))
+        self.assertEqual(urlparse.urlparse("https:"),('https','','','','',''))
+        self.assertEqual(urlparse.urlparse("http://www.python.org:80"),
                 ('http','www.python.org:80','','','',''))
 
+def test_main():
+    test_support.run_unittest(UrlParseTestCase)
 
 if __name__ == "__main__":
-    unittest.main()
+    test_main()
